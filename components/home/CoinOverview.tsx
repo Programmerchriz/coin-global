@@ -1,17 +1,25 @@
 import { fetcher } from '@/lib/coingecko.actions';
 import { formatCurrency } from '@/lib/utils';
 import Image from 'next/image';
+import { CoinOverviewFallback } from '@/app/components/home/fallback';
 
 const CoinOverview = async () => {
-  const coin = await fetcher<CoinDetailsData>('/coins/bitcoin', {
-    localization: false,
-    tickers: false,
-    market_data: true,
-    community_data: false,
-    developer_data: false,
-    sparkline: false,
-    // default_pair_format: "symbol",
-  });
+  let coin;
+
+  try {
+      coin = await fetcher<CoinDetailsData>('/coins/bitcoin', {
+      localization: false,
+      tickers: false,
+      market_data: true,
+      community_data: false,
+      developer_data: false,
+      sparkline: false,
+      // default_pair_format: "symbol",
+    });
+  } catch (error) {
+    console.log("Error fetching coin overview:", error);
+    return (<CoinOverviewFallback />);
+  }
 
   return (
     <div id="coin-overview">
