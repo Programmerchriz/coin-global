@@ -1,7 +1,7 @@
 import DataTable from '@/app/components/DataTable';
 import { TrendingCoinsFallback } from '@/app/components/home/fallback';
 import { fetcher } from '@/lib/coingecko.actions';
-import { cn } from '@/lib/utils';
+import { cn, formatCurrency, formatPercentage } from '@/lib/utils';
 import { TrendingDown, TrendingUp } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -30,13 +30,13 @@ const columns: DataTableColumn<TrendingCoin>[] = [
 
       return (
         <div className={cn('price-change', isTrendingUp ? 'text-green-500' : 'text-red-500')}>
-          <p>
+          <p className="flex items-center gap-1">
+            {formatPercentage(item.data.price_change_percentage_24h.usd)}%
             {isTrendingUp ? (
               <TrendingUp width={16} height={16} />
             ) : (
               <TrendingDown width={16} height={16} />
             )}
-            {Math.abs(item.data.price_change_percentage_24h.usd).toFixed(2)}%
           </p>
         </div>
       );
@@ -45,7 +45,7 @@ const columns: DataTableColumn<TrendingCoin>[] = [
   {
     header: 'Price',
     cellClassName: 'price-cell',
-    cell: (coin) => coin.item.data.price,
+    cell: (coin) => formatCurrency(coin.item.data.price, undefined, undefined, false),
   },
 ];
 
@@ -69,7 +69,7 @@ const TrendingCoins = async () => {
     >
       <h4>Trending Coins</h4>
       <DataTable
-        data={trendingCoins.coins.slice(0, 4) || []}
+        data={trendingCoins.coins.slice(0, 6) || []}
         columns={columns}
         rowKey={(row) => row.item.id}
         tableClassName="trending-coins-table"
