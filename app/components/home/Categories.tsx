@@ -54,12 +54,12 @@ const columns: DataTableColumn<Category>[] = [
   {
     header: 'Market Cap',
     cellClassName: 'market-cap-cell',
-    cell: (category) => formatCurrency(category.market_cap).slice(2)
+    cell: (category) => formatCurrency(category.market_cap, undefined, undefined, false),
   },
   {
     header: 'Volume 24h',
     cellClassName: 'volume-24h-cell',
-    cell: (category) => formatCurrency(category.volume_24h).slice(2)
+    cell: (category) => formatCurrency(category.volume_24h, undefined, undefined, false),
   },
 ];
 
@@ -69,7 +69,7 @@ const Categories = async () => {
   try {
     topCategories = await fetcher<Category[]>('/coins/categories');
   } catch (error) {
-    console.error("Error fetching trending coins:", error);
+    console.error("Error fetching categories:", error);
     return (<CategoriesFallback />);
   }
 
