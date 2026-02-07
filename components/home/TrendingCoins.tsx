@@ -45,7 +45,7 @@ const columns: DataTableColumn<TrendingCoin>[] = [
   {
     header: 'Price',
     cellClassName: 'price-cell',
-    cell: (coin) => formatCurrency(coin.item.data.price, undefined, undefined, false),
+    cell: (coin) => formatCurrency(coin.item.data.price).slice(2),
   },
 ];
 
