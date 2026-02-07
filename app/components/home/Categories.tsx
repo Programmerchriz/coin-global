@@ -58,7 +58,7 @@ const columns: DataTableColumn<Category>[] = [
   },
   {
     header: 'Volume 24h',
-    cellClassName: 'volume-24h-cell',
+    cellClassName: 'volume-cell',
     cell: (category) => formatCurrency(category.volume_24h).slice(2),
   },
 ];
