@@ -80,7 +80,7 @@ const Categories = async () => {
     >
       <h4>Top Categories</h4>
       <DataTable
-        data={topCategories?.slice(0, 6)}
+        data={topCategories?.slice(0, 10)}
         columns={columns}
         rowKey={(_, index) => index}
         tableClassName="top-categories-table mt-3"
