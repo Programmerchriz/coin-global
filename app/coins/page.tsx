@@ -64,7 +64,7 @@ const columns: DataTableColumn<CoinMarketData>[] = [
   {
     header: 'Market Cap',
     cellClassName: 'market-cap-cell',
-    cell: (coin) => `${formatCurrency(coin.market_cap).slice(2)}`,
+    cell: (coin) => `${formatCurrency(coin.market_cap)}`,
   },
 ];
 
