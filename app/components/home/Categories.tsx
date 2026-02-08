@@ -54,12 +54,12 @@ const columns: DataTableColumn<Category>[] = [
   {
     header: 'Market Cap',
     cellClassName: 'market-cap-cell',
-    cell: (category) => formatCurrency(category.market_cap).slice(2),
+    cell: (category) => `${formatCurrency(category.market_cap)}`.toLowerCase().startsWith("us") ? `${formatCurrency(category.market_cap)}`.slice(2) : `${formatCurrency(category.market_cap)}`,
   },
   {
     header: 'Volume 24h',
     cellClassName: 'volume-cell',
-    cell: (category) => formatCurrency(category.volume_24h).slice(2),
+    cell: (category) => `${formatCurrency(category.volume_24h)}`.toLowerCase().startsWith("us") ? `${formatCurrency(category.volume_24h)}`.slice(2) : `${formatCurrency(category.volume_24h)}`,
   },
 ];
 

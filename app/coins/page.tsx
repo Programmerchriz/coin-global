@@ -39,7 +39,7 @@ const columns: DataTableColumn<CoinMarketData>[] = [
   {
     header: 'Price',
     cellClassName: 'price-cell',
-    cell: (coin) => `${formatCurrency(coin.current_price).slice(2)}`,
+    cell: (coin) => `${formatCurrency(coin.current_price)}`.toLowerCase().startsWith("us") ? `${formatCurrency(coin.current_price)}`.slice(2) : `${formatCurrency(coin.current_price)}`,
   },
   {
     header: '24h Change',
@@ -64,7 +64,7 @@ const columns: DataTableColumn<CoinMarketData>[] = [
   {
     header: 'Market Cap',
     cellClassName: 'market-cap-cell',
-    cell: (coin) => `${formatCurrency(coin.market_cap)}`,
+    cell: (coin) => `${formatCurrency(coin.market_cap)}`.toLowerCase().startsWith("us") ? `${formatCurrency(coin.market_cap)}`.slice(2) : `${formatCurrency(coin.market_cap)}`,
   },
 ];
 
