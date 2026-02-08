@@ -929,6 +929,34 @@
   }
 }
 
+/* Coins Page styles */
+.rank-skeleton {
+  width: 32px;
+  height: 14px;
+}
+
+.token-image {
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+}
+
+.token-line {
+  width: 140px;
+  height: 14px;
+}
+
+.price-line,
+.market-cap-line {
+  width: 90px;
+  height: 14px;
+}
+
+.change-line {
+  width: 70px;
+  height: 14px;
+}
+
 /* Custom Scrollbar Styles */
 .custom-scrollbar::-webkit-scrollbar {
   width: 7px;
