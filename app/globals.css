@@ -957,6 +957,52 @@
   height: 14px;
 }
 
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.pagination-pages {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.pagination-page {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #1f2937;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.pagination-page.active {
+  background: #84cc16;
+  color: #0f172a;
+}
+
+.pagination-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: #1f2937;
+  color: #cbd5e1;
+}
+
+.pagination-btn.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.pagination-ellipsis {
+  color: #64748b;
+}
+
 /* Custom Scrollbar Styles */
 .custom-scrollbar::-webkit-scrollbar {
   width: 7px;
