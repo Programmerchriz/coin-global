@@ -36,7 +36,7 @@ interface Ticker {
   trade_url: string;
 }
 
-type Period = 'daily' | 'weekly' | 'monthly' | '3months' | '6months' | 'yearly' | 'max';
+type Period = 'daily' | 'weekly' | 'monthly' | '3months' | '6months' | 'yearly';
 
 interface CoinMarketData {
   id: string;
@@ -317,3 +317,13 @@ interface PoolData {
   name: string;
   network: string;
 }
+
+type CoinPageProps = {
+  params: {
+    id: string;
+  };
+};
+
+interface DropDownProps {
+  list: string[];
+};

@@ -88,7 +88,6 @@ const Coins = async ({ searchParams }: NextPageProps) => {
         price_change_percentage: "24h",
       },
     );
-    console.log(allCoins.length);
   } catch (error) {
     console.error('Error fetching categories:', error);
     return <AllCoinsFallback />;
