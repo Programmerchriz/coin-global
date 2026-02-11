@@ -98,7 +98,7 @@ const Coins = async ({ searchParams }: NextPageProps) => {
 
   return (
     <div id="coins-page" className="custom-scrollbar">
-      <BackButton />
+      {/* <BackButton /> */}
       <h4>All Coins</h4>
       <DataTable
         data={allCoins}

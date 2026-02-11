@@ -327,3 +327,42 @@ type CoinPageProps = {
 interface DropDownProps {
   list: string[];
 };
+
+interface coinDetailsArrayProps {
+  title: string;
+  isLink: boolean;
+  value?: string;
+  href?: string;
+};
+
+interface DetailCardProps {
+  title: string;
+  value: string | undefined;
+  isLink: boolean;
+};
+
+type RecentTrade = {
+  id: string;
+  price: string;
+  amount: string;
+  value: string;
+  type: string;
+  time: string;
+};
+
+type ExchangeListing = {
+  id: string;
+  exchange: string;
+  pair: string;
+  price: string;
+  lastTraded: string;
+};
+
+type Mover = {
+  id: string
+  name: string
+  symbol: string
+  price: string
+  change: string
+  positive: boolean
+}

@@ -1,12 +1,11 @@
-
 import Image from 'next/image';
 
 import { ArrowUpDown } from 'lucide-react';
 
-import { DropDown } from './DropDownMenu';
+import { DropDown } from '../DropDownMenu';
 
 const CurrencyConverter = () => {
-  const currencies = ["usd", "eur", "gbp"];
+  const currencies = ['usd', 'eur', 'gbp'];
 
   return (
     <section className="bg-[#161b22] rounded-xl p-5 space-y-4">
@@ -18,7 +17,7 @@ const CurrencyConverter = () => {
           placeholder="10"
           className="bg-transparent  text-white  outline-none  w-1/2 text-base appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
         />
-        
+
         <div className="flex items-center gap-1">
           <div className="rounded-full flex items-center justify-center text-lg font-bold">
             <Image src="/btc.jpg" alt={` Logo`} width={24} height={24} />
@@ -28,7 +27,7 @@ const CurrencyConverter = () => {
       </div>
 
       <div className="flex justify-center text-green-400">
-        <button className='hover:cursor-pointer'>
+        <button className="hover:cursor-pointer">
           <ArrowUpDown />
         </button>
       </div>
@@ -43,9 +42,8 @@ const CurrencyConverter = () => {
           <DropDown list={currencies} />
         </div>
       </div>
-
     </section>
-  )
-}
+  );
+};
 
 export default CurrencyConverter;
