@@ -279,7 +279,7 @@ const Coin = async ({ params }: CoinPageProps) => {
         {/* Recent Trades */}
         <div
           id="coins-page"
-          className="grid grid-cols-1 lg:grid-cols-3 gap-6 pb-6 custom-scrollbar"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6 pb-6 px-0 pr-0 custom-scrollbar"
         >
           {/* Recent Trades - 2/3 */}
           <div className="lg:col-span-2 custom-scrollbar">
@@ -306,7 +306,7 @@ const Coin = async ({ params }: CoinPageProps) => {
         {/* Exchange Listings */}
         <div
           id='coins-page'
-          className="custom-scrollbar py-3 grid grid-cols-1 lg:grid-cols-3 gap-6 pb-6 custom-scrollbar"
+          className="custom-scrollbar py-3 grid grid-cols-1 lg:grid-cols-3 gap-6 pb-6 px-0 custom-scrollbar"
         >
           <div className="lg:col-span-2 custom-scrollbar">
             <h4 className='text-xl md:text-2xl font-semibold mb-2'>Exchange Listings</h4>
@@ -316,7 +316,7 @@ const Coin = async ({ params }: CoinPageProps) => {
               rowKey={(row) => row.id}
               tableClassName="coins-table mt-3"
               headerClassName="py-3!"
-              bodyCellClassName="py-7!"
+              bodyCellClassName="px-0 py-7!"
             />
           </div>
           <div className="lg:col-span-1"></div>

@@ -1,8 +1,9 @@
 
 'use client';
 
-import Image from 'next/image'
-import { useState } from 'react'
+import { useState } from 'react';
+import DataTable from '@/app/components/DataTable';
+
 
 const topGainers: Mover[] = [
   {
@@ -37,7 +38,7 @@ const topGainers: Mover[] = [
     change: '+44.0%',
     positive: true,
   },
-]
+];
 
 const topLosers: Mover[] = [
   {
@@ -72,20 +73,58 @@ const topLosers: Mover[] = [
     change: '-6.2%',
     positive: false,
   },
-]
+];
 
 const TopMovers = () => {
-  const [active, setActive] = useState<'gainers' | 'losers'>('gainers')
+  const [active, setActive] = useState<'gainers' | 'losers'>('gainers');
 
-  const data = active === 'gainers' ? topGainers : topLosers
+  const data = active === 'gainers' ? topGainers : topLosers;
+
+  const columns: DataTableColumn<Mover>[] = [
+    {
+      header: '', // No visible header
+      accessorKey: 'name',
+      cell: (row) => (
+        <div className="flex items-center justify-between bg-[#192028] px-4 py-3 rounded-lg hover:opacity-95 transition cursor-pointer">
+          {/* Left */}
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-[#1f2933] flex items-center justify-center text-xs font-bold">
+              {row.symbol[0]}
+            </div>
+
+            <div>
+              <p className="text-sm font-medium">{row.name}</p>
+              <p className="text-xs text-gray-400">
+                {row.symbol}
+              </p>
+            </div>
+          </div>
+
+          {/* Right */}
+          <div className="text-right">
+            <p className="text-sm font-medium">{row.price}</p>
+            <p
+              className={`text-xs font-semibold ${
+                row.positive
+                  ? 'text-green-400'
+                  : 'text-red-400'
+              }`}
+            >
+              {row.change}
+            </p>
+          </div>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div className="w-full">
-      {/* Header Tabs */}
-      <div className="flex gap-6 mb-4">
+      {/* Tabs */}
+      <div className="flex gap-6 my-8 ml-3">
         <button
           onClick={() => setActive('gainers')}
-          className={`pb-1 text-sm font-medium transition ${
+          className={`pb-1 text-sm font-medium transition hover:cursor-pointer ${
             active === 'gainers'
               ? 'text-white border-b-2 border-green-400'
               : 'text-gray-400'
@@ -96,7 +135,7 @@ const TopMovers = () => {
 
         <button
           onClick={() => setActive('losers')}
-          className={`pb-1 text-sm font-medium transition ${
+          className={`pb-1 text-sm font-medium transition hover:cursor-pointer ${
             active === 'losers'
               ? 'text-white border-b-2 border-red-400'
               : 'text-gray-400'
@@ -106,43 +145,15 @@ const TopMovers = () => {
         </button>
       </div>
 
-      {/* List */}
-      <div className="space-y-3">
-        {data.map((coin) => (
-          <div
-            key={coin.id}
-            className="flex items-center justify-between bg-[#0f1419] px-4 py-3 rounded-lg hover:bg-[#1a2027] transition cursor-pointer"
-          >
-            {/* Left */}
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#1f2933] flex items-center justify-center text-xs font-bold">
-                {coin.symbol[0]}
-              </div>
-
-              <div>
-                <p className="text-sm font-medium">{coin.name}</p>
-                <p className="text-xs text-gray-400">
-                  {coin.symbol}
-                </p>
-              </div>
-            </div>
-
-            {/* Right */}
-            <div className="text-right">
-              <p className="text-sm font-medium">{coin.price}</p>
-              <p
-                className={`text-xs font-semibold ${
-                  coin.positive
-                    ? 'text-green-400'
-                    : 'text-red-400'
-                }`}
-              >
-                {coin.change}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* DataTable rendered as list */}
+      <DataTable
+        data={data}
+        columns={columns}
+        rowKey={(row) => row.id}
+        tableClassName="mt-2"
+        headerClassName="hidden"       // hide header
+        bodyCellClassName="w-full p-0 py-2 border-0"
+      />
     </div>
   );
 };

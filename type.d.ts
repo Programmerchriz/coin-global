@@ -359,10 +359,10 @@ type ExchangeListing = {
 };
 
 type Mover = {
-  id: string
-  name: string
-  symbol: string
-  price: string
-  change: string
-  positive: boolean
-}
+  id: string;
+  name: string;
+  symbol: string;
+  price: string;
+  change: string;
+  positive: boolean;
+};
