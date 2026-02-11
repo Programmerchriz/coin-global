@@ -31,6 +31,16 @@ export function formatCurrency(
   });
 }
 
+export function formatUsd(
+  value: string
+) {
+  let newValue: string;
+  if (value.startsWith("-")) newValue = value.slice(2);
+  newValue = value.slice(1);
+
+  return (Number(newValue).toFixed(2));
+};
+
 export function formatPercentage(change: number | null | undefined): string {
   if (change === null || change === undefined || isNaN(change)) {
     return '0.0%';

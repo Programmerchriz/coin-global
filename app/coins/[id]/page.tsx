@@ -1,7 +1,7 @@
 
 import Image from 'next/image';
 
-import { ArrowUpDown } from 'lucide-react';
+import { ArrowUpDown, TrendingDown, TrendingUp } from 'lucide-react';
 
 import { fetcher } from '@/lib/coingecko.actions';
 
@@ -10,6 +10,7 @@ import CandlestickChart from '@/app/components/CandlestickChart';
 import CurrencyConverter from '@/app/components/coin/CurrencyConverter';
 import CoinDetailCard from '@/app/components/coin/CoinDetailCard';
 import TopMovers from '@/app/components/coin/TopMovers';
+import { cn, formatCurrency, formatPercentage, formatUsd, trendingClasses } from '@/lib/utils';
 
 const recentTradesData = [
   {
@@ -147,18 +148,19 @@ const Coin = async ({ params }: CoinPageProps) => {
   const { id } = await params;
   if (!id) return <>Loading...</>;
 
-  // let coin: CoinDetailsData;
+  const isTrendingUp = (value: number) => value > 0;
 
-  // try {
-  //   coin = await fetcher<CoinDetailsData>(
-  //     `/coins/${id}/`,
-  //     // `/coins/ethereum/contract/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48`,
-  //   );
-  // } catch (error) {
-  //   console.error('Error fetching categories:', error);
-  //   // return <CoinFallback />;
-  //   return
-  // }
+  let coin: CoinDetailsData;
+
+  try {
+    coin = await fetcher<CoinDetailsData>(
+      `/coins/${id}/`,
+    );
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    // return <CoinFallback />;
+    return
+  }
 
   return (
     <section className="min-h-screen text-white px-4 py-6">
@@ -170,50 +172,108 @@ const Coin = async ({ params }: CoinPageProps) => {
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">
-                <Image src="/btc.jpg" alt={` Logo`} width={32} height={32} />
+                <Image src={coin.image.large} alt={` Logo`} width={32} height={32} />
               </div>
 
               <h1 className="text-2xl font-semibold">
                 {`${id.slice(0, 1).toUpperCase()}${id.slice(1)}`}
               </h1>
 
-              <span className="px-2 py-1 text-xs rounded bg-green-500/10 text-green-400">
-                +0.8% (24h)
+              <span
+                className={cn("px-2 py-1 text-xs rounded-lg bg-green-500/10 text-green-400 flex gap-1.5", trendingClasses(coin.market_data.price_change_percentage_24h).textClass)}
+              >
+                {formatPercentage(coin.market_data.price_change_percentage_24h)}
+                {isTrendingUp(coin.market_data.price_change_percentage_24h) ? (
+                  <TrendingUp
+                    width={16}
+                    height={16}
+                    className={cn(
+                      trendingClasses(coin.market_data.price_change_percentage_24h).textClass,
+                    )}
+                  />
+                ) : (
+                  <TrendingDown
+                    width={16}
+                    height={16}
+                    className={cn(
+                      trendingClasses(coin.market_data.price_change_percentage_24h).textClass,
+                    )}
+                  />
+                )} (24h)
               </span>
             </div>
 
-            <div className="text-4xl font-bold">$87,451.49</div>
+            <div className="text-4xl font-bold">
+              {`${formatCurrency(coin.market_data.current_price.usd)}`.toLowerCase().startsWith("us") ? `${formatCurrency(coin.market_data.current_price.usd)}`.slice(2) : `${formatCurrency(coin.market_data.current_price.usd)}`}
+            </div>
 
             {/* Stats Row */}
             <div className="grid grid-cols-3 gap-4 mt-4">
-              <div className="bg-[#161b22] rounded-lg p-4">
+              <div className="rounded-lg p-4">
                 <p className="text-sm text-gray-400">Today</p>
-                <p className="text-green-400 font-semibold">0.8%</p>
-                {/* {isTrendingUp ? (
-                  <TrendingUp width={16} height={16} />
-                ) : (
-                  <TrendingDown width={16} height={16} />
-                )} */}
+                <div className='flex gap-2 items-center'>
+                  <p
+                    className={cn("text-green-400 font-semibold", trendingClasses(coin.market_data.price_change_percentage_24h).textClass)}
+                  >
+                    {formatPercentage(coin.market_data.price_change_percentage_24h)}
+                  </p>
+                  {isTrendingUp(coin.market_data.price_change_percentage_24h) ? (
+                    <TrendingUp
+                      width={16}
+                      height={16}
+                      className={cn(
+                        trendingClasses(coin.market_data.price_change_percentage_24h).textClass,
+                      )}
+                    />
+                  ) : (
+                    <TrendingDown
+                      width={16}
+                      height={16}
+                      className={cn(
+                        trendingClasses(coin.market_data.price_change_percentage_24h).textClass,
+                      )}
+                    />
+                  )}
+                </div>
               </div>
 
-              <div className="bg-[#161b22] rounded-lg p-4">
-                <p className="text-sm text-gray-400">30 Days</p>
-                <p className="text-green-400 font-semibold">0.1%</p>
-                {/* {isTrendingUp ? (
-                  <TrendingUp width={16} height={16} />
-                ) : (
-                  <TrendingDown width={16} height={16} />
-                )} */}
+              <div className="rounded-lg p-4">
+                <p className="text-sm text-gray-400">Today</p>
+                <div className='flex gap-2 items-center'>
+                  <p
+                    className={cn("text-green-400 font-semibold", trendingClasses(coin.market_data.price_change_percentage_30d).textClass)}
+                  >
+                    {formatPercentage(coin.market_data.price_change_percentage_30d)}
+                  </p>
+                  {isTrendingUp(coin.market_data.price_change_percentage_30d) ? (
+                    <TrendingUp
+                      width={16}
+                      height={16}
+                      className={cn(
+                        trendingClasses(coin.market_data.price_change_percentage_30d).textClass,
+                      )}
+                    />
+                  ) : (
+                    <TrendingDown
+                      width={16}
+                      height={16}
+                      className={cn(
+                        trendingClasses(coin.market_data.price_change_percentage_30d).textClass,
+                      )}
+                    />
+                  )}
+                </div>
               </div>
 
-              <div className="bg-[#161b22] rounded-lg p-4">
-                <p className="text-sm text-gray-400">Price Change (24h)</p>
-                <p className="text-green-400 font-semibold">$660.53</p>
-                {/* {isTrendingUp ? (
-                  <TrendingUp width={16} height={16} />
-                ) : (
-                  <TrendingDown width={16} height={16} />
-                )} */}
+              <div className="rounded-lg p-4">
+                <p className="text-sm text-gray-400">Today</p>
+                <div className='flex gap-2 items-center'>
+                  <p
+                    className={cn("text-green-400 font-semibold", trendingClasses(coin.market_data.price_change_24h_in_currency.usd).textClass)}
+                  >
+                    ${formatUsd(coin.market_data.price_change_24h_in_currency.usd.toString())}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
