@@ -85,61 +85,30 @@ const recentTradesColumns: DataTableColumn<RecentTrade>[] = [
   },
 ];
 
-const exchangeListingsData = [
-  {
-    id: '1',
-    exchange: 'Gate',
-    pair: 'BTC / USDT',
-    price: '$87,427.00',
-    lastTraded: '5 min',
-  },
-  {
-    id: '2',
-    exchange: 'KuCoin',
-    pair: 'BTC / USDT',
-    price: '$87,419.00',
-    lastTraded: '6 min',
-  },
-  {
-    id: '3',
-    exchange: 'Binance',
-    pair: 'BTC / USDT',
-    price: '$87,442.00',
-    lastTraded: '6 min',
-  },
-  {
-    id: '4',
-    exchange: 'Bitget',
-    pair: 'BTC / USDT',
-    price: '$87,404.00',
-    lastTraded: '5 min',
-  },
-];
-
-const exchangeListingsColumns: DataTableColumn<ExchangeListing>[] = [
+const exchangeListingsColumns: DataTableColumn<Ticker>[] = [
   {
     header: 'Exchange',
     accessorKey: 'exchange',
     cell: (row) => (
       <span className="text-green-400 font-medium">
-        {row.exchange}
+        {row.market.name}
       </span>
     ),
   },
   {
     header: 'Pair',
     accessorKey: 'pair',
-    cell: (row) => <span className='font-medium'>{row.pair}</span>,
+    cell: (row) => <span className='font-medium'>{row.base} / {row.target}</span>,
   },
   {
     header: 'Price',
     accessorKey: 'price',
-    cell: (row) => <span className='font-medium'>{row.price}</span>,
+    cell: (row) => <span className='font-medium'>{row.last}</span>,
   },
   {
     header: 'Last Traded',
     accessorKey: 'lastTraded',
-    cell: (row) => row.lastTraded,
+    cell: (row) => row.timestamp,
   },
 ];
 
@@ -201,6 +170,8 @@ const Coin = async ({ params }: CoinPageProps) => {
       href: coin.links.official_forum_url,
     },
   ];
+
+const coinTickers: Ticker[] = coin.tickers;
 
   return (
     <section className="min-h-screen text-white px-4 py-6">
@@ -416,9 +387,9 @@ const Coin = async ({ params }: CoinPageProps) => {
           <div className="lg:col-span-2 custom-scrollbar">
             <h4 className='text-xl md:text-2xl font-semibold mb-2'>Exchange Listings</h4>
             <DataTable
-              data={exchangeListingsData}
+              data={coinTickers}
               columns={exchangeListingsColumns}
-              rowKey={(row) => row.id}
+              rowKey={(row) => `${row.market.identifier}-${row.base}-${row.target}-${row.last_traded_at}`}
               tableClassName="coins-table mt-3"
               headerClassName="py-3!"
               bodyCellClassName="px-0 py-7!"
