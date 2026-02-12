@@ -162,6 +162,13 @@ const Coin = async ({ params }: CoinPageProps) => {
     return
   }
 
+  const currencies = [ ... new Set([
+    "usd", "eur", "gbp", "cad", "aud", "nzd", "jpy", "ngn",
+    ...Object.keys(coin.market_data.current_price)
+  ]) ];
+
+  const currenciesObj = coin.market_data.current_price;
+
   return (
     <section className="min-h-screen text-white px-4 py-6">
       {/* Header */}
@@ -180,7 +187,7 @@ const Coin = async ({ params }: CoinPageProps) => {
               </h1>
 
               <span
-                className={cn("px-2 py-1 text-xs rounded-lg bg-green-500/10 text-green-400 flex gap-1.5", trendingClasses(coin.market_data.price_change_percentage_24h).textClass)}
+                className={cn("px-2 py-1 text-xs rounded-lg bg-green-500/10 text-green-400 flex gap-1", trendingClasses(coin.market_data.price_change_percentage_24h).textClass)}
               >
                 {formatPercentage(coin.market_data.price_change_percentage_24h)}
                 {isTrendingUp(coin.market_data.price_change_percentage_24h) ? (
@@ -208,10 +215,10 @@ const Coin = async ({ params }: CoinPageProps) => {
             </div>
 
             {/* Stats Row */}
-            <div className="grid grid-cols-3 gap-4 mt-4">
+            <div className="grid grid-cols-3 gap-3 mt-4 items-center">
               <div className="rounded-lg p-4">
                 <p className="text-sm text-gray-400">Today</p>
-                <div className='flex gap-2 items-center'>
+                <div className='flex gap-1 items-center'>
                   <p
                     className={cn("text-green-400 font-semibold", trendingClasses(coin.market_data.price_change_percentage_24h).textClass)}
                   >
@@ -238,8 +245,8 @@ const Coin = async ({ params }: CoinPageProps) => {
               </div>
 
               <div className="rounded-lg p-4">
-                <p className="text-sm text-gray-400">Today</p>
-                <div className='flex gap-2 items-center'>
+                <p className="text-sm text-gray-400">30 Days</p>
+                <div className='flex gap-1 items-center'>
                   <p
                     className={cn("text-green-400 font-semibold", trendingClasses(coin.market_data.price_change_percentage_30d).textClass)}
                   >
@@ -266,20 +273,23 @@ const Coin = async ({ params }: CoinPageProps) => {
               </div>
 
               <div className="rounded-lg p-4">
-                <p className="text-sm text-gray-400">Today</p>
-                <div className='flex gap-2 items-center'>
-                  <p
-                    className={cn("text-green-400 font-semibold", trendingClasses(coin.market_data.price_change_24h_in_currency.usd).textClass)}
-                  >
-                    ${formatUsd(coin.market_data.price_change_24h_in_currency.usd.toString())}
-                  </p>
-                </div>
+                <p className="text-sm text-gray-400">Price Change (24h)</p>
+                <p
+                  className={cn("text-green-400 font-semibold", trendingClasses(coin.market_data.price_change_24h_in_currency.usd).textClass)}
+                >
+                  {formatUsd(coin.market_data.price_change_24h_in_currency.usd.toString())}
+                </p>
               </div>
             </div>
           </div>
 
           {/* Right: BTC Converter */}
-          <CurrencyConverter />
+          <CurrencyConverter
+            symbol={coin.symbol}
+            image={coin.image.large}
+            currencies={currencies}
+            currenciesObj={currenciesObj}
+          />
         </div>
 
         {/* Chart + Details */}

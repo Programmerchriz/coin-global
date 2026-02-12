@@ -14,8 +14,10 @@ import { ChevronDown } from 'lucide-react';
 
 export function DropDown({
   list,
+  value,
+  onChange,
 }: DropDownProps) {
-  const [value, setValue] = useState(list[0]);
+  const [curr, setCurr] = useState(list[0]);
 
   return (
     <DropdownMenu>
@@ -24,7 +26,7 @@ export function DropDown({
           variant="ghost"
           className="uppercase text-sm text-gray-400 px-2"
         >
-          {value}
+          {curr}
           <ChevronDown className="h-4 w-4 text-gray-500" />
         </Button>
       </DropdownMenuTrigger>
@@ -33,15 +35,26 @@ export function DropDown({
         align="end"
         className="bg-[#1a2027] border-none rounded-lg"
       >
-        {list.map((item) => (
-          <DropdownMenuItem
-            key={item}
-            onClick={() => setValue(item)}
-            className="uppercasetext-whitecursor-pointerfocus:bg-[#0f1419]hover:bg-[#0f1419]"
-          >
-            {item}
-          </DropdownMenuItem>
-        ))}
+        {list.map((item) => {
+          const isActive = curr === item;
+
+          return (
+            <DropdownMenuItem
+              key={item}
+              onClick={() => {
+                setCurr(item);
+                onChange(item);
+              }}
+              className={`
+                uppercase cursor-pointer
+                ${isActive ? 'bg-[#0f1419] text-white' : 'text-gray-400'}
+                hover:bg-[#0f1419]
+              `}
+            >
+              {item.toUpperCase()}
+            </DropdownMenuItem>
+          );
+        })}
       </DropdownMenuContent>
     </DropdownMenu>
   );

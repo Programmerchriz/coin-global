@@ -34,11 +34,13 @@ export function formatCurrency(
 export function formatUsd(
   value: string
 ) {
-  let newValue: string;
-  if (value.startsWith("-")) newValue = value.slice(2);
-  newValue = value.slice(1);
+  const newValue: string = Number(value).toFixed(2);
 
-  return (Number(newValue).toFixed(2));
+  if (newValue.startsWith("-")) {
+    return (`-$${newValue.slice(1)}`);
+  }
+
+  return (`$${newValue.slice(1)}`);
 };
 
 export function formatPercentage(change: number | null | undefined): string {

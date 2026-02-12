@@ -326,6 +326,8 @@ type CoinPageProps = {
 
 interface DropDownProps {
   list: string[];
+  value: string;
+  onChange: (value: string) => void;
 };
 
 interface coinDetailsArrayProps {
@@ -365,4 +367,11 @@ type Mover = {
   price: string;
   change: string;
   positive: boolean;
+};
+
+interface CurrencyConverterProps {
+  symbol: string;
+  image: string;
+  currencies: string[];
+  currenciesObj: Record<string, number>;
 };
