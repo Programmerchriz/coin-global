@@ -330,11 +330,15 @@ interface DropDownProps {
   onChange: (value: string) => void;
 };
 
-interface coinDetailsArrayProps {
+interface CoinDetailsArrayProps {
   title: string;
   isLink: boolean;
   value?: string;
   href?: string;
+};
+
+interface CoinDetailCardProps {
+  coinDetailsArray: CoinDetailsArrayProps[];
 };
 
 interface DetailCardProps {

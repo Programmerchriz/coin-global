@@ -169,6 +169,39 @@ const Coin = async ({ params }: CoinPageProps) => {
 
   const currenciesObj = coin.market_data.current_price;
 
+  const coinDetailsArray: CoinDetailsArrayProps[] = [
+    {
+      title: 'Market Cap',
+      isLink: false,
+      value: `${formatCurrency(coin.market_data.market_cap.usd).slice(2)}`,
+    },
+    {
+      title: 'Market Cap Rank',
+      isLink: false,
+      value: `#${coin.market_cap_rank}`,
+    },
+    {
+      title: 'Total Volume',
+      isLink: false,
+      value: `${formatCurrency(coin.market_data.total_volume.usd).slice(2)}`,
+    },
+    {
+      title: 'Website',
+      isLink: true,
+      href: coin.links.homepage[0],
+    },
+    {
+      title: 'Whitepaper',
+      isLink: true,
+      href: coin.links.whitepaper,
+    },
+    {
+      title: 'Community',
+      isLink: true,
+      href: coin.links.official_forum_url,
+    },
+  ];
+
   return (
     <section className="min-h-screen text-white px-4 py-6">
       {/* Header */}
@@ -342,7 +375,9 @@ const Coin = async ({ params }: CoinPageProps) => {
           {/* Coin Details */}
           <div className="space-y-4">
             <h3 className="font-semibold">Coin Details</h3>
-            <CoinDetailCard />
+            <CoinDetailCard
+              coinDetailsArray={coinDetailsArray}
+            />
           </div>
         </div>
 

@@ -15,7 +15,7 @@ const CurrencyConverter = ({
   currencies,
   currenciesObj,
 }: CurrencyConverterProps) => {
-  const [cryptoAmount, setCryptoAmount] = useState<string>('1');
+  const [cryptoAmount, setCryptoAmount] = useState<string>('');
   const [fiatAmount, setFiatAmount] = useState<string>('');
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
 
@@ -27,7 +27,7 @@ const CurrencyConverter = ({
     const numeric = parseFloat(value);
 
     if (!isNaN(numeric)) {
-      setFiatAmount((numeric * rate).toFixed(12).toString());
+      setFiatAmount((numeric * rate).toFixed(2).toString());
     } else {
       setFiatAmount('');
     }
@@ -39,7 +39,7 @@ const CurrencyConverter = ({
 
     const numeric = parseFloat(value);
     if (!isNaN(numeric) && rate) {
-      setCryptoAmount((numeric / rate).toFixed(12).toString());
+      setCryptoAmount((numeric / rate).toFixed(10).toString());
     } else {
       setCryptoAmount('');
     }
