@@ -83,7 +83,6 @@ const TopMovers = () => {
   const columns: DataTableColumn<Mover>[] = [
     {
       header: '', // No visible header
-      accessorKey: 'name',
       cell: (row) => (
         <div className="flex items-center justify-between bg-[#192028] px-4 py-3 rounded-lg hover:opacity-95 transition cursor-pointer">
           {/* Left */}

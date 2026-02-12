@@ -4,13 +4,14 @@ import Image from 'next/image';
 import { ArrowUpDown, TrendingDown, TrendingUp } from 'lucide-react';
 
 import { fetcher } from '@/lib/coingecko.actions';
+import { cn, formatCurrency, formatPercentage, trendingClasses } from '@/lib/utils';
 
 import DataTable from '@/app/components/DataTable';
 import CandlestickChart from '@/app/components/CandlestickChart';
 import CurrencyConverter from '@/app/components/coin/CurrencyConverter';
 import CoinDetailCard from '@/app/components/coin/CoinDetailCard';
 import TopMovers from '@/app/components/coin/TopMovers';
-import { cn, formatCurrency, formatPercentage, formatUsd, trendingClasses } from '@/lib/utils';
+import ExchangeListings from '@/app/components/coin/ExchangeListings';
 
 const recentTradesData = [
   {
@@ -50,22 +51,18 @@ const recentTradesData = [
 const recentTradesColumns: DataTableColumn<RecentTrade>[] = [
   {
     header: 'Price',
-    accessorKey: 'price',
     cell: (row) => <span className='font-medium'>{row.price}</span>,
   },
   {
     header: 'Amount',
-    accessorKey: 'amount',
     cell: (row) => <span className='font-medium'>{row.amount}</span>,
   },
   {
     header: 'Value',
-    accessorKey: 'value',
     cell: (row) => <span className='font-medium'>{row.value}</span>,
   },
   {
     header: 'Buy/Sell',
-    accessorKey: 'type',
     cell: (row) => (
       <b
         className={
@@ -80,35 +77,7 @@ const recentTradesColumns: DataTableColumn<RecentTrade>[] = [
   },
   {
     header: 'Time',
-    accessorKey: 'time',
     cell: (row) => row.time,
-  },
-];
-
-const exchangeListingsColumns: DataTableColumn<Ticker>[] = [
-  {
-    header: 'Exchange',
-    accessorKey: 'exchange',
-    cell: (row) => (
-      <span className="text-green-400 font-medium">
-        {row.market.name}
-      </span>
-    ),
-  },
-  {
-    header: 'Pair',
-    accessorKey: 'pair',
-    cell: (row) => <span className='font-medium'>{row.base} / {row.target}</span>,
-  },
-  {
-    header: 'Price',
-    accessorKey: 'price',
-    cell: (row) => <span className='font-medium'>{row.last}</span>,
-  },
-  {
-    header: 'Last Traded',
-    accessorKey: 'lastTraded',
-    cell: (row) => row.timestamp,
   },
 ];
 
@@ -142,7 +111,7 @@ const Coin = async ({ params }: CoinPageProps) => {
     {
       title: 'Market Cap',
       isLink: false,
-      value: `${formatCurrency(coin.market_data.market_cap.usd).slice(2)}`,
+      value: `${formatCurrency(coin.market_data.market_cap.usd)}`,
     },
     {
       title: 'Market Cap Rank',
@@ -152,7 +121,7 @@ const Coin = async ({ params }: CoinPageProps) => {
     {
       title: 'Total Volume',
       isLink: false,
-      value: `${formatCurrency(coin.market_data.total_volume.usd).slice(2)}`,
+      value: `${formatCurrency(coin.market_data.total_volume.usd)}`,
     },
     {
       title: 'Website',
@@ -215,7 +184,7 @@ const coinTickers: Ticker[] = coin.tickers;
             </div>
 
             <div className="text-4xl font-bold">
-              {`${formatCurrency(coin.market_data.current_price.usd)}`.toLowerCase().startsWith("us") ? `${formatCurrency(coin.market_data.current_price.usd)}`.slice(2) : `${formatCurrency(coin.market_data.current_price.usd)}`}
+              {`${formatCurrency(coin.market_data.current_price.usd)}`.toLowerCase().startsWith("us") ? `${formatCurrency(coin.market_data.current_price.usd)}` : `${formatCurrency(coin.market_data.current_price.usd)}`}
             </div>
 
             {/* Stats Row */}
@@ -281,7 +250,7 @@ const coinTickers: Ticker[] = coin.tickers;
                 <p
                   className={cn("text-green-400 font-semibold", trendingClasses(coin.market_data.price_change_24h_in_currency.usd).textClass)}
                 >
-                  {formatUsd(coin.market_data.price_change_24h_in_currency.usd.toString())}
+                  {formatCurrency(coin.market_data.price_change_24h_in_currency.usd)}
                 </p>
               </div>
             </div>
@@ -380,25 +349,12 @@ const coinTickers: Ticker[] = coin.tickers;
         </div>
 
         {/* Exchange Listings */}
-        <div
-          id='coins-page'
-          className="custom-scrollbar py-3 grid grid-cols-1 lg:grid-cols-3 gap-6 pb-6 px-0 custom-scrollbar"
-        >
-          <div className="lg:col-span-2 custom-scrollbar">
-            <h4 className='text-xl md:text-2xl font-semibold mb-2'>Exchange Listings</h4>
-            <DataTable
-              data={coinTickers}
-              columns={exchangeListingsColumns}
-              rowKey={(row) => `${row.market.identifier}-${row.base}-${row.target}-${row.last_traded_at}`}
-              tableClassName="coins-table mt-3"
-              headerClassName="py-3!"
-              bodyCellClassName="px-0 py-7!"
-            />
-          </div>
-          <div className="lg:col-span-1"></div>
-        </div>
+        <ExchangeListings
+          tickers={coinTickers}
+        />
       </div>
     </section>
   );
 };
+
 export default Coin;

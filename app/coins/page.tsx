@@ -14,7 +14,7 @@ const columns: DataTableColumn<CoinMarketData>[] = [
     header: 'Rank',
     cellClassName: 'rank-cell',
     cell: (coin) =>
-      `#${formatCurrency(coin.market_cap_rank, undefined, undefined, false).slice(0, -3)}`,
+      `#${formatCurrency(coin.market_cap_rank, undefined, undefined, false)}`,
   },
   {
     header: 'Token',
@@ -35,7 +35,7 @@ const columns: DataTableColumn<CoinMarketData>[] = [
     cellClassName: 'price-cell',
     cell: (coin) =>
       `${formatCurrency(coin.current_price)}`.toLowerCase().startsWith('us')
-        ? `${formatCurrency(coin.current_price)}`.slice(2)
+        ? `${formatCurrency(coin.current_price)}`
         : `${formatCurrency(coin.current_price)}`,
   },
   {
@@ -63,7 +63,7 @@ const columns: DataTableColumn<CoinMarketData>[] = [
     cellClassName: 'market-cap-cell',
     cell: (coin) =>
       `${formatCurrency(coin.market_cap)}`.toLowerCase().startsWith('us')
-        ? `${formatCurrency(coin.market_cap)}`.slice(2)
+        ? `${formatCurrency(coin.market_cap)}`
         : `${formatCurrency(coin.market_cap)}`,
   },
 ];

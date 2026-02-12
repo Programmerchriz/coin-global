@@ -10,38 +10,20 @@ export function cn(...inputs: ClassValue[]) {
 export function formatCurrency(
   value: number | null | undefined,
   digits?: number,
-  currency?: string,
-  showSymbol?: boolean,
+  currency: string = 'USD',
+  showSymbol: boolean = true,
 ) {
   if (value === null || value === undefined || isNaN(value)) {
-    return showSymbol !== false ? '$0.00' : '0.00';
+    return showSymbol ? '$0.00' : '0.00';
   }
 
-  if (showSymbol === undefined || showSymbol === true) {
-    return value.toLocaleString(undefined, {
-      style: 'currency',
-      currency: currency?.toUpperCase() || 'USD',
-      minimumFractionDigits: digits ?? 2,
-      maximumFractionDigits: digits ?? 2,
-    });
-  }
-  return value.toLocaleString(undefined, {
+  return value.toLocaleString('en-US', {
+    style: showSymbol ? 'currency' : undefined,
+    currency: showSymbol ? currency.toUpperCase() : undefined,
     minimumFractionDigits: digits ?? 2,
     maximumFractionDigits: digits ?? 2,
   });
 }
-
-export function formatUsd(
-  value: string
-) {
-  const newValue: string = Number(value).toFixed(2);
-
-  if (newValue.startsWith("-")) {
-    return (`-$${newValue.slice(1)}`);
-  }
-
-  return (`$${newValue.slice(1)}`);
-};
 
 export function formatPercentage(change: number | null | undefined): string {
   if (change === null || change === undefined || isNaN(change)) {
