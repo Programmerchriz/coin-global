@@ -1,13 +1,13 @@
 
 import Image from 'next/image';
 
-import { ArrowUpDown, TrendingDown, TrendingUp } from 'lucide-react';
+import { TrendingDown, TrendingUp } from 'lucide-react';
 
 import { fetcher } from '@/lib/coingecko.actions';
 import { cn, formatCurrency, formatPercentage, trendingClasses } from '@/lib/utils';
 
 import DataTable from '@/app/components/DataTable';
-import CandlestickChart from '@/app/components/CandlestickChart';
+// import CandlestickChart from '@/app/components/CandlestickChart';
 import CurrencyConverter from '@/app/components/coin/CurrencyConverter';
 import CoinDetailCard from '@/app/components/coin/CoinDetailCard';
 import TopMovers from '@/app/components/coin/TopMovers';
@@ -131,12 +131,12 @@ const Coin = async ({ params }: CoinPageProps) => {
     {
       title: 'Whitepaper',
       isLink: true,
-      href: coin.links.whitepaper,
+      href: coin.links.whitepaper || "/",
     },
     {
       title: 'Community',
       isLink: true,
-      href: coin.links.official_forum_url,
+      href: coin.links.official_forum_url[0] || "/",
     },
   ];
 

@@ -209,15 +209,18 @@ interface CoinDetailsData {
     total_volume: {
       usd: number;
     };
+    price_change_percentage_24h: number;
   };
   market_cap_rank: number;
   description: {
     en: string;
   };
   links: {
-    homepage: string[];
-    blockchain_site: string[];
-    subreddit_url: string;
+    homepage?: string[];
+    blockchain_site?: string[];
+    subreddit_url?: string;
+    official_forum_url?: string[];
+    whitepaper?: string;
   };
   tickers: Ticker[];
 }
