@@ -13,9 +13,12 @@ const columns: DataTableColumn<Category>[] = [
     cellClassName: 'category-cell',
     cell: (category) => {
       return (
-        <Link href={`/coins/categories/${category.id}`}>
+        // <Link href={`/coins/categories/${category.id}`}>
+        //     <p>{category.name}</p>
+        // </Link>
+        <div>
           <p>{category.name}</p>
-        </Link>
+        </div>
       );
     },
   },
