@@ -210,11 +210,12 @@ interface CoinDetailsData {
       usd: number;
     };
     price_change_percentage_24h: number;
+    price_change_percentage_30d: number;
   };
   market_cap_rank: number;
   description: {
     en: string;
-  };
+};
   links: {
     homepage?: string[];
     blockchain_site?: string[];

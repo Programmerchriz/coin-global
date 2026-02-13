@@ -22,7 +22,7 @@ const exchangeListingsColumns: DataTableColumn<Ticker>[] = [
   },
   {
     header: 'Price',
-    cell: (row) => <span className='font-medium'>{formatCurrency(row.last)}</span>,
+    cell: (row) => <span className='font-medium'>{formatCurrency(row.converted_last.usd)}</span>,
   },
   {
     header: 'Last Traded',
@@ -59,7 +59,7 @@ export default function ExchangeListings({
           data={paginatedData}
           columns={exchangeListingsColumns}
           rowKey={(row) =>
-            `${row.market.identifier}-${row.base}-${row.target}-${row.last_traded_at}`
+            `${row.market.name}-${row.base}-${row.target}-${row.converted_last.usd}`
           }
           tableClassName="coins-table mt-3"
           headerClassName="py-3!"

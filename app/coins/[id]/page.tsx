@@ -126,7 +126,7 @@ const Coin = async ({ params }: CoinPageProps) => {
     {
       title: 'Website',
       isLink: true,
-      href: coin.links.homepage[0],
+      href: coin.links.homepage?.[0] || "/",
     },
     {
       title: 'Whitepaper',
@@ -136,7 +136,7 @@ const Coin = async ({ params }: CoinPageProps) => {
     {
       title: 'Community',
       isLink: true,
-      href: coin.links.official_forum_url[0] || "/",
+      href: coin.links.official_forum_url?.[0] || "/",
     },
   ];
 
