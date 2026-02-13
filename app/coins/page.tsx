@@ -7,7 +7,6 @@ import { fetcher } from '@/lib/coingecko.actions';
 import DataTable from '../components/DataTable';
 import CoinsPagination from '../components/CoinsPagination';
 import { AllCoinsFallback } from './fallback';
-import BackButton from '../components/BackButton';
 
 const columns: DataTableColumn<CoinMarketData>[] = [
   {
@@ -98,7 +97,6 @@ const Coins = async ({ searchParams }: NextPageProps) => {
 
   return (
     <div id="coins-page" className="custom-scrollbar">
-      {/* <BackButton /> */}
       <h4>All Coins</h4>
       <DataTable
         data={allCoins}

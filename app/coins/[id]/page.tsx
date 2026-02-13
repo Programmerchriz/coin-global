@@ -12,9 +12,7 @@ import CurrencyConverter from '@/app/components/coin/CurrencyConverter';
 import CoinDetailCard from '@/app/components/coin/CoinDetailCard';
 import TopMovers from '@/app/components/coin/TopMovers';
 import ExchangeListings from '@/app/components/coin/ExchangeListings';
-import CoinFallback from '@/app/components/coin/Fallback';
 import Error from './error';
-import BackButton from '@/app/components/BackButton';
 
 const recentTradesData = [
   {
