@@ -12,6 +12,9 @@ import CurrencyConverter from '@/app/components/coin/CurrencyConverter';
 import CoinDetailCard from '@/app/components/coin/CoinDetailCard';
 import TopMovers from '@/app/components/coin/TopMovers';
 import ExchangeListings from '@/app/components/coin/ExchangeListings';
+import CoinFallback from '@/app/components/coin/Fallback';
+import Error from './error';
+import BackButton from '@/app/components/BackButton';
 
 const recentTradesData = [
   {
@@ -84,7 +87,7 @@ const recentTradesColumns: DataTableColumn<RecentTrade>[] = [
 // bg-[#0f1419]
 const Coin = async ({ params }: CoinPageProps) => {
   const { id } = await params;
-  if (!id) return <>Loading...</>;
+  if (!id) return <Error />;
 
   const isTrendingUp = (value: number) => value > 0;
 
@@ -107,8 +110,7 @@ const Coin = async ({ params }: CoinPageProps) => {
     );
   } catch (error) {
     console.error('Error fetching categories:', error);
-    // return <CoinFallback />;
-    return
+    return <Error/>;
   }
 
   const currencies = [ ... new Set([

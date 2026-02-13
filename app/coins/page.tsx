@@ -14,7 +14,7 @@ const columns: DataTableColumn<CoinMarketData>[] = [
     header: 'Rank',
     cellClassName: 'rank-cell',
     cell: (coin) =>
-      `#${formatCurrency(coin.market_cap_rank, undefined, undefined, false)}`,
+      `#${coin.market_cap_rank}`,
   },
   {
     header: 'Token',
