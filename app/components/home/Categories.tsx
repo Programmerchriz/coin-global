@@ -13,9 +13,12 @@ const columns: DataTableColumn<Category>[] = [
     cellClassName: 'category-cell',
     cell: (category) => {
       return (
-        <Link href={`/coins/categories/${category.id}`}>
+        // <Link href={`/coins/categories/${category.id}`}>
+        //     <p>{category.name}</p>
+        // </Link>
+        <div>
           <p>{category.name}</p>
-        </Link>
+        </div>
       );
     },
   },
@@ -54,12 +57,12 @@ const columns: DataTableColumn<Category>[] = [
   {
     header: 'Market Cap',
     cellClassName: 'market-cap-cell',
-    cell: (category) => `${formatCurrency(category.market_cap)}`.toLowerCase().startsWith("us") ? `${formatCurrency(category.market_cap)}`.slice(2) : `${formatCurrency(category.market_cap)}`,
+    cell: (category) => `${formatCurrency(category.market_cap)}`,
   },
   {
     header: 'Volume 24h',
     cellClassName: 'volume-cell',
-    cell: (category) => `${formatCurrency(category.volume_24h)}`.toLowerCase().startsWith("us") ? `${formatCurrency(category.volume_24h)}`.slice(2) : `${formatCurrency(category.volume_24h)}`,
+    cell: (category) => `${formatCurrency(category.market_cap)}`,
   },
 ];
 

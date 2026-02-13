@@ -1,12 +1,14 @@
-import CoinOverview from '@/components/home/CoinOverview';
-import TrendingCoins from '@/components/home/TrendingCoins';
+import { Suspense } from 'react';
+
 import {
   CategoriesFallback,
   CoinOverviewFallback,
   TrendingCoinsFallback,
 } from '@/app/components/home/fallback';
-import { Suspense } from 'react';
-import Categories from './components/home/Categories';
+import Categories from '@/app/components/home/Categories';
+
+import CoinOverview from '@/components/home/CoinOverview';
+import TrendingCoins from '@/components/home/TrendingCoins';
 
 const Page = async () => {
   return (

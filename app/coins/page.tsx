@@ -7,13 +7,14 @@ import { fetcher } from '@/lib/coingecko.actions';
 import DataTable from '../components/DataTable';
 import CoinsPagination from '../components/CoinsPagination';
 import { AllCoinsFallback } from './fallback';
+import BackButton from '../components/BackButton';
 
 const columns: DataTableColumn<CoinMarketData>[] = [
   {
     header: 'Rank',
     cellClassName: 'rank-cell',
     cell: (coin) =>
-      `#${formatCurrency(coin.market_cap_rank, undefined, undefined, false).slice(0, -3)}`,
+      `#${formatCurrency(coin.market_cap_rank, undefined, undefined, false)}`,
   },
   {
     header: 'Token',
@@ -34,7 +35,7 @@ const columns: DataTableColumn<CoinMarketData>[] = [
     cellClassName: 'price-cell',
     cell: (coin) =>
       `${formatCurrency(coin.current_price)}`.toLowerCase().startsWith('us')
-        ? `${formatCurrency(coin.current_price)}`.slice(2)
+        ? `${formatCurrency(coin.current_price)}`
         : `${formatCurrency(coin.current_price)}`,
   },
   {
@@ -62,7 +63,7 @@ const columns: DataTableColumn<CoinMarketData>[] = [
     cellClassName: 'market-cap-cell',
     cell: (coin) =>
       `${formatCurrency(coin.market_cap)}`.toLowerCase().startsWith('us')
-        ? `${formatCurrency(coin.market_cap)}`.slice(2)
+        ? `${formatCurrency(coin.market_cap)}`
         : `${formatCurrency(coin.market_cap)}`,
   },
 ];
@@ -87,7 +88,6 @@ const Coins = async ({ searchParams }: NextPageProps) => {
         price_change_percentage: "24h",
       },
     );
-    console.log(allCoins.length);
   } catch (error) {
     console.error('Error fetching categories:', error);
     return <AllCoinsFallback />;
@@ -98,6 +98,7 @@ const Coins = async ({ searchParams }: NextPageProps) => {
 
   return (
     <div id="coins-page" className="custom-scrollbar">
+      {/* <BackButton /> */}
       <h4>All Coins</h4>
       <DataTable
         data={allCoins}

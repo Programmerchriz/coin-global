@@ -36,7 +36,7 @@ interface Ticker {
   trade_url: string;
 }
 
-type Period = 'daily' | 'weekly' | 'monthly' | '3months' | '6months' | 'yearly' | 'max';
+type Period = 'daily' | 'weekly' | 'monthly' | '3months' | '6months' | 'yearly';
 
 interface CoinMarketData {
   id: string;
@@ -209,15 +209,19 @@ interface CoinDetailsData {
     total_volume: {
       usd: number;
     };
+    price_change_percentage_24h: number;
+    price_change_percentage_30d: number;
   };
   market_cap_rank: number;
   description: {
     en: string;
-  };
+};
   links: {
-    homepage: string[];
-    blockchain_site: string[];
-    subreddit_url: string;
+    homepage?: string[];
+    blockchain_site?: string[];
+    subreddit_url?: string;
+    official_forum_url?: string[];
+    whitepaper?: string;
   };
   tickers: Ticker[];
 }
@@ -317,3 +321,65 @@ interface PoolData {
   name: string;
   network: string;
 }
+
+type CoinPageProps = {
+  params: {
+    id: string;
+  };
+};
+
+interface DropDownProps {
+  list: string[];
+  value: string;
+  onChange: (value: string) => void;
+};
+
+interface CoinDetailsArrayProps {
+  title: string;
+  isLink: boolean;
+  value?: string;
+  href?: string;
+};
+
+interface CoinDetailCardProps {
+  coinDetailsArray: CoinDetailsArrayProps[];
+};
+
+interface DetailCardProps {
+  title: string;
+  value: string | undefined;
+  isLink: boolean;
+};
+
+type RecentTrade = {
+  id: string;
+  price: string;
+  amount: string;
+  value: string;
+  type: string;
+  time: string;
+};
+
+type ExchangeListing = {
+  id: string;
+  exchange: string;
+  pair: string;
+  price: string;
+  lastTraded: string;
+};
+
+type Mover = {
+  id: string;
+  name: string;
+  symbol: string;
+  price: string;
+  change: string;
+  positive: boolean;
+};
+
+interface CurrencyConverterProps {
+  symbol: string;
+  image: string;
+  currencies: string[];
+  currenciesObj: Record<string, number>;
+};
