@@ -47,46 +47,40 @@ export default function ExchangeListings({
   }, [currentPage, tickers]);
 
   return (
-    <div
-      id='coins-page'
-      className="custom-scrollbar py-3 grid grid-cols-1 lg:grid-cols-3 gap-6 pb-6 px-0 custom-scrollbar"
-    >
-      <div className='lg:col-span-2 custom-scrollbar'>
-        <h4 className="text-xl md:text-2xl font-semibold mb-2">
-          Exchange Listings
-        </h4>
-        <DataTable
-          data={paginatedData}
-          columns={exchangeListingsColumns}
-          rowKey={(row) =>
-            `${row.market.name}-${row.base}-${row.target}-${row.converted_last.usd}`
-          }
-          tableClassName="coins-table mt-3"
-          headerClassName="py-3!"
-          bodyCellClassName="min-w-[175px] py-7!"
-        />
-        {/* Pagination Controls */}
-        <div className="flex justify-center items-center md:justify-end gap-3 mt-4 text-sm">
-          <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage((prev) => prev - 1)}
-            className="px-3 py-1 bg-[#0f1419] rounded hover:cursor-pointer disabled:hover:cursor-default disabled:opacity-40"
-          >
-            Prev
-          </button>
-          <span>
-            {currentPage} / {totalPages}
-          </span>
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage((prev) => prev + 1)}
-            className="px-3 py-1 bg-[#0f1419] rounded hover:cursor-pointer disabled:hover:cursor-default disabled:opacity-40"
-          >
-            Next
-          </button>
-        </div>
+    <div className='lg:col-span-2 custom-scrollbar'>
+      <h4 className="text-xl md:text-2xl font-semibold mb-2">
+        Exchange Listings
+      </h4>
+      <DataTable
+        data={paginatedData}
+        columns={exchangeListingsColumns}
+        rowKey={(row) =>
+          `${row.market.name}-${row.base}-${row.target}-${row.converted_last.usd}`
+        }
+        tableClassName="coins-table mt-3"
+        headerClassName="py-3!"
+        bodyCellClassName="min-w-[175px] py-7!"
+      />
+      {/* Pagination Controls */}
+      <div className="flex justify-center items-center md:justify-end gap-3 mt-4 text-sm">
+        <button
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage((prev) => prev - 1)}
+          className="px-3 py-1 bg-[#0f1419] rounded hover:cursor-pointer disabled:hover:cursor-default disabled:opacity-40"
+        >
+          Prev
+        </button>
+        <span>
+          {currentPage} / {totalPages}
+        </span>
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+          className="px-3 py-1 bg-[#0f1419] rounded hover:cursor-pointer disabled:hover:cursor-default disabled:opacity-40"
+        >
+          Next
+        </button>
       </div>
-      <div className="lg:col-span-1"></div>
     </div>
   );
 };

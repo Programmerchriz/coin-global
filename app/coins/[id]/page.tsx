@@ -10,8 +10,8 @@ import DataTable from '@/app/components/DataTable';
 import CandlestickChart from '@/app/components/CandlestickChart';
 import CurrencyConverter from '@/app/components/coin/CurrencyConverter';
 import CoinDetailCard from '@/app/components/coin/CoinDetailCard';
-import TopMovers from '@/app/components/coin/TopMovers';
 import ExchangeListings from '@/app/components/coin/ExchangeListings';
+import TopMovers from '@/app/components/coin/TopMovers';
 import Error from './error';
 
 const recentTradesData = [
@@ -82,7 +82,6 @@ const recentTradesColumns: DataTableColumn<RecentTrade>[] = [
   },
 ];
 
-// bg-[#0f1419]
 const Coin = async ({ params }: CoinPageProps) => {
   const { id } = await params;
   if (!id) return <Error />;
@@ -90,10 +89,9 @@ const Coin = async ({ params }: CoinPageProps) => {
   const isTrendingUp = (value: number) => value > 0;
 
   let coin: CoinDetailsData, coinOHLCData: OHLCData[];
-  // let network;
 
   try {
-    [ coin, coinOHLCData ] = await Promise.all(
+    [ coin, coinOHLCData, ] = await Promise.all(
       [
         fetcher<CoinDetailsData>(`/coins/${id}/`,
         ),
@@ -127,7 +125,7 @@ const Coin = async ({ params }: CoinPageProps) => {
     {
       title: 'Market Cap Rank',
       isLink: false,
-      value: `#${coin.market_cap_rank}`,
+      value: `# ${coin.market_cap_rank}`,
     },
     {
       title: 'Total Volume',
@@ -147,7 +145,7 @@ const Coin = async ({ params }: CoinPageProps) => {
     {
       title: 'Community',
       isLink: true,
-      href: coin.links.official_forum_url?.[0] || "/",
+      href: coin.links.subreddit_url || "/",
     },
   ];
 
@@ -276,7 +274,7 @@ const coinTickers: Ticker[] = coin.tickers;
           />
         </div>
 
-        {/* Chart + Details */}
+        {/* Chart + Coin Details */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Chart */}
           <div className="lg:col-span-2 rounded-xl p-4">
@@ -299,6 +297,19 @@ const coinTickers: Ticker[] = coin.tickers;
             <CoinDetailCard
               coinDetailsArray={coinDetailsArray}
             />
+          </div>
+        </div>
+
+        {/* Exchange Listings */}
+        <div
+          id='coins-page'
+          className="custom-scrollbar py-3 grid grid-cols-1 lg:grid-cols-3 gap-6 pb-6 px-0 custom-scrollbar"
+        >
+          <ExchangeListings
+            tickers={coinTickers}
+          />
+          <div className="lg:col-span-1">
+            <TopMovers />
           </div>
         </div>
 
@@ -325,14 +336,8 @@ const coinTickers: Ticker[] = coin.tickers;
 
           {/* Top Movers - 1/3 */}
           <div className="lg:col-span-1">
-            <TopMovers />
           </div>
         </div>
-
-        {/* Exchange Listings */}
-        <ExchangeListings
-          tickers={coinTickers}
-        />
       </div>
     </section>
   );

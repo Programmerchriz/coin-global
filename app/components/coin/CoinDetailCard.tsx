@@ -13,6 +13,7 @@ const CoinDetailCard = ({
         <Link
           key={detail.title}
           href={`${detail.href}`}
+          target="_blank"
         >
           <DetailCard
             title={detail.title}
