@@ -42,5 +42,4 @@ next-env.d.ts
 
 # api
 saveApiData.js
-ticker.json
-txt.json
+*.json

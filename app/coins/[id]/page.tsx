@@ -7,7 +7,7 @@ import { fetcher } from '@/lib/coingecko.actions';
 import { cn, formatCurrency, formatPercentage, trendingClasses } from '@/lib/utils';
 
 import DataTable from '@/app/components/DataTable';
-// import CandlestickChart from '@/app/components/CandlestickChart';
+import CandlestickChart from '@/app/components/CandlestickChart';
 import CurrencyConverter from '@/app/components/coin/CurrencyConverter';
 import CoinDetailCard from '@/app/components/coin/CoinDetailCard';
 import TopMovers from '@/app/components/coin/TopMovers';
@@ -88,11 +88,22 @@ const Coin = async ({ params }: CoinPageProps) => {
 
   const isTrendingUp = (value: number) => value > 0;
 
-  let coin: CoinDetailsData;
+  let coin: CoinDetailsData, coinOHLCData: OHLCData[];
+  // let network;
 
   try {
-    coin = await fetcher<CoinDetailsData>(
-      `/coins/${id}/`,
+    [ coin, coinOHLCData ] = await Promise.all(
+      [
+        fetcher<CoinDetailsData>(`/coins/${id}/`,
+        ),
+
+        fetcher<OHLCData[]>(`/coins/${id}/ohlc`, {
+          vs_currency: 'usd',
+          days: 1,
+          // interval: 'hourly',
+          precision: 'full',
+        }),
+      ]
     );
   } catch (error) {
     console.error('Error fetching categories:', error);
@@ -268,48 +279,18 @@ const coinTickers: Ticker[] = coin.tickers;
         {/* Chart + Details */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Chart */}
-          <div className="lg:col-span-2 bg-[#161b22] rounded-xl p-4">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="font-semibold">Trend Overview</h3>
-
-              <div className="flex gap-2 text-xs">
-                {['1D', '1W', '1M', '3M', '6M', '1Y'].map((item) => (
-                  <span
-                    key={item}
-                    className={`px-2 py-1 rounded ${
-                      item === '1D' ? 'bg-green-500 text-black' : 'bg-[#0f1419] text-gray-400'
-                    }`}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
+          <div className="lg:col-span-2 rounded-xl p-4">
             {/* Chart Placeholder */}
-            {/* <CandlestickChart
+            <CandlestickChart
               data={coinOHLCData}
-              coinId="bitcoin"
+              coinId={coin.id}
             >
               <div
                 className="header pt-2"
               >
-                <Image
-                  src={coin.image.large}
-                  alt={coin.name}
-                  width={56}
-                  height={56}
-                />
-                <div
-                  className="info"
-                >
-                  <p>
-                    {coin.name} / {coin.symbol.toUpperCase()}
-                  </p>
-                  <h1>{formatCurrency(coin.market_data.current_price.usd)}</h1>
-                </div>
+                <h3 className="font-semibold">Trend Overview</h3>
               </div>
-            </CandlestickChart> */}
+            </CandlestickChart>
           </div>
 
           {/* Coin Details */}

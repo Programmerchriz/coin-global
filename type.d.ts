@@ -215,7 +215,7 @@ interface CoinDetailsData {
   market_cap_rank: number;
   description: {
     en: string;
-};
+  };
   links: {
     homepage?: string[];
     blockchain_site?: string[];
