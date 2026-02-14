@@ -1,10 +1,16 @@
 'use client';
 
-import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const Header = () => {
+import { cn } from '@/lib/utils';
+
+import { SearchModal } from '@/app/components/SearchModal';
+import { HeaderProps } from '@/type';
+
+const Header = ({
+  trendingCoins,
+}: HeaderProps) => {
   const pathname = usePathname();
 
   return (
@@ -28,7 +34,7 @@ const Header = () => {
             Home
           </Link>
 
-          <p>Search Modal</p>
+          <SearchModal initialTrendingCoins={trendingCoins} />
 
           <Link
             href="/coins"

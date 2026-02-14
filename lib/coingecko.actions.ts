@@ -1,5 +1,6 @@
 'use server';
 
+import { CoinGeckoErrorBody, MarketsResponse, QueryParams, SearchCoin, SearchResponse } from '@/type';
 import qs from 'query-string';
 
 const BASE_URL = process.env.COINGECKO_BASE_URL;
@@ -40,4 +41,60 @@ export async function fetcher<T>(
   }
 
   return response.json();
-}
+};
+
+export async function searchCoins(query: string): Promise<SearchCoin[]> {
+  if (!query) return [];
+
+  // -----------------------------
+  // STEP 1: Search endpoint
+  // -----------------------------
+  const searchData = await fetcher<SearchResponse>('/search', {
+    query,
+  });
+
+  // sort coins by market cap
+  const topCoins = searchData.coins
+  .sort((a, b) => {
+    if (!a.market_cap_rank) return 1;
+    if (!b.market_cap_rank) return -1;
+    return a.market_cap_rank - b.market_cap_rank;
+  })
+  .slice(0, 10);
+
+  if (topCoins.length === 0) return [];
+
+  const ids = topCoins.map((coin) => coin.id).join(',');
+
+  // -----------------------------
+  // STEP 2: Fetch price data
+  // -----------------------------
+  const marketData = await fetcher<MarketsResponse[]>('/coins/markets', {
+    vs_currency: 'usd',
+    ids,
+    price_change_percentage: '24h',
+  });
+
+  // Convert markets array to lookup map
+  const marketMap = new Map(
+    marketData.map((coin) => [coin.id, coin])
+  );
+
+  // -----------------------------
+  // STEP 3: Merge datasets
+  // -----------------------------
+  const merged: SearchCoin[] = topCoins.map((coin) => {
+    const market = marketMap.get(coin.id);
+
+    return {
+      ...coin,
+      data: {
+        price: market?.current_price ?? null,
+        price_change_percentage_24h:
+          market?.price_change_percentage_24h ?? null,
+      },
+    };
+  });
+
+  return merged;
+};

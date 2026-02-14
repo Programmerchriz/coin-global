@@ -1,4 +1,5 @@
 
+import { OHLCData } from '@/type';
 import { clsx, type ClassValue } from 'clsx';
 import { Time } from 'lightweight-charts';
 import { twMerge } from 'tailwind-merge';

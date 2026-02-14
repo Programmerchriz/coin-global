@@ -383,3 +383,31 @@ interface CurrencyConverterProps {
   currencies: string[];
   currenciesObj: Record<string, number>;
 };
+
+interface SearchResponse {
+  coins: {
+    id: string;
+    name: string;
+    symbol: string;
+    thumb: string;
+    market_cap_rank: number | null;
+  }[];
+}
+
+interface MarketsResponse {
+  id: string;
+  current_price: number;
+  price_change_percentage_24h: number | null;
+};
+
+export interface SearchCoin {
+  id: string;
+  name: string;
+  symbol: string;
+  thumb: string;
+  market_cap_rank: number | null;
+  data: {
+    price: number | null;
+    price_change_percentage_24h: number | null;
+  };
+};
