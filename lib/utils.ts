@@ -29,7 +29,7 @@ export function formatCurrency(
   } else if (absValue >= 1) {
     maximumFractionDigits = 4;
   } else if (absValue >= 0.1) {
-    maximumFractionDigits = 4; // Arb case
+    maximumFractionDigits = 4;
   } else if (absValue > 0) {
     // Show 4 significant digits for tiny values
     return showSymbol
