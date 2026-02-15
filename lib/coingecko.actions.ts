@@ -1,6 +1,5 @@
 'use server';
 
-import { CoinGeckoErrorBody, MarketsResponse, QueryParams, SearchCoin, SearchResponse } from '@/type';
 import qs from 'query-string';
 
 const BASE_URL = process.env.COINGECKO_BASE_URL;

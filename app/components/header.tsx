@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 import { SearchModal } from '@/app/components/SearchModal';
-import { HeaderProps } from '@/type';
 
 const Header = ({
   trendingCoins,

@@ -89,10 +89,10 @@ interface SearchCoin {
   symbol: string;
   market_cap_rank: number | null;
   thumb: string;
-  large: string;
+  large?: string;
   data: {
-    price?: number;
-    price_change_percentage_24h: number;
+    price: number | null;
+    price_change_percentage_24h: number | null;
   };
 }
 
@@ -398,16 +398,4 @@ interface MarketsResponse {
   id: string;
   current_price: number;
   price_change_percentage_24h: number | null;
-};
-
-export interface SearchCoin {
-  id: string;
-  name: string;
-  symbol: string;
-  thumb: string;
-  market_cap_rank: number | null;
-  data: {
-    price: number | null;
-    price_change_percentage_24h: number | null;
-  };
 };

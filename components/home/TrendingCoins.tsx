@@ -2,7 +2,6 @@ import DataTable from '@/app/components/DataTable';
 import { TrendingCoinsFallback } from '@/app/components/home/fallback';
 import { fetcher } from '@/lib/coingecko.actions';
 import { cn, formatCurrency, formatPercentage } from '@/lib/utils';
-import { DataTableColumn, TrendingCoin } from '@/type';
 import { TrendingDown, TrendingUp } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';

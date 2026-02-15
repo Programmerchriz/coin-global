@@ -19,7 +19,6 @@ import { useState } from 'react';
 import { cn, formatPercentage } from '@/lib/utils';
 import useSWR from 'swr';
 import { useDebounce, useKey } from 'react-use';
-import { SearchCoin, SearchItemProps, TrendingCoin } from '@/type';
 
 const TRENDING_LIMIT = 8;
 const SEARCH_LIMIT = 10;

@@ -5,7 +5,6 @@ import { fetcher } from '@/lib/coingecko.actions';
 
 import './globals.css';
 import Header from './components/header';
-import { TrendingCoin } from '@/type';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

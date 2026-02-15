@@ -6,7 +6,6 @@ import { useState, useMemo } from 'react';
 import { formatCurrency, timeAgo } from '@/lib/utils';
 
 import DataTable from '@/app/components/DataTable';
-import { DataTableColumn, Ticker } from '@/type';
 
 const exchangeListingsColumns: DataTableColumn<Ticker>[] = [
   {
