@@ -193,7 +193,7 @@ const coinTickers: Ticker[] = coin.tickers;
             </div>
 
             <div className="text-4xl font-bold">
-              {`${formatCurrency(coin.market_data.current_price.usd)}`.toLowerCase().startsWith("us") ? `${formatCurrency(coin.market_data.current_price.usd)}` : `${formatCurrency(coin.market_data.current_price.usd)}`}
+              {formatCurrency(coin.market_data.current_price.usd)}
             </div>
 
             {/* Stats Row */}

@@ -9,19 +9,47 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatCurrency(
   value: number | null | undefined,
-  digits?: number,
   currency: string = 'USD',
-  showSymbol: boolean = true,
+  showSymbol: boolean = true
 ) {
   if (value === null || value === undefined || isNaN(value)) {
-    return showSymbol ? '$0.00' : '0.00';
+    return showSymbol ? '$0.0000' : '0.0000';
+  }
+
+  const absValue = Math.abs(value);
+  const minimumFractionDigits = 0;
+  let maximumFractionDigits = 0;
+
+  if (absValue >= 10000) {
+    maximumFractionDigits = 1;
+  } else if (absValue >= 100) {
+    maximumFractionDigits = 2;
+  } else if (absValue >= 10) {
+    maximumFractionDigits = 3;
+  } else if (absValue >= 1) {
+    maximumFractionDigits = 4;
+  } else if (absValue >= 0.1) {
+    maximumFractionDigits = 4; // Arb case
+  } else if (absValue > 0) {
+    // Show 4 significant digits for tiny values
+    return showSymbol
+      ? new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency,
+          maximumSignificantDigits: 4,
+        }).format(value)
+      : new Intl.NumberFormat('en-US', {
+          maximumSignificantDigits: 4,
+        }).format(value);
+  } else {
+    maximumFractionDigits = 4;
   }
 
   return value.toLocaleString('en-US', {
     style: showSymbol ? 'currency' : undefined,
-    currency: showSymbol ? currency.toUpperCase() : undefined,
-    minimumFractionDigits: digits ?? 2,
-    maximumFractionDigits: digits ?? 2,
+    currency: showSymbol ? currency : undefined,
+    minimumFractionDigits,
+    maximumFractionDigits,
   });
 }
 
