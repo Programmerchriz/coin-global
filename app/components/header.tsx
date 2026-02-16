@@ -1,7 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
 
@@ -16,10 +17,16 @@ const Header = ({
     <header>
       <div className="main-container inner">
         <Link href="/">
-          {/* <Image src="btc.jpg" alt="CoinGlobal Logo" width={60} height={40} /> */}
-          <h3 className="text-lg font-semibold">
-            Coin<span className="font-bold italic">Global</span>
-          </h3>
+          <div className="flex items-center">
+            <div className='mt-2'>
+              <Image src="/coin-glob.png" alt="CoinGlobal Logo" width={60} height={60} />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold">
+                Coin<span className="font-bold italic">Global</span>
+              </h3>
+            </div>
+          </div>
         </Link>
 
         <nav>
