@@ -9,7 +9,7 @@ const CoinDetailCard = ({
 }: CoinDetailCardProps) => {
   return (
     <div className="grid grid-cols-2 gap-4">
-      {coinDetailsArray.map((detail) => detail.isLink ? (
+      {coinDetailsArray.map((detail) => detail.isLink && detail.href != "/" ? (
         <Link
           key={detail.title}
           href={`${detail.href}`}
@@ -25,7 +25,7 @@ const CoinDetailCard = ({
         <DetailCard
           key={detail.title}
           title={detail.title}
-          value={detail.value}
+          value={detail.value ?? `No ${detail.title}`}
           isLink={false}
         />
       ))}

@@ -61,7 +61,7 @@ const CandlestickChart = ({
           visible: true,
           autoScale: true,
           borderVisible: false,
-          minimumWidth: 120,
+          minimumWidth: 90,
         },
       });
 
