@@ -2,7 +2,8 @@
 
 import { getCandlestickConfig, getChartConfig, PERIOD_BUTTONS, PERIOD_CONFIG } from "@/constants";
 import { fetcher } from "@/lib/coingecko.actions";
-import { convertOHLCData } from "@/lib/utils";
+import { convertOHLCData, getPricePrecision } from "@/lib/utils";
+
 import { CandlestickSeries, createChart, IChartApi, ISeriesApi, OhlcData } from "lightweight-charts";
 import { startTransition, useEffect, useRef, useState, useTransition } from "react";
 
@@ -53,15 +54,31 @@ const CandlestickChart = ({
     if (!container) return;
 
     const showTime = [ "daily", "weekly", "monthly" ].includes(period);
-    const chart = createChart(container, {
-      ...getChartConfig(height, showTime),
-      width: container.clientWidth,
-    });
-    const series = chart.addSeries(CandlestickSeries, getCandlestickConfig());
+      const chart = createChart(container, {
+        ...getChartConfig(height, showTime),
+        width: container.clientWidth,
+        rightPriceScale: {
+          visible: true,
+          autoScale: true,
+          borderVisible: false,
+          minimumWidth: 120,
+        },
+      });
 
     const convertToSeconds = ohlcData?.map((item) => [
       Math.floor(item[0] / 1000), item[1], item[2], item[3], item[4] ] as OHLCData
     ) || [];
+    
+    const { precision, minMove } = getPricePrecision(convertToSeconds);
+
+    const series = chart.addSeries(CandlestickSeries, {
+      ...getCandlestickConfig(),
+      priceFormat: {
+        type: 'price',
+        precision,
+        minMove,
+      },
+    });
     
     series.setData(convertOHLCData(convertToSeconds || []));
     chart.timeScale().fitContent();
@@ -72,7 +89,11 @@ const CandlestickChart = ({
     const observer = new ResizeObserver((entries) => {
       if (!entries.length) return;
       chart.applyOptions({
-        width: entries[0].contentRect.width
+        localization: {
+          priceFormatter: (price: number) => {
+            return price.toFixed(precision);
+          },
+        },
       });
     });
     observer.observe(container);
@@ -82,7 +103,7 @@ const CandlestickChart = ({
       chart.remove();
       candleSeriesRef.current = null;
     };
-  }, [height, period]);
+  }, [height, period, ohlcData]);
 
   useEffect(() => {
     if (!candleSeriesRef.current || !ohlcData) return;
@@ -93,7 +114,17 @@ const CandlestickChart = ({
 
     const converted = convertOHLCData(convertToSeconds);
     candleSeriesRef.current?.setData(converted);
-    chartRef.current?.timeScale().fitContent()
+    chartRef.current?.timeScale().fitContent();
+
+    const { precision, minMove } = getPricePrecision(convertToSeconds);
+
+    candleSeriesRef.current.applyOptions({
+      priceFormat: {
+        type: 'price',
+        precision,
+        minMove,
+      },
+    });
   }, [ohlcData, period]);
 
   return (

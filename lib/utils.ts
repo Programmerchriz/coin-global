@@ -141,3 +141,34 @@ export const buildPageNumbers = (
 
   return pages;
 };
+
+export function getPricePrecision(data: OHLCData[]) {
+  if (!data.length) {
+    return { precision: 2, minMove: 0.01 };
+  }
+
+  const prices = data.flatMap(d => [d[1], d[2], d[3], d[4]]);
+  const sorted = [...prices].sort((a, b) => a - b);
+
+  let minDiff = Infinity;
+
+  for (let i = 1; i < sorted.length; i++) {
+    const diff = Math.abs(sorted[i] - sorted[i - 1]);
+    if (diff > 0 && diff < minDiff) {
+      minDiff = diff;
+    }
+  }
+
+  if (!isFinite(minDiff)) {
+    return { precision: 2, minMove: 0.01 };
+  }
+
+  const precision = Math.max(
+    0,
+    Math.ceil(-Math.log10(minDiff))
+  );
+
+  const minMove = Number((1 / Math.pow(10, precision)).toFixed(precision));
+
+  return { precision, minMove };
+}
