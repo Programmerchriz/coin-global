@@ -39,7 +39,7 @@ const CurrencyConverter = ({
 
     const numeric = parseFloat(value);
     if (!isNaN(numeric) && rate) {
-      setCryptoAmount((numeric / rate).toFixed(10).toString());
+      setCryptoAmount((numeric / rate).toFixed(8).toString());
     } else {
       setCryptoAmount('');
     }
