@@ -77,7 +77,7 @@ const CurrencyConverter = ({
       <div className="bg-[#0f1419] rounded-lg px-4 py-3 flex justify-between items-center">
         <input
           type="number"
-          placeholder="60,000"
+          placeholder={`${rate * 10}`}
           value={fiatAmount}
           onChange={(e) => handleFiatChange(e.target.value)}
           className="bg-transparent  text-white  outline-none  w-1/2 text-base"
