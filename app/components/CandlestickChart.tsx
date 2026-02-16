@@ -88,13 +88,19 @@ const CandlestickChart = ({
 
     const observer = new ResizeObserver((entries) => {
       if (!entries.length) return;
+
+      const { width } = entries[0].contentRect;
+
       chart.applyOptions({
+        width,
         localization: {
           priceFormatter: (price: number) => {
             return price.toFixed(precision);
           },
         },
       });
+
+      chart.timeScale().fitContent();
     });
     observer.observe(container);
 
@@ -103,7 +109,7 @@ const CandlestickChart = ({
       chart.remove();
       candleSeriesRef.current = null;
     };
-  }, [height, period, ohlcData]);
+  }, [height]);
 
   useEffect(() => {
     if (!candleSeriesRef.current || !ohlcData) return;
