@@ -21,7 +21,7 @@ export default async function CategoriesPage({ searchParams }: NextPageProps) {
   const hasMorePages = currentPage < totalPages;
 
   return (
-    <div className="py-5 px-3 lg:px-5">
+    <div className="main-container">
       <h4 className="text-xl md:text-2xl font-semibold mb-2 pl-5">
         All Categories
       </h4>
