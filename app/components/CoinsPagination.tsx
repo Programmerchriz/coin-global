@@ -12,10 +12,20 @@ import {
 import { buildPageNumbers, cn, ELLIPSIS } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 
-const CoinsPagination = ({ currentPage, totalPages, hasMorePages }: Pagination) => {
+const CoinsPagination = ({
+  currentPage,
+  totalPages,
+  hasMorePages,
+  basePath,
+}: Pagination) => {
   const router = useRouter();
+
   const handlePageChange = (page: number) => {
-    router.push(`/coins?page=${page}`);
+    const normalizedBasePath = basePath.startsWith('/')
+      ? basePath
+      : `/${basePath}`;
+
+    router.push(`${normalizedBasePath}?page=${page}`);
   };
 
   const pageNumbers = buildPageNumbers(currentPage, totalPages);

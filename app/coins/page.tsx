@@ -111,6 +111,7 @@ const Coins = async ({ searchParams }: NextPageProps) => {
         currentPage={currentPage}
         totalPages={estimatedTotalPages}
         hasMorePages={hasMorePages}
+        basePath='coins'
       />
     </div>
   );

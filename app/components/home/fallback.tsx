@@ -56,17 +56,17 @@ export const TrendingCoinsFallback = () => {
     },
   ];
 
-  const rows = Array.from({ length: 6 });
+  const rows: TrendingCoin[] = Array.from({ length: 6 });
 
   return (
     <section id="trending-coins-fallback">
       <h4>Trending Coins</h4>
 
       <div className="trending-coins-table">
-        <DataTable
+        <DataTable<TrendingCoin>
           columns={columns}
           data={rows}
-          rowKey={(_, i) => i}
+          rowKey={(_, index) => `skeleton-${index}`}
           tableClassName="w-full"
         />
       </div>
@@ -116,16 +116,16 @@ export const CategoriesFallback = () => {
     },
   ];
 
-  const rows = Array.from({ length: 6 });
+  const rows: Category[] = Array.from({ length: 6 });
 
   return (
     <section id="categories-fallback">
       <h4>Top Categories</h4>
 
-      <DataTable
+      <DataTable<Category>
         columns={columns}
         data={rows}
-        rowKey={(_, i) => i}
+        rowKey={(_, index) => `skeleton-${index}`}
         tableClassName="top-categories-table"
         headerClassName="py-3!"
         bodyCellClassName="py-2!"
