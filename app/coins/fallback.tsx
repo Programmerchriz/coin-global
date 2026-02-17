@@ -34,16 +34,16 @@ export const AllCoinsFallback = () => {
     },
   ];
 
-  const rows = Array.from({ length: 10 });
+  const rows: CoinMarketData[] = Array.from({ length: 10 });
 
   return (
     <section id="all-coins-fallback">
       <h4>All Coins</h4>
 
-      <DataTable
+      <DataTable<CoinMarketData>
         columns={columns}
         data={rows}
-        rowKey={(_, i) => i}
+        rowKey={(row) => row.id}
         tableClassName="coins-table mt-3"
         headerClassName="py-3!"
         bodyCellClassName="py-2!"
