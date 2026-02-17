@@ -66,7 +66,7 @@ export const TrendingCoinsFallback = () => {
         <DataTable<TrendingCoin>
           columns={columns}
           data={rows}
-          rowKey={(row) => row.item.id}
+          rowKey={(_, index) => `skeleton-${index}`}
           tableClassName="w-full"
         />
       </div>
@@ -125,7 +125,7 @@ export const CategoriesFallback = () => {
       <DataTable<Category>
         columns={columns}
         data={rows}
-        rowKey={(row) => row.id}
+        rowKey={(_, index) => `skeleton-${index}`}
         tableClassName="top-categories-table"
         headerClassName="py-3!"
         bodyCellClassName="py-2!"

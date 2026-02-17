@@ -43,7 +43,7 @@ export const AllCoinsFallback = () => {
       <DataTable<CoinMarketData>
         columns={columns}
         data={rows}
-        rowKey={(row) => row.id}
+        rowKey={(_, index) => `skeleton-${index}`}
         tableClassName="coins-table mt-3"
         headerClassName="py-3!"
         bodyCellClassName="py-2!"
