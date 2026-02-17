@@ -37,10 +37,10 @@ const Page = async () => {
           <div className='flex justify-end items-start'>
             <Link
               href="/categories"
-              className={cn("gap-1 px-2.5")}
+              className={cn("px-5 py-3 bg-dark-400 active:bg-dark-700 hover:bg-dark-500 text-white font-medium rounded-lg")}
             >
               <div className="flex">
-                <p>Full Categories Page</p>
+                <p>All Categories</p>
                 <ChevronRightIcon />
               </div>
             </Link>
