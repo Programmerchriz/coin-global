@@ -8,7 +8,7 @@ import {
 import Categories from '@/app/components/home/Categories';
 
 import CoinOverview from '@/components/home/CoinOverview';
-import TrendingCoins from '@/components/home/TrendingCoins';
+import TrendingCoins from '@/app/components/home/TrendingCoins';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { ChevronRightIcon } from 'lucide-react';
