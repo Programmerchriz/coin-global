@@ -14,9 +14,9 @@ export default function Loading() {
         <Image
           src="/coin-glob.png"
           alt="App Logo"
-          className="w-14 h-14 text-purple-600 animate-scale"
-          width={100}
-          height={100}
+          className="text-purple-600 animate-scale"
+          width={56}
+          height={56}
         />
       </div>
     </div>

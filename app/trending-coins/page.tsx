@@ -6,19 +6,21 @@ import CoinsPagination from "@/app/components/CoinsPagination";
 
 export default async function TrendingCoinsPage({ searchParams }: NextPageProps) {
   const { page } = await searchParams;
-  const currentPage = Number(page) || 1;
+  const requestedPage = Number(page) || 1;
   const perPage: number = 8;
 
   const trendingCoins = await getTrendingCoins();
 
   const totalPages = Math.ceil(trendingCoins.coins.length / perPage);
+  const safeTotalPages = Math.max(1, totalPages);
+  const currentPage = Math.min(Math.max(1, requestedPage), safeTotalPages);
 
   const paginatedTrendingCoins = trendingCoins.coins.slice(
     (currentPage - 1) * perPage,
     currentPage * perPage
   );
 
-  const hasMorePages = currentPage < totalPages;
+  const hasMorePages = currentPage < safeTotalPages;
 
   return (
     <div className="main-container">

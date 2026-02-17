@@ -10,11 +10,12 @@ import TrendingCoinsTable from "@/app/components/trending-coins/TrendingCoinsTab
 
 const TrendingCoins = async () => {
   const trendingCoins = await getTrendingCoins();
+  const coins = trendingCoins?.coins ?? [];
 
   return (
     <div id="trending-coins" className="custom-scrollbar">
       <h4>Trending Coins</h4>
-      <TrendingCoinsTable trendingCoins={trendingCoins.coins.slice(0, 5)} />
+      <TrendingCoinsTable trendingCoins={coins.slice(0, 5)} />
       <div className='flex justify-center items-center'>
         <Link
           href="/trending-coins"
