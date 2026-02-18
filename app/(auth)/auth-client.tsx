@@ -76,7 +76,7 @@ export default function AuthClientPage({
   };
 
   return (
-  <div className="min-h-screen bg-[#0B0F19] text-white flex items-center justify-center px-4 relative overflow-hidden">
+  <div className="min-h-screen pt-16 bg-[#0B0F19] text-white flex justify-center px-4 relative overflow-hidden">
     {/* Background Glow Effects */}
     <div className="absolute top-[-200px] left-[-200px] w-[400px] h-[400px] bg-indigo-600/20 rounded-full blur-3xl" />
     <div className="absolute bottom-[-200px] right-[-200px] w-[400px] h-[400px] bg-purple-600/20 rounded-full blur-3xl" />
