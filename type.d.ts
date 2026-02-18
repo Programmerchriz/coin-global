@@ -400,3 +400,7 @@ interface MarketsResponse {
   current_price: number;
   price_change_percentage_24h: number | null;
 };
+
+interface AuthClientPageProps {
+  defaultMode: string;
+};
