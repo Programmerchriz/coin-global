@@ -43,3 +43,5 @@ next-env.d.ts
 # api
 saveApiData.js
 *.json
+
+/app/generated/prisma

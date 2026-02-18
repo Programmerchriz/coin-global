@@ -15,7 +15,7 @@ const Header = ({
 
   return (
     <header>
-      <div className="main-container inner">
+      <div className="main-container px-2 py-0 inner">
         <Link href="/">
           <div className="flex items-center">
             <div className='mt-2'>
