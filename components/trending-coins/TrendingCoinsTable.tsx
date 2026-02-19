@@ -1,6 +1,5 @@
-
-import DataTable from "@/app/components/DataTable";
-import { columns } from "./columns";
+import DataTable from '@/components/all/DataTable';
+import { columns } from './columns';
 
 type Props = {
   trendingCoins: TrendingCoin[];
@@ -17,4 +16,4 @@ export default function TrendingCoinsTable({ trendingCoins }: Props) {
       bodyCellClassName="py-2!"
     />
   );
-};
+}

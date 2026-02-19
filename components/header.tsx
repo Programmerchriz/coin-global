@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
 
-import { SearchModal } from '@/app/components/SearchModal';
+import { SearchModal } from '@/components/all/SearchModal';
 
 const Header = ({
   trendingCoins,

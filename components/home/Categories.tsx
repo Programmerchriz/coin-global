@@ -1,6 +1,5 @@
-
-import { getCategories } from "@/lib/api/categories";
-import CategoriesTable from "@/app/components/categories/CategoriesTable";
+import { getCategories } from '@/lib/api/categories';
+import CategoriesTable from '@/components/categories/CategoriesTable';
 
 const Categories = async () => {
   const categories = await getCategories();

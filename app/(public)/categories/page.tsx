@@ -1,8 +1,7 @@
+import { getCategories } from '@/lib/api/categories';
 
-import { getCategories } from "@/lib/api/categories";
-
-import CategoriesTable from "@/app/components/categories/CategoriesTable";
-import CoinsPagination from "@/app/components/CoinsPagination";
+import CategoriesTable from '@/components/categories/CategoriesTable';
+import CoinsPagination from '@/components/all/CoinsPagination';
 
 export default async function CategoriesPage({ searchParams }: NextPageProps) {
   const { page } = await searchParams;
@@ -13,18 +12,13 @@ export default async function CategoriesPage({ searchParams }: NextPageProps) {
 
   const totalPages = Math.ceil(categories.length / perPage);
 
-  const paginatedCategories = categories.slice(
-    (currentPage - 1) * perPage,
-    currentPage * perPage
-  );
+  const paginatedCategories = categories.slice((currentPage - 1) * perPage, currentPage * perPage);
 
   const hasMorePages = currentPage < totalPages;
 
   return (
     <div className="main-container">
-      <h4 className="text-xl md:text-2xl font-semibold mb-2 pl-5">
-        All Categories
-      </h4>
+      <h4 className="text-xl md:text-2xl font-semibold mb-2 pl-5">All Categories</h4>
 
       <div id="categories" className="custom-scrollbar">
         <CategoriesTable categories={paginatedCategories} />
@@ -38,4 +32,4 @@ export default async function CategoriesPage({ searchParams }: NextPageProps) {
       />
     </div>
   );
-};
+}

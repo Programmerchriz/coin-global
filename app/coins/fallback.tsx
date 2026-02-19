@@ -1,14 +1,13 @@
-
-import DataTable from "@/app/components/DataTable";
+import DataTable from '@/components/all/DataTable';
 
 export const AllCoinsFallback = () => {
   const columns = [
     {
-      header: "Rank",
+      header: 'Rank',
       cell: () => <div className="rank-skeleton skeleton" />,
     },
     {
-      header: "Token",
+      header: 'Token',
       cell: () => (
         <div className="token-info">
           <div className="token-image skeleton" />
@@ -17,11 +16,11 @@ export const AllCoinsFallback = () => {
       ),
     },
     {
-      header: "Price",
+      header: 'Price',
       cell: () => <div className="price-line skeleton" />,
     },
     {
-      header: "24h Change",
+      header: '24h Change',
       cell: () => (
         <div className="change-cell">
           <div className="change-line skeleton" />
@@ -29,7 +28,7 @@ export const AllCoinsFallback = () => {
       ),
     },
     {
-      header: "Market Cap",
+      header: 'Market Cap',
       cell: () => <div className="market-cap-line skeleton" />,
     },
   ];

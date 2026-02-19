@@ -1,28 +1,27 @@
-
 'use client';
 
 import { useState, useMemo } from 'react';
 
 import { formatCurrency, timeAgo } from '@/lib/utils';
 
-import DataTable from '@/app/components/DataTable';
+import DataTable from '@/components/all/DataTable';
 
 const exchangeListingsColumns: DataTableColumn<Ticker>[] = [
   {
     header: 'Exchange',
+    cell: (row) => <span className="text-green-400 font-medium">{row.market.name}</span>,
+  },
+  {
+    header: 'Pair',
     cell: (row) => (
-      <span className="text-green-400 font-medium">
-        {row.market.name}
+      <span className="font-medium">
+        {row.base} / {row.target}
       </span>
     ),
   },
   {
-    header: 'Pair',
-    cell: (row) => <span className='font-medium'>{row.base} / {row.target}</span>,
-  },
-  {
     header: 'Price',
-    cell: (row) => <span className='font-medium'>{formatCurrency(row.converted_last.usd)}</span>,
+    cell: (row) => <span className="font-medium">{formatCurrency(row.converted_last.usd)}</span>,
   },
   {
     header: 'Last Traded',
@@ -32,11 +31,7 @@ const exchangeListingsColumns: DataTableColumn<Ticker>[] = [
 
 const ITEMS_PER_PAGE = 5;
 
-export default function ExchangeListings({
-  tickers,
-}: {
-  tickers: Ticker[];
-}) {
+export default function ExchangeListings({ tickers }: { tickers: Ticker[] }) {
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(tickers.length / ITEMS_PER_PAGE);
@@ -47,16 +42,12 @@ export default function ExchangeListings({
   }, [currentPage, tickers]);
 
   return (
-    <div className='lg:col-span-2 custom-scrollbar'>
-      <h4 className="text-xl md:text-2xl font-semibold mb-2">
-        Exchange Listings
-      </h4>
+    <div className="lg:col-span-2 custom-scrollbar">
+      <h4 className="text-xl md:text-2xl font-semibold mb-2">Exchange Listings</h4>
       <DataTable
         data={paginatedData}
         columns={exchangeListingsColumns}
-        rowKey={(row) =>
-          `${row.market.name}-${row.base}-${row.target}-${row.converted_last.usd}`
-        }
+        rowKey={(row) => `${row.market.name}-${row.base}-${row.target}-${row.converted_last.usd}`}
         tableClassName="coins-table mt-3"
         headerClassName="py-3!"
         bodyCellClassName="min-w-[175px] py-7!"
@@ -83,4 +74,4 @@ export default function ExchangeListings({
       </div>
     </div>
   );
-};
+}

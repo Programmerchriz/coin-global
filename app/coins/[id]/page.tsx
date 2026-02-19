@@ -1,4 +1,3 @@
-
 import Image from 'next/image';
 
 import { TrendingDown, TrendingUp } from 'lucide-react';
@@ -6,12 +5,12 @@ import { TrendingDown, TrendingUp } from 'lucide-react';
 import { fetcher } from '@/lib/coingecko.actions';
 import { cn, formatCurrency, formatPercentage, trendingClasses } from '@/lib/utils';
 
-import DataTable from '@/app/components/DataTable';
-import CandlestickChart from '@/app/components/CandlestickChart';
-import CurrencyConverter from '@/app/components/coin/CurrencyConverter';
-import CoinDetailCard from '@/app/components/coin/CoinDetailCard';
-import ExchangeListings from '@/app/components/coin/ExchangeListings';
-import TopMovers from '@/app/components/coin/TopMovers';
+import DataTable from '@/components/all/DataTable';
+import CandlestickChart from '@/components/all/CandlestickChart';
+import CurrencyConverter from '@/components/coin/CurrencyConverter';
+import CoinDetailCard from '@/components/coin/CoinDetailCard';
+import ExchangeListings from '@/components/coin/ExchangeListings';
+import TopMovers from '@/components/coin/TopMovers';
 import Error from './error';
 
 const recentTradesData = [
@@ -52,28 +51,20 @@ const recentTradesData = [
 const recentTradesColumns: DataTableColumn<RecentTrade>[] = [
   {
     header: 'Price',
-    cell: (row) => <span className='font-medium'>{row.price}</span>,
+    cell: (row) => <span className="font-medium">{row.price}</span>,
   },
   {
     header: 'Amount',
-    cell: (row) => <span className='font-medium'>{row.amount}</span>,
+    cell: (row) => <span className="font-medium">{row.amount}</span>,
   },
   {
     header: 'Value',
-    cell: (row) => <span className='font-medium'>{row.value}</span>,
+    cell: (row) => <span className="font-medium">{row.value}</span>,
   },
   {
     header: 'Buy/Sell',
     cell: (row) => (
-      <b
-        className={
-          row.type === 'Buy'
-            ? 'text-green-400'
-            : 'text-red-400'
-        }
-      >
-        {row.type}
-      </b>
+      <b className={row.type === 'Buy' ? 'text-green-400' : 'text-red-400'}>{row.type}</b>
     ),
   },
   {
@@ -91,28 +82,34 @@ const Coin = async ({ params }: CoinPageProps) => {
   let coin: CoinDetailsData, coinOHLCData: OHLCData[];
 
   try {
-    [ coin, coinOHLCData, ] = await Promise.all(
-      [
-        fetcher<CoinDetailsData>(`/coins/${id}/`,
-        ),
+    [coin, coinOHLCData] = await Promise.all([
+      fetcher<CoinDetailsData>(`/coins/${id}/`),
 
-        fetcher<OHLCData[]>(`/coins/${id}/ohlc`, {
-          vs_currency: 'usd',
-          days: 1,
-          // interval: 'hourly',
-          precision: 'full',
-        }),
-      ]
-    );
+      fetcher<OHLCData[]>(`/coins/${id}/ohlc`, {
+        vs_currency: 'usd',
+        days: 1,
+        // interval: 'hourly',
+        precision: 'full',
+      }),
+    ]);
   } catch (error) {
     console.error('Error fetching categories:', error);
-    return <Error/>;
+    return <Error />;
   }
 
-  const currencies = [ ... new Set([
-    "usd", "eur", "gbp", "cad", "aud", "nzd", "jpy", "ngn",
-    ...Object.keys(coin.market_data.current_price)
-  ]) ];
+  const currencies = [
+    ...new Set([
+      'usd',
+      'eur',
+      'gbp',
+      'cad',
+      'aud',
+      'nzd',
+      'jpy',
+      'ngn',
+      ...Object.keys(coin.market_data.current_price),
+    ]),
+  ];
 
   const currenciesObj = coin.market_data.current_price;
 
@@ -135,21 +132,21 @@ const Coin = async ({ params }: CoinPageProps) => {
     {
       title: 'Website',
       isLink: true,
-      href: coin.links.homepage?.[0] || "/",
+      href: coin.links.homepage?.[0] || '/',
     },
     {
       title: 'Whitepaper',
       isLink: true,
-      href: coin.links.whitepaper || "/",
+      href: coin.links.whitepaper || '/',
     },
     {
       title: 'Community',
       isLink: true,
-      href: coin.links.subreddit_url || "/",
+      href: coin.links.subreddit_url || '/',
     },
   ];
 
-const coinTickers: Ticker[] = coin.tickers;
+  const coinTickers: Ticker[] = coin.tickers;
 
   return (
     <section className="min-h-screen text-white px-4 py-6">
@@ -169,7 +166,10 @@ const coinTickers: Ticker[] = coin.tickers;
               </h1>
 
               <span
-                className={cn("px-2 py-1 text-xs rounded-lg bg-green-500/10 text-green-400 flex gap-1", trendingClasses(coin.market_data.price_change_percentage_24h).textClass)}
+                className={cn(
+                  'px-2 py-1 text-xs rounded-lg bg-green-500/10 text-green-400 flex gap-1',
+                  trendingClasses(coin.market_data.price_change_percentage_24h).textClass
+                )}
               >
                 {formatPercentage(coin.market_data.price_change_percentage_24h)}
                 {isTrendingUp(coin.market_data.price_change_percentage_24h) ? (
@@ -177,7 +177,7 @@ const coinTickers: Ticker[] = coin.tickers;
                     width={16}
                     height={16}
                     className={cn(
-                      trendingClasses(coin.market_data.price_change_percentage_24h).textClass,
+                      trendingClasses(coin.market_data.price_change_percentage_24h).textClass
                     )}
                   />
                 ) : (
@@ -185,10 +185,11 @@ const coinTickers: Ticker[] = coin.tickers;
                     width={16}
                     height={16}
                     className={cn(
-                      trendingClasses(coin.market_data.price_change_percentage_24h).textClass,
+                      trendingClasses(coin.market_data.price_change_percentage_24h).textClass
                     )}
                   />
-                )} (24h)
+                )}{' '}
+                (24h)
               </span>
             </div>
 
@@ -200,9 +201,12 @@ const coinTickers: Ticker[] = coin.tickers;
             <div className="grid grid-cols-3 gap-3 mt-4 items-center">
               <div className="rounded-lg p-4">
                 <p className="text-sm text-gray-400">Today</p>
-                <div className='flex gap-1 items-center'>
+                <div className="flex gap-1 items-center">
                   <p
-                    className={cn("text-green-400 font-semibold", trendingClasses(coin.market_data.price_change_percentage_24h).textClass)}
+                    className={cn(
+                      'text-green-400 font-semibold',
+                      trendingClasses(coin.market_data.price_change_percentage_24h).textClass
+                    )}
                   >
                     {formatPercentage(coin.market_data.price_change_percentage_24h)}
                   </p>
@@ -211,7 +215,7 @@ const coinTickers: Ticker[] = coin.tickers;
                       width={16}
                       height={16}
                       className={cn(
-                        trendingClasses(coin.market_data.price_change_percentage_24h).textClass,
+                        trendingClasses(coin.market_data.price_change_percentage_24h).textClass
                       )}
                     />
                   ) : (
@@ -219,7 +223,7 @@ const coinTickers: Ticker[] = coin.tickers;
                       width={16}
                       height={16}
                       className={cn(
-                        trendingClasses(coin.market_data.price_change_percentage_24h).textClass,
+                        trendingClasses(coin.market_data.price_change_percentage_24h).textClass
                       )}
                     />
                   )}
@@ -228,9 +232,12 @@ const coinTickers: Ticker[] = coin.tickers;
 
               <div className="rounded-lg p-4">
                 <p className="text-sm text-gray-400">30 Days</p>
-                <div className='flex gap-1 items-center'>
+                <div className="flex gap-1 items-center">
                   <p
-                    className={cn("text-green-400 font-semibold", trendingClasses(coin.market_data.price_change_percentage_30d).textClass)}
+                    className={cn(
+                      'text-green-400 font-semibold',
+                      trendingClasses(coin.market_data.price_change_percentage_30d).textClass
+                    )}
                   >
                     {formatPercentage(coin.market_data.price_change_percentage_30d)}
                   </p>
@@ -239,7 +246,7 @@ const coinTickers: Ticker[] = coin.tickers;
                       width={16}
                       height={16}
                       className={cn(
-                        trendingClasses(coin.market_data.price_change_percentage_30d).textClass,
+                        trendingClasses(coin.market_data.price_change_percentage_30d).textClass
                       )}
                     />
                   ) : (
@@ -247,7 +254,7 @@ const coinTickers: Ticker[] = coin.tickers;
                       width={16}
                       height={16}
                       className={cn(
-                        trendingClasses(coin.market_data.price_change_percentage_30d).textClass,
+                        trendingClasses(coin.market_data.price_change_percentage_30d).textClass
                       )}
                     />
                   )}
@@ -257,7 +264,10 @@ const coinTickers: Ticker[] = coin.tickers;
               <div className="rounded-lg p-4">
                 <p className="text-sm text-gray-400">Price Change (24h)</p>
                 <p
-                  className={cn("text-green-400 font-semibold", trendingClasses(coin.market_data.price_change_24h_in_currency.usd).textClass)}
+                  className={cn(
+                    'text-green-400 font-semibold',
+                    trendingClasses(coin.market_data.price_change_24h_in_currency.usd).textClass
+                  )}
                 >
                   {formatCurrency(coin.market_data.price_change_24h_in_currency.usd)}
                 </p>
@@ -279,13 +289,8 @@ const coinTickers: Ticker[] = coin.tickers;
           {/* Chart */}
           <div className="lg:col-span-2 rounded-xl lg:p-3">
             {/* Chart Placeholder */}
-            <CandlestickChart
-              data={coinOHLCData}
-              coinId={coin.id}
-            >
-              <div
-                className="header pt-2"
-              >
+            <CandlestickChart data={coinOHLCData} coinId={coin.id}>
+              <div className="header pt-2">
                 <h3 className="font-semibold">Trend Overview</h3>
               </div>
             </CandlestickChart>
@@ -294,20 +299,16 @@ const coinTickers: Ticker[] = coin.tickers;
           {/* Coin Details */}
           <div className="space-y-4">
             <h3 className="font-semibold">Coin Details</h3>
-            <CoinDetailCard
-              coinDetailsArray={coinDetailsArray}
-            />
+            <CoinDetailCard coinDetailsArray={coinDetailsArray} />
           </div>
         </div>
 
         {/* Exchange Listings */}
         <div
-          id='coins-page'
+          id="coins-page"
           className="custom-scrollbar py-3 grid grid-cols-1 lg:grid-cols-3 gap-6 pb-6 px-0 custom-scrollbar"
         >
-          <ExchangeListings
-            tickers={coinTickers}
-          />
+          <ExchangeListings tickers={coinTickers} />
           <div className="lg:col-span-1">
             <TopMovers />
           </div>
@@ -320,9 +321,7 @@ const coinTickers: Ticker[] = coin.tickers;
         >
           {/* Recent Trades - 2/3 */}
           <div className="lg:col-span-2 custom-scrollbar">
-            <h4 className="text-xl md:text-3xl font-semibold mb-2">
-              Recent Trades
-            </h4>
+            <h4 className="text-xl md:text-3xl font-semibold mb-2">Recent Trades</h4>
 
             <DataTable
               data={recentTradesData}
@@ -335,8 +334,7 @@ const coinTickers: Ticker[] = coin.tickers;
           </div>
 
           {/* Top Movers - 1/3 */}
-          <div className="lg:col-span-1">
-          </div>
+          <div className="lg:col-span-1"></div>
         </div>
       </div>
     </section>

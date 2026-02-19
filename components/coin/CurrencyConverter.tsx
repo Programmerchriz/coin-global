@@ -1,5 +1,4 @@
-
-"use client";
+'use client';
 
 import { useState, useMemo } from 'react';
 
@@ -7,7 +6,7 @@ import Image from 'next/image';
 
 import { ArrowUpDown } from 'lucide-react';
 
-import { DropDown } from '../DropDownMenu';
+import { DropDown } from '../all/DropDownMenu';
 
 const CurrencyConverter = ({
   symbol,
@@ -83,11 +82,7 @@ const CurrencyConverter = ({
           className="bg-transparent  text-white  outline-none  w-1/2 text-base"
         />
         <div>
-          <DropDown
-            list={currencies}
-            value={selectedCurrency}
-            onChange={setSelectedCurrency}
-          />
+          <DropDown list={currencies} value={selectedCurrency} onChange={setSelectedCurrency} />
         </div>
       </div>
     </section>

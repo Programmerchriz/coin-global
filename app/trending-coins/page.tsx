@@ -1,8 +1,7 @@
+import { getTrendingCoins } from '@/lib/api/trendingCoins';
 
-import { getTrendingCoins } from "@/lib/api/trendingCoins";
-
-import TrendingCoinsTable from "@/app/components/trending-coins/TrendingCoinsTable";
-import CoinsPagination from "@/app/components/CoinsPagination";
+import TrendingCoinsTable from '@/components/trending-coins/TrendingCoinsTable';
+import CoinsPagination from '@/components/all/CoinsPagination';
 
 export default async function TrendingCoinsPage({ searchParams }: NextPageProps) {
   const { page } = await searchParams;
@@ -24,9 +23,7 @@ export default async function TrendingCoinsPage({ searchParams }: NextPageProps)
 
   return (
     <div className="main-container">
-      <h4 className="text-xl md:text-2xl font-semibold mb-2 pl-5">
-        Trending Coins
-      </h4>
+      <h4 className="text-xl md:text-2xl font-semibold mb-2 pl-5">Trending Coins</h4>
 
       <div id="trending-coins" className="custom-scrollbar">
         <TrendingCoinsTable trendingCoins={paginatedTrendingCoins} />
@@ -40,4 +37,4 @@ export default async function TrendingCoinsPage({ searchParams }: NextPageProps)
       />
     </div>
   );
-};
+}

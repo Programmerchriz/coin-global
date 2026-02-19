@@ -1,5 +1,4 @@
-
-import DataTable from '@/app/components/DataTable';
+import DataTable from '@/components/all/DataTable';
 
 export const CoinOverviewFallback = () => {
   return (
@@ -89,10 +88,7 @@ export const CategoriesFallback = () => {
       cell: () => (
         <div className="flex gap-1">
           {Array.from({ length: 3 }).map((_, i) => (
-            <div
-              key={i}
-              className="w-6 h-6 rounded-full skeleton"
-            />
+            <div key={i} className="w-6 h-6 rounded-full skeleton" />
           ))}
         </div>
       ),

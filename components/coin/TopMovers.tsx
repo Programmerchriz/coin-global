@@ -1,9 +1,7 @@
-
 'use client';
 
 import { useState } from 'react';
-import DataTable from '@/app/components/DataTable';
-
+import DataTable from '@/components/all/DataTable';
 
 const topGainers: Mover[] = [
   {
@@ -93,9 +91,7 @@ const TopMovers = () => {
 
             <div>
               <p className="text-sm font-medium">{row.name}</p>
-              <p className="text-xs text-gray-400">
-                {row.symbol}
-              </p>
+              <p className="text-xs text-gray-400">{row.symbol}</p>
             </div>
           </div>
 
@@ -104,9 +100,7 @@ const TopMovers = () => {
             <p className="text-sm font-medium">{row.price}</p>
             <p
               className={`text-xs font-semibold ${
-                row.positive
-                  ? 'text-green-400'
-                  : 'text-red-400'
+                row.positive ? 'text-green-400' : 'text-red-400'
               }`}
             >
               {row.change}
@@ -124,9 +118,7 @@ const TopMovers = () => {
         <button
           onClick={() => setActive('gainers')}
           className={`pb-1 text-sm font-medium transition hover:cursor-pointer ${
-            active === 'gainers'
-              ? 'text-white border-b-2 border-green-400'
-              : 'text-gray-400'
+            active === 'gainers' ? 'text-white border-b-2 border-green-400' : 'text-gray-400'
           }`}
         >
           Top Gainers
@@ -135,9 +127,7 @@ const TopMovers = () => {
         <button
           onClick={() => setActive('losers')}
           className={`pb-1 text-sm font-medium transition hover:cursor-pointer ${
-            active === 'losers'
-              ? 'text-white border-b-2 border-red-400'
-              : 'text-gray-400'
+            active === 'losers' ? 'text-white border-b-2 border-red-400' : 'text-gray-400'
           }`}
         >
           Top Losers
@@ -150,7 +140,7 @@ const TopMovers = () => {
         columns={columns}
         rowKey={(row) => row.id}
         tableClassName="mt-2"
-        headerClassName="hidden"       // hide header
+        headerClassName="hidden" // hide header
         bodyCellClassName="w-full p-0 py-2 border-0"
       />
     </div>

@@ -1,6 +1,5 @@
-
-import DataTable from "@/app/components/DataTable";
-import { columns } from "./columns";
+import DataTable from '@/components/all/DataTable';
+import { columns } from './columns';
 
 type Props = {
   categories: Category[];
@@ -17,4 +16,4 @@ export default function CategoriesTable({ categories }: Props) {
       bodyCellClassName="py-2! px-4"
     />
   );
-};
+}

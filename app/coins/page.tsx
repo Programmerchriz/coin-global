@@ -4,8 +4,8 @@ import { TrendingUp, TrendingDown } from 'lucide-react';
 
 import { cn, formatCurrency, formatPercentage } from '@/lib/utils';
 import { fetcher } from '@/lib/coingecko.actions';
-import DataTable from '../components/DataTable';
-import CoinsPagination from '../components/CoinsPagination';
+import DataTable from '../../components/all/DataTable';
+import CoinsPagination from '../../components/all/CoinsPagination';
 import { AllCoinsFallback } from './fallback';
 
 const columns: DataTableColumn<CoinMarketData>[] = [
