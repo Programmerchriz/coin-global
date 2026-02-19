@@ -77,7 +77,7 @@ export default function DashboardClientPage() {
                 </div>
 
                 <button
-                  className="lg:hidden"
+                  className="lg:hidden hover:cursor-pointer"
                   onClick={() => setIsOpen(false)}
                 >
                   <X size={20} />
@@ -120,7 +120,7 @@ export default function DashboardClientPage() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
-              className="lg:hidden"
+              className="lg:hidden hover:cursor-pointer"
               onClick={() => setIsOpen(true)}
             >
               <Menu size={22} />
@@ -132,9 +132,9 @@ export default function DashboardClientPage() {
 
           <div className="flex items-center gap-3">
             <Bell className="text-white/60" />
-            <Button className="bg-indigo-600 hover:bg-indigo-500 rounded-xl text-sm sm:text-base">
+            {/* <Button className="bg-indigo-600 hover:bg-indigo-500 rounded-xl text-sm sm:text-base">
               Connect Wallet
-            </Button>
+            </Button> */}
           </div>
         </div>
 
