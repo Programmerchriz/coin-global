@@ -7,6 +7,7 @@ import { fetcher } from '@/lib/coingecko.actions';
 import DataTable from '../../../components/all/DataTable';
 import CoinsPagination from '../../../components/all/CoinsPagination';
 import { AllCoinsFallback } from './fallback';
+import BackButton from '@/components/ui/BackButton';
 
 const columns: DataTableColumn<CoinMarketData>[] = [
   {
@@ -74,13 +75,11 @@ const Coins = async ({ searchParams }: NextPageProps) => {
   let allCoins: CoinMarketData[];
 
   try {
-    // allCoins = await fetcher<CoinMarketData[]>('/coins/markets?vs_currency=usd');
     allCoins = await fetcher<CoinMarketData[]>('/coins/markets', {
       vs_currency: 'usd',
       order: 'market_cap_desc',
       per_page: perPage,
       page: currentPage,
-      // sparkline: "false",
       price_change_percentage: '24h',
     });
   } catch (error) {
@@ -92,23 +91,49 @@ const Coins = async ({ searchParams }: NextPageProps) => {
   const estimatedTotalPages = currentPage >= 100 ? Math.ceil(currentPage / 100) * 100 + 100 : 100;
 
   return (
-    <div id="coins-page" className="custom-scrollbar">
-      <h4>All Coins</h4>
-      <DataTable
-        data={allCoins}
-        columns={columns}
-        rowKey={(row) => row.id}
-        tableClassName="coins-table"
-        headerClassName="py-3!"
-        bodyCellClassName="py-2!"
-      />
+    <div className="min-h-screen bg-[#0B0F19] text-white px-4 md:px-8 py-8">
+          
+      {/* Background Glow */}
+      <div className="absolute top-[-200px] left-[-200px] w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
 
-      <CoinsPagination
-        currentPage={currentPage}
-        totalPages={estimatedTotalPages}
-        hasMorePages={hasMorePages}
-        basePath="coins"
-      />
+      <div className="relative z-10 max-w-7xl mx-auto space-y-6">
+        <div>
+          <BackButton />
+        </div>
+        
+        <div>
+          <h1 className="text-2xl md:text-3xl font-semibold">
+            All Coins
+          </h1>
+          <p className="text-white/50 text-sm mt-1">
+            Explore different cryptocurrencies and their performance.
+          </p>
+        </div>
+
+        {/* Table Card */}
+        <div className="bg-[#111827] border border-white/5 rounded-2xl shadow-xl">
+          <div id="coins-page" className="custom-scrollbar p:4 md:p-6">
+            <DataTable
+              data={allCoins}
+              columns={columns}
+              rowKey={(row) => row.id}
+              tableClassName="coins-table"
+              headerClassName="py-3!"
+              bodyCellClassName="py-2! px-4"
+            />
+          </div>
+        </div>
+
+        {/* Pagination */}
+        <div className="flex justify-center">
+          <CoinsPagination
+            currentPage={currentPage}
+            totalPages={estimatedTotalPages}
+            hasMorePages={hasMorePages}
+            basePath="coins"
+          />
+        </div>
+      </div>
     </div>
   );
 };
