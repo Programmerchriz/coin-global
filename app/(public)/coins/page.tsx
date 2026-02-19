@@ -4,16 +4,15 @@ import { TrendingUp, TrendingDown } from 'lucide-react';
 
 import { cn, formatCurrency, formatPercentage } from '@/lib/utils';
 import { fetcher } from '@/lib/coingecko.actions';
-import DataTable from '../../components/all/DataTable';
-import CoinsPagination from '../../components/all/CoinsPagination';
+import DataTable from '../../../components/all/DataTable';
+import CoinsPagination from '../../../components/all/CoinsPagination';
 import { AllCoinsFallback } from './fallback';
 
 const columns: DataTableColumn<CoinMarketData>[] = [
   {
     header: 'Rank',
     cellClassName: 'rank-cell',
-    cell: (coin) =>
-      `#${coin.market_cap_rank}`,
+    cell: (coin) => `#${coin.market_cap_rank}`,
   },
   {
     header: 'Token',
@@ -76,17 +75,14 @@ const Coins = async ({ searchParams }: NextPageProps) => {
 
   try {
     // allCoins = await fetcher<CoinMarketData[]>('/coins/markets?vs_currency=usd');
-    allCoins = await fetcher<CoinMarketData[]>(
-      '/coins/markets',
-      {
-        vs_currency: 'usd',
-        order: "market_cap_desc",
-        per_page: perPage,
-        page: currentPage,
-        // sparkline: "false",
-        price_change_percentage: "24h",
-      },
-    );
+    allCoins = await fetcher<CoinMarketData[]>('/coins/markets', {
+      vs_currency: 'usd',
+      order: 'market_cap_desc',
+      per_page: perPage,
+      page: currentPage,
+      // sparkline: "false",
+      price_change_percentage: '24h',
+    });
   } catch (error) {
     console.error('Error fetching categories:', error);
     return <AllCoinsFallback />;
@@ -111,7 +107,7 @@ const Coins = async ({ searchParams }: NextPageProps) => {
         currentPage={currentPage}
         totalPages={estimatedTotalPages}
         hasMorePages={hasMorePages}
-        basePath='coins'
+        basePath="coins"
       />
     </div>
   );
