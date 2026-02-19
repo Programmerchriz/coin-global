@@ -48,7 +48,7 @@ export const columns: DataTableColumn<Category>[] = [
             {trend === 'up' && (
               <TrendingUp width={16} height={16} />
             )}
-+            {trend === 'down' && <TrendingDown width={16} height={16} />}
+            {trend === 'down' && <TrendingDown width={16} height={16} />}
           </p>
         </div>
       );
