@@ -149,7 +149,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-dark-700 text-foreground;
+    @apply bg-[#111827] text-foreground;
   }
 }
 
@@ -175,7 +175,7 @@
   }
 
   .skeleton {
-    @apply bg-dark-400/60;
+    @apply bg-[#111827];
   }
 
   header {
@@ -207,7 +207,7 @@
   }
 
   #candlestick-chart {
-    @apply p-3 mt-5 rounded-lg bg-dark-500;
+    @apply p-3 mt-5 rounded-lg bg-[#111827];
 
     .chart-header {
       @apply flex flex-col gap-3 xl:flex-row xl:items-center mb-4 font-semibold text-[#e6eef8] text-[20px];
@@ -218,7 +218,7 @@
     }
 
     .config-button {
-      @apply rounded-sm border-0 cursor-pointer px-2.5 py-2 text-xs xl:text-sm text-purple-100 hover:bg-dark-400 hover:text-white;
+      @apply rounded-sm border-0 cursor-pointer px-2.5 py-2 text-xs xl:text-sm text-purple-100 hover:bg-[#111827] hover:text-white;
     }
 
     .config-button-active {
@@ -231,7 +231,7 @@
   }
 
   #coin-card {
-    @apply bg-dark-500 hover:bg-dark-400/50 transition-all rounded-lg p-5 border border-purple-600/20 hover:border-purple-600/50 cursor-pointer h-fit;
+    @apply bg-[#111827] hover:bg-[#111827] transition-all rounded-lg p-5 border border-purple-600/20 hover:border-purple-600/50 cursor-pointer h-fit;
 
     .header {
       @apply flex gap-3 mb-4;
@@ -279,7 +279,7 @@
   }
 
   #categories {
-    @apply pt-8 mt-5 w-full bg-dark-500 rounded-xl overflow-hidden;
+    @apply pt-8 mt-5 w-full bg-[#111827] rounded-xl overflow-hidden;
 
     h4 {
       @apply text-xl md:text-2xl font-semibold mb-2 pl-5;
@@ -315,14 +315,14 @@
   }
 
   #trending-coins {
-    @apply w-full flex flex-col justify-center h-full py-4 bg-dark-500 rounded-xl;
+    @apply w-full flex flex-col justify-center h-full py-4 bg-[#111827] rounded-xl;
 
     h4 {
       @apply text-xl md:text-2xl font-semibold mb-2 px-5;
     }
 
     .trending-coins-table {
-      @apply bg-dark-500 overflow-hidden;
+      @apply bg-[#111827] overflow-hidden;
 
       .name-cell {
         @apply font-bold;
@@ -359,7 +359,7 @@
   }
 
   #categories-fallback {
-    @apply pt-8 mt-5 w-full bg-dark-500 rounded-xl overflow-hidden;
+    @apply pt-8 mt-5 w-full bg-[#111827] rounded-xl overflow-hidden;
 
     h4 {
       @apply text-xl md:text-2xl font-semibold mb-2 pl-5;
@@ -415,7 +415,7 @@
   }
 
   #coin-overview-fallback {
-    @apply w-full h-full xl:col-span-2 px-2 bg-dark-500 rounded-xl;
+    @apply w-full h-full xl:col-span-2 px-2 bg-[#111827] rounded-xl;
 
     .header {
       @apply flex-1 mb-2 flex gap-2 md:gap-3;
@@ -451,14 +451,14 @@
   }
 
   #trending-coins-fallback {
-    @apply w-full flex flex-col justify-center h-full py-4 bg-dark-500 rounded-xl;
+    @apply w-full flex flex-col justify-center h-full py-4 bg-[#111827] rounded-xl;
 
     h4 {
       @apply text-xl md:text-2xl font-semibold mb-2 px-5;
     }
 
     .trending-coins-table {
-      @apply bg-dark-500 overflow-hidden;
+      @apply bg-[#111827] overflow-hidden;
 
       .name-cell {
         @apply font-bold;
@@ -522,7 +522,7 @@
     }
 
     .exchange-table {
-      @apply bg-dark-500 rounded-xl overflow-hidden mt-5;
+      @apply bg-[#111827] rounded-xl overflow-hidden mt-5;
 
       .exchange-name {
         @apply text-green-500 font-bold;
@@ -560,7 +560,7 @@
         @apply rounded-lg grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-3 sm:gap-5;
 
         li {
-          @apply text-base bg-dark-500 px-5 py-6 rounded-lg flex flex-col gap-3;
+          @apply text-base bg-[#111827] px-5 py-6 rounded-lg flex flex-col gap-3;
 
           .label {
             @apply text-purple-100;
@@ -586,7 +586,7 @@
     }
 
     .coins-table {
-      @apply bg-dark-500 rounded-xl max-h-fit overflow-hidden;
+      @apply bg-[#111827] rounded-xl max-h-fit overflow-hidden;
 
       .rank-cell {
         @apply pl-5 max-w-20! py-5 font-medium text-purple-100;
@@ -636,11 +636,11 @@
     }
 
     .dialog {
-      @apply bg-dark-400! max-w-sm sm:max-w-md md:max-w-2xl mx-auto;
+      @apply bg-[#111827]! max-w-sm sm:max-w-md md:max-w-2xl mx-auto;
     }
 
     .cmd-input {
-      @apply bg-dark-500!;
+      @apply bg-[#111827]!;
 
       input {
         @apply placeholder:text-purple-100!;
@@ -648,7 +648,7 @@
     }
 
     .list {
-      @apply bg-dark-500 max-h-100;
+      @apply bg-[#111827] max-h-100;
     }
 
     .heading {
@@ -656,7 +656,7 @@
     }
 
     .group {
-      @apply bg-dark-500 text-purple-100;
+      @apply bg-[#111827] text-purple-100;
     }
   }
 
@@ -666,7 +666,7 @@
     }
 
     .search-item {
-      @apply grid grid-cols-4 gap-4 items-center justify-between data-[selected=true]:bg-dark-400 transition-all !cursor-pointer hover:bg-dark-400 py-3;
+      @apply grid grid-cols-4 gap-4 items-center justify-between data-[selected=true]:bg-[#111827] transition-all !cursor-pointer hover:bg-[#111827] py-3;
 
       .coin-info {
         @apply flex gap-4 items-center col-span-2;
@@ -702,14 +702,14 @@
     }
 
     .panel {
-      @apply space-y-2 bg-dark-500 px-5 py-7 rounded-lg;
+      @apply space-y-2 bg-[#111827] px-5 py-7 rounded-lg;
     }
 
     .input-wrapper {
-      @apply bg-dark-400 h-12 w-full rounded-md flex items-center justify-between py-4 pr-4;
+      @apply bg-[#111827] h-12 w-full rounded-md flex items-center justify-between py-4 pr-4;
 
       .input {
-        @apply flex-1 text-lg! border-none font-medium bg-dark-400! focus-visible:ring-0 shadow-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none;
+        @apply flex-1 text-lg! border-none font-medium bg-[#111827]! focus-visible:ring-0 shadow-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none;
       }
 
       .coin-info {
@@ -725,23 +725,23 @@
       @apply relative flex justify-center items-center my-4;
 
       .line {
-        @apply h-px z-10 w-full bg-dark-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+        @apply h-px z-10 w-full bg-[#111827] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
       }
 
       .icon {
-        @apply size-8 z-20 bg-dark-400 rounded-full p-2 text-green-500;
+        @apply size-8 z-20 bg-[#111827] rounded-full p-2 text-green-500;
       }
     }
 
     .output-wrapper {
-      @apply bg-dark-400 h-12 w-full rounded-md flex items-center justify-between py-4 pl-4;
+      @apply bg-[#111827] h-12 w-full rounded-md flex items-center justify-between py-4 pl-4;
 
       p {
         @apply text-base font-medium;
       }
 
       .select-trigger {
-        @apply w-fit! border-none! cursor-pointer! h-12! bg-dark-400! hover:bg-dark-400! focus-visible:ring-0!;
+        @apply w-fit! border-none! cursor-pointer! h-12! bg-[#111827]! hover:bg-[#111827]! focus-visible:ring-0!;
 
         .select-value {
           @apply font-semibold! text-xs! text-purple-100!;
@@ -749,10 +749,10 @@
       }
 
       .select-content[data-converter] {
-        @apply bg-dark-400 max-h-125;
+        @apply bg-[#111827] max-h-125;
 
         .select-item {
-          @apply cursor-pointer hover:bg-dark-500!;
+          @apply cursor-pointer hover:bg-[#111827]!;
         }
       }
     }
@@ -815,7 +815,7 @@
   }
 
   #coin-overview {
-    @apply w-full h-full xl:col-span-2 px-2 bg-dark-500 rounded-xl;
+    @apply w-full h-full xl:col-span-2 px-2 bg-[#111827] rounded-xl;
 
     .header {
       @apply flex-1 mb-2 flex gap-2 md:gap-3;
@@ -844,7 +844,7 @@
     }
 
     .pagination-control {
-      @apply bg-dark-400 rounded-sm py-1;
+      @apply bg-[#111827] rounded-sm py-1;
 
       &.prev {
         @apply pr-2;
@@ -871,7 +871,7 @@
       }
 
       .page-link {
-        @apply hover:bg-dark-400! rounded-sm text-base cursor-pointer;
+        @apply hover:bg-[#111827]! rounded-sm text-base cursor-pointer;
       }
 
       .page-link-active {
@@ -904,7 +904,7 @@
     }
 
     .trades-table {
-      @apply bg-dark-500 mt-5 rounded-xl overflow-hidden;
+      @apply bg-[#111827] mt-5 rounded-xl overflow-hidden;
 
       .price-cell {
         @apply pl-5 py-5 font-medium;

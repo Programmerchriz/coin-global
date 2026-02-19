@@ -327,7 +327,7 @@ const Coin = async ({ params }: CoinPageProps) => {
               data={recentTradesData}
               columns={recentTradesColumns}
               rowKey={(row) => row.id}
-              tableClassName="coins-table mt-3"
+              tableClassName="coins-table"
               headerClassName="py-3!"
               bodyCellClassName="py-7!"
             />

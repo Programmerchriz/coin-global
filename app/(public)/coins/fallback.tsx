@@ -43,7 +43,7 @@ export const AllCoinsFallback = () => {
         columns={columns}
         data={rows}
         rowKey={(_, index) => `skeleton-${index}`}
-        tableClassName="coins-table mt-3"
+        tableClassName="coins-table"
         headerClassName="py-3!"
         bodyCellClassName="py-2!"
       />

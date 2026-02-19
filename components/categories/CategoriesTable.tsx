@@ -11,7 +11,7 @@ export default function CategoriesTable({ categories }: Props) {
       data={categories}
       columns={columns}
       rowKey={(row) => row.id}
-      tableClassName="top-categories-table mt-3"
+      tableClassName="top-categories-table"
       headerClassName="py-3!"
       bodyCellClassName="py-2! px-4"
     />

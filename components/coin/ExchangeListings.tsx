@@ -48,7 +48,7 @@ export default function ExchangeListings({ tickers }: { tickers: Ticker[] }) {
         data={paginatedData}
         columns={exchangeListingsColumns}
         rowKey={(row) => `${row.market.name}-${row.base}-${row.target}-${row.converted_last.usd}`}
-        tableClassName="coins-table mt-3"
+        tableClassName="coins-table"
         headerClassName="py-3!"
         bodyCellClassName="min-w-[175px] py-7!"
       />

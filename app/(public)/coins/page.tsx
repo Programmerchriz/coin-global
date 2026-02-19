@@ -98,7 +98,7 @@ const Coins = async ({ searchParams }: NextPageProps) => {
         data={allCoins}
         columns={columns}
         rowKey={(row) => row.id}
-        tableClassName="coins-table mt-3"
+        tableClassName="coins-table"
         headerClassName="py-3!"
         bodyCellClassName="py-2!"
       />
