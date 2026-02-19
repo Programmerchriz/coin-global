@@ -45,6 +45,18 @@ model User {
 
   wallets       Wallet[]
   transactions  Transaction[]
+  session       Session[]
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // Wallet (with locakedBalance)
