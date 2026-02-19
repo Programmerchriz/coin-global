@@ -5,6 +5,7 @@ import { fetcher } from '@/lib/coingecko.actions';
 
 import './globals.css';
 import Header from '../components/layout/header';
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -34,6 +35,7 @@ export default async function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Header trendingCoins={trending.coins} />
         {children}
+        <Toaster />
       </body>
     </html>
   );

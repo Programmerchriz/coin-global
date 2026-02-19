@@ -8,6 +8,8 @@ import { motion } from "framer-motion";
 
 import { signIn, signInSocial, signUp } from "@/lib/actions/auth-actions";
 
+import { toast } from "sonner";
+
 export default function AuthClientPage({
   defaultMode,
 }: AuthClientPageProps) {
@@ -55,14 +57,48 @@ export default function AuthClientPage({
         const response = await signIn(email, password);
 
         if (!response.user) {
+          toast.error(
+            "Authentication failed.",
+            {
+              position: "bottom-right"
+            }
+          );
+
           setError("Invalid email or password");
+          return;
         }
+
+        toast.success(
+          "Success 🎉 \nYou have successfully signed in.",
+          {
+            position: "bottom-right"
+          }
+        );
+
+        router.push(searchParams.get("callbackUrl") || "/dashboard");
       } else {
         const response = await signUp(email, password, name);
 
         if (!response.user) {
+          toast.error(
+            "Authentication failed.",
+            {
+              position: "bottom-right"
+            }
+          );
+          
           setError("Failed to create account");
+          return;
         }
+
+        toast.success(
+          "Account created 🚀 \nWelcome to Coin Global.",
+          {
+            position: "bottom-right"
+          }
+        );
+
+        router.push("/dashboard");
       }
     } catch (err) {
       setError(
@@ -156,6 +192,7 @@ export default function AuthClientPage({
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                disabled={isLoading}
                 className="w-full px-4 py-3 bg-[#0F1623] border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
                 placeholder="Enter your full name"
               />
@@ -171,6 +208,7 @@ export default function AuthClientPage({
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              disabled={isLoading}
               className="w-full px-4 py-3 bg-[#0F1623] border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
               placeholder="Enter your email"
             />
@@ -185,6 +223,7 @@ export default function AuthClientPage({
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              disabled={isLoading}
               className="w-full px-4 py-3 bg-[#0F1623] border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
               placeholder="Enter your password"
             />
