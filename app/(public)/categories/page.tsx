@@ -2,6 +2,7 @@
 import { getCategories } from '@/lib/api/categories';
 import CategoriesTable from '@/components/categories/CategoriesTable';
 import CoinsPagination from '@/components/all/CoinsPagination';
+import BackButton from '@/components/ui/BackButton';
 
 export default async function CategoriesPage({ searchParams }: NextPageProps) {
   const { page } = await searchParams;
@@ -26,6 +27,9 @@ export default async function CategoriesPage({ searchParams }: NextPageProps) {
       <div className="absolute top-[-200px] left-[-200px] w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto space-y-6">
+        <div>
+          <BackButton />
+        </div>
         
         <div>
           <h1 className="text-2xl md:text-3xl font-semibold">
