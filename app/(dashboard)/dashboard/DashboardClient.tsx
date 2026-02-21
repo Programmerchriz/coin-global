@@ -21,6 +21,7 @@ import {
   X,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 export default function DashboardClientPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -130,8 +131,12 @@ export default function DashboardClientPage() {
             </h1>
           </div>
 
-          <div className="flex items-center gap-3">
-            <Bell className="text-white/60" />
+          <div className="">
+            <Link
+              href="/notifications"
+            >
+              <Bell className="text-white/60" />
+            </Link>
             {/* <Button className="bg-indigo-600 hover:bg-indigo-500 rounded-xl text-sm sm:text-base">
               Connect Wallet
             </Button> */}
