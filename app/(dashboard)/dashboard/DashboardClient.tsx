@@ -1,7 +1,8 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,6 +26,23 @@ import Link from "next/link";
 
 export default function DashboardClientPage() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+
+    const handleChange = () => {
+      setIsDesktop(mediaQuery.matches);
+      setIsOpen(mediaQuery.matches); // open by default on desktop
+    };
+
+    handleChange(); // run on mount
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, []);
 
   const navItems = [
     { icon: LayoutDashboard, label: "Dashboard" },
@@ -53,51 +71,55 @@ export default function DashboardClientPage() {
 
       {/* Sidebar */}
       <AnimatePresence>
-        {(isOpen || typeof window !== "undefined") && (
-          <motion.aside
-            initial={{ x: -300 }}
-            animate={{ x: isOpen || window.innerWidth >= 1024 ? 0 : -300 }}
-            exit={{ x: -300 }}
-            transition={{ duration: 0.3 }}
-            className="fixed lg:static z-50 w-64 h-full bg-[#0F1623] border-r border-white/5 p-4 flex flex-col justify-between"
-          >
-            <div>
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-3">
-                  <Avatar>
-                    <AvatarFallback className="bg-indigo-600">
-                      CG
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="text-lg font-semibold">Coin Global</p>
-                    <p className="text-xs text-white/50">
-                      Crypto Platform
-                    </p>
-                  </div>
+        <motion.aside
+          initial={false}
+          animate={{
+            x: isDesktop ? 0: isOpen ? 0 : -300,
+          }}
+          transition={{ duration: 0.3 }}
+          className="fixed lg:static top-20 h-[calc(100vh-4rem)] z-50 w-64 bg-[#0F1623] border-r border-white/5 p-4 pb-6 flex flex-col"
+        >
+          {/* TOP SECTION */}
+          <div>
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center gap-3">
+                <Avatar>
+                  <AvatarFallback className="bg-indigo-600">
+                    CG
+                  </AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="text-lg font-semibold">Coin Global</p>
+                  <p className="text-xs text-white/50">
+                    Crypto Platform
+                  </p>
                 </div>
-
-                <button
-                  className="lg:hidden hover:cursor-pointer"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <X size={20} />
-                </button>
               </div>
 
-              <nav className="space-y-2">
-                {navItems.map((item, i) => (
-                  <button
-                    key={i}
-                    className="flex items-center gap-3 w-full px-3 py-2 rounded-xl text-sm hover:bg-white/5 transition"
-                  >
-                    <item.icon size={18} className="text-white/60" />
-                    {item.label}
-                  </button>
-                ))}
-              </nav>
+              <button
+                className="lg:hidden hover:cursor-pointer"
+                onClick={() => setIsOpen(false)}
+              >
+                <X size={20} />
+              </button>
             </div>
+          </div>
 
+          {/* SCROLLABLE NAV AREA */}
+          <nav className="flex-1 overflow-y-auto pr-2 space-y-2 custom-scrollbar">
+            {navItems.map((item, i) => (
+              <button
+                key={i}
+                className="flex items-center gap-3 w-full px-3 py-2 rounded-xl text-sm hover:bg-white/5 hover:cursor-pointer transition"
+              >
+                <item.icon size={18} className="text-white/60" />
+                {item.label}
+              </button>
+            ))}
+          </nav>
+
+          {/* BOTTOM FIXED SECTION */}
+          <div className="pt-6">
             <Card className="bg-gradient-to-br from-indigo-600 to-purple-600 border-none text-white rounded-2xl">
               <CardContent className="p-4">
                 <p className="text-sm font-medium mb-2">
@@ -111,8 +133,8 @@ export default function DashboardClientPage() {
                 </Button>
               </CardContent>
             </Card>
-          </motion.aside>
-        )}
+          </div>
+        </motion.aside>
       </AnimatePresence>
 
       {/* Main Content */}
