@@ -1556,6 +1556,7 @@ export namespace Prisma {
     accounts: number
     wallets: number
     transactions: number
+    session: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1563,6 +1564,7 @@ export namespace Prisma {
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     wallets?: boolean | UserCountOutputTypeCountWalletsArgs
     transactions?: boolean | UserCountOutputTypeCountTransactionsArgs
+    session?: boolean | UserCountOutputTypeCountSessionArgs
   }
 
   // Custom InputTypes
@@ -1602,6 +1604,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TransactionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSessionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionWhereInput
   }
 
 
@@ -1895,6 +1904,7 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     wallets?: boolean | User$walletsArgs<ExtArgs>
     transactions?: boolean | User$transactionsArgs<ExtArgs>
+    session?: boolean | User$sessionArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1934,6 +1944,7 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     wallets?: boolean | User$walletsArgs<ExtArgs>
     transactions?: boolean | User$transactionsArgs<ExtArgs>
+    session?: boolean | User$sessionArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1946,6 +1957,7 @@ export namespace Prisma {
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       wallets: Prisma.$WalletPayload<ExtArgs>[]
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
+      session: Prisma.$SessionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2353,6 +2365,7 @@ export namespace Prisma {
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     wallets<T extends User$walletsArgs<ExtArgs> = {}>(args?: Subset<T, User$walletsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     transactions<T extends User$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    session<T extends User$sessionArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2873,6 +2886,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.session
+   */
+  export type User$sessionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    where?: SessionWhereInput
+    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
+    cursor?: SessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2944,18 +2981,6 @@ export namespace Prisma {
     updatedAt?: true
     ipAddress?: true
     userAgent?: true
-    userId?: true
-  }
-
-  export type SessionMaxAggregateInputType = {
-    id?: true
-    expiresAt?: true
-    token?: true
-    createdAt?: true
-    updatedAt?: true
-    ipAddress?: true
-    userAgent?: true
-    userId?: true
   }
 
   export type SessionCountAggregateInputType = {
@@ -3118,6 +3143,7 @@ export namespace Prisma {
   }
 
   export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "expiresAt" | "token" | "createdAt" | "updatedAt" | "ipAddress" | "userAgent" | "userId", ExtArgs["result"]["session"]>
+
   export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -11150,6 +11176,7 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     wallets?: WalletListRelationFilter
     transactions?: TransactionListRelationFilter
+    session?: SessionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -11164,6 +11191,7 @@ export namespace Prisma {
     accounts?: AccountOrderByRelationAggregateInput
     wallets?: WalletOrderByRelationAggregateInput
     transactions?: TransactionOrderByRelationAggregateInput
+    session?: SessionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -11181,6 +11209,7 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     wallets?: WalletListRelationFilter
     transactions?: TransactionListRelationFilter
+    session?: SessionListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -11750,6 +11779,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     wallets?: WalletCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
+    session?: SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -11764,6 +11794,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    session?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -11778,6 +11809,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     wallets?: WalletUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
+    session?: SessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -11792,6 +11824,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    session?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -12072,6 +12105,61 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionCreateInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutSessionInput
+  }
+
+  export type SessionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    token: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type SessionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSessionNestedInput
+  }
+
+  export type SessionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionCreateManyInput = {
+    id?: string
+    userId: string
+    token: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type SessionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WalletCreateInput = {
@@ -12480,6 +12568,10 @@ export namespace Prisma {
   }
 
   export type TransactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13063,6 +13155,13 @@ export namespace Prisma {
     connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
     createMany?: TransactionCreateManyUserInputEnvelope
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
+  export type SessionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
+    createMany?: SessionCreateManyUserInputEnvelope
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -14167,6 +14266,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
+    session?: SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWalletsInput = {
@@ -14180,6 +14280,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    session?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWalletsInput = {
@@ -14279,6 +14380,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
+    session?: SessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletsInput = {
@@ -14292,6 +14394,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    session?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LedgerEntryUpsertWithWhereUniqueWithoutWalletInput = {
@@ -14394,6 +14497,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     wallets?: WalletCreateNestedManyWithoutUserInput
+    session?: SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTransactionsInput = {
@@ -14407,6 +14511,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    session?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTransactionsInput = {
@@ -14491,6 +14596,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     wallets?: WalletUpdateManyWithoutUserNestedInput
+    session?: SessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTransactionsInput = {
@@ -14504,6 +14610,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    session?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WalletUpsertWithoutTransactionsInput = {
@@ -14943,6 +15050,27 @@ export namespace Prisma {
     reference?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LedgerEntryCreateManyWalletInput = {
