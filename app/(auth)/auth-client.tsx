@@ -57,21 +57,14 @@ export default function AuthClientPage({
         const response = await signIn(email, password);
 
         if (!response.user) {
-          toast.error(
-            "Authentication failed.",
-            {
-              position: "bottom-right"
-            }
-          );
-
           setError("Invalid email or password");
           return;
         }
 
         toast.success(
-          "Success 🎉 \nYou have successfully signed in.",
+          "Successfully signed in 🎉",
           {
-            position: "bottom-right"
+            description: "Welcome back to Coin Global",
           }
         );
 
@@ -80,21 +73,14 @@ export default function AuthClientPage({
         const response = await signUp(email, password, name);
 
         if (!response.user) {
-          toast.error(
-            "Authentication failed.",
-            {
-              position: "bottom-right"
-            }
-          );
-          
           setError("Failed to create account");
           return;
         }
 
         toast.success(
-          "Account created 🚀 \nWelcome to Coin Global.",
+          "Account created 🚀",
           {
-            position: "bottom-right"
+            description: "Welcome to Coin Global.",
           }
         );
 
@@ -110,6 +96,12 @@ export default function AuthClientPage({
       setIsLoading(false);
     }
   };
+
+  // await toast.promise(signIn(email, password), {
+  //   loading: "Signing you in...",
+  //   success: "Welcome back 🎉",
+  //   error: "Invalid credentials",
+  // });
 
   return (
   <div className="min-h-screen pt-16 bg-[#0B0F19] text-white flex justify-center px-4 relative overflow-hidden">
@@ -147,7 +139,7 @@ export default function AuthClientPage({
         <button
           onClick={() => handleSocialAuth("google")}
           disabled={isLoading}
-          className="w-full flex items-center justify-center gap-3 bg-[#0F1623] hover:bg-white/5 border border-white/10 rounded-xl py-3 text-sm transition"
+          className="w-full flex items-center justify-center gap-3 bg-[#0F1623] hover:bg-white/5 hover:cursor-pointer border border-white/10 rounded-xl py-3 text-sm transition"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
             <path
@@ -232,7 +224,7 @@ export default function AuthClientPage({
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-indigo-600 hover:bg-indigo-500 rounded-xl py-3 text-sm font-medium transition flex items-center justify-center"
+            className="w-full bg-indigo-600 hover:bg-indigo-500 hover:cursor-pointer rounded-xl py-3 text-sm font-medium transition flex items-center justify-center"
           >
             {isLoading
               ? isSignIn
@@ -253,7 +245,7 @@ export default function AuthClientPage({
               setError("");
               setName("");
             }}
-            className="text-sm text-indigo-400 hover:text-indigo-300 transition"
+            className="text-sm text-indigo-400 hover:text-indigo-300 transition hover:cursor-pointer"
           >
             {isSignIn
               ? "Don't have an account? Sign up"

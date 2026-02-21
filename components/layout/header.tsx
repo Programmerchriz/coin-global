@@ -11,6 +11,24 @@ import { SearchModal } from '@/components/all/SearchModal';
 const Header = ({ trendingCoins }: HeaderProps) => {
   const pathname = usePathname();
 
+  const links = [
+    {
+      title: "Home",
+      href: "/",
+      disabled: false,
+    },
+    {
+      title: "Coins",
+      href: "/coins",
+      disabled: false,
+    },
+    {
+      title: "Dashboard",
+      href: "/dashboard",
+      disabled: false,
+    },
+  ];
+
   return (
     <header className="sticky top-0 z-50 bg-[#0B0F19]/80 backdrop-blur-xl border-b border-white/5">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -31,30 +49,21 @@ const Header = ({ trendingCoins }: HeaderProps) => {
 
         {/* Navigation */}
         <nav className="flex items-center gap-6 text-sm">
-          
-          <Link
-            href="/"
-            className={cn(
-              "transition-colors hover:text-indigo-400",
-              pathname === "/"
-                ? "text-indigo-500 font-medium"
-                : "text-white/70"
-            )}
-          >
-            Home
-          </Link>
-
-          <Link
-            href="/coins"
-            className={cn(
-              "transition-colors hover:text-indigo-400",
-              pathname === "/coins"
-                ? "text-indigo-500 font-medium"
-                : "text-white/70"
-            )}
-          >
-            All Coins
-          </Link>
+          {links.map((link) => (
+            <Link
+              key={link.title}
+              href={link.href}
+              aria-disabled={link.disabled}
+              className={cn(
+                "transition-colors hover:text-indigo-400",
+                pathname === link.href
+                  ? "text-indigo-500 font-medium"
+                  : "text-white/70"
+              )}
+            >
+              {link.title}
+            </Link>
+          ))}
 
           {/* Search */}
           <div className="hidden md:block">
