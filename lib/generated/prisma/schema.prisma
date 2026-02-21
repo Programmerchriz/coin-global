@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../lib/generated/prisma"
@@ -12,6 +6,32 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum Currency {
+  USD
+  BTC
+  ETH
+  USDT
+}
+
+enum LedgerEntryType {
+  CREDIT
+  DEBIT
+}
+
+enum TransactionType {
+  DEPOSIT
+  WITHDRAWAL
+  FEE
+}
+
+enum TransactionStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
 }
 
 model User {
@@ -24,6 +44,9 @@ model User {
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
+
+  wallets      Wallet[]
+  transactions Transaction[]
 
   @@unique([email])
   @@map("user")
@@ -75,4 +98,76 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+model Wallet {
+  id       String   @id @default(uuid())
+  userId   String
+  currency Currency
+
+  balance       Decimal @db.Decimal(20, 8)
+  lockedBalance Decimal @default(0) @db.Decimal(20, 8)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  ledgerEntries LedgerEntry[]
+  transactions  Transaction[]
+
+  @@unique([userId, currency])
+}
+
+model AdminWallet {
+  id       String   @id @default(uuid())
+  currency Currency @unique
+  balance  Decimal  @default(0) @db.Decimal(20, 8)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ledgerEntries LedgerEntry[]
+}
+
+model Transaction {
+  id       String @id @default(uuid())
+  userId   String
+  walletId String
+
+  type   TransactionType
+  amount Decimal         @db.Decimal(20, 8)
+
+  feeAmount Decimal @default(0) @db.Decimal(20, 8)
+  netAmount Decimal @db.Decimal(20, 8)
+
+  status TransactionStatus @default(PENDING)
+
+  idempotencyKey String? @unique
+  txHash         String?
+  reference      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  ledgerEntries LedgerEntry[]
+}
+
+model LedgerEntry {
+  id            String  @id @default(uuid())
+  walletId      String?
+  adminWalletId String?
+  transactionId String
+
+  type   LedgerEntryType
+  amount Decimal         @db.Decimal(20, 8)
+
+  createdAt DateTime @default(now())
+
+  wallet      Wallet?      @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  adminWallet AdminWallet? @relation(fields: [adminWalletId], references: [id], onDelete: Cascade)
+  transaction Transaction  @relation(fields: [transactionId], references: [id], onDelete: Cascade)
 }
