@@ -9,114 +9,65 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Currency {
-  USD
-  BTC
-  ETH
-  USDT
-}
-
-enum LedgerEntryType {
-  CREDIT
-  DEBIT
-}
-
-enum TransactionType {
-  DEPOSIT
-  WITHDRAWAL
-  FEE
-}
-
-enum TransactionStatus {
-  PENDING
-  PROCESSING
-  COMPLETED
-  FAILED
-  CANCELLED
-}
-
 model User {
-  id            String        @id @default(uuid())
-  email         String        @unique
-  password      String
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
 
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-
-  wallets       Wallet[]
-  transactions  Transaction[]
+  @@unique([email])
+  @@map("user")
 }
 
-// Wallet (with locakedBalance)
-model Wallet {
-  id             String   @id @default(uuid())
-  userId         String
-  currency       Currency
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  balance        Decimal  @db.Decimal(20, 8)
-  lockedBalance  Decimal  @db.Decimal(20, 8) @default(0)
-
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  ledgerEntries  LedgerEntry[]
-  transactions   Transaction[]
-
-  @@unique([userId, currency])
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
 }
 
-// ADMIN WALLET (system profits)
-model AdminWallet {
-  id         String   @id @default(uuid())
-  currency   Currency @unique
-  balance    Decimal  @db.Decimal(20, 8) @default(0)
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  ledgerEntries LedgerEntry[]
-}
 
-model Transaction {
-  id              String            @id @default(uuid())
-  userId          String
-  walletId        String
-
-  type            TransactionType
-  amount          Decimal           @db.Decimal(20, 8)
-
-  feeAmount       Decimal           @db.Decimal(20, 8) @default(0)
-  netAmount       Decimal           @db.Decimal(20, 8)
-
-  status          TransactionStatus @default(PENDING)
-
-  idempotencyKey  String?           @unique
-  txHash          String?
-  reference       String?
-
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-
-  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  wallet          Wallet            @relation(fields: [walletId], references: [id], onDelete: Cascade)
-
-  ledgerEntries   LedgerEntry[]
-}
-
-// LEDGER (Double-entry accounting)
-model LedgerEntry {
-  id              String           @id @default(uuid())
-  walletId        String?
-  adminWalletId   String?
-  transactionId   String
-
-  type            LedgerEntryType
-  amount          Decimal          @db.Decimal(20, 8)
-
-  createdAt       DateTime         @default(now())
-
-  wallet          Wallet?          @relation(fields: [walletId], references: [id], onDelete: Cascade)
-  adminWallet     AdminWallet?     @relation(fields: [adminWalletId], references: [id], onDelete: Cascade)
-  transaction     Transaction      @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  @@index([identifier])
+  @@map("verification")
 }

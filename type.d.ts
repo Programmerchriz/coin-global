@@ -404,3 +404,11 @@ interface MarketsResponse {
 interface AuthClientPageProps {
   defaultMode: string;
 };
+
+interface SonnerToastProps {
+  variant: "default" | "destructive" | "ghost" | "outline" | "secondary" | "link";
+  title: string;
+  description: string;
+  label: string;
+  consoleLog: string;
+};
