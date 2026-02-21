@@ -31,7 +31,7 @@ const Header = ({ trendingCoins }: HeaderProps) => {
 
   return (
     <header className="sticky top-0 z-50 bg-[#0B0F19]/80 backdrop-blur-xl border-b border-white/5">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-2 sm:px-3 md:px-6 h-16 flex items-center justify-between">
         
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
@@ -48,7 +48,7 @@ const Header = ({ trendingCoins }: HeaderProps) => {
         </Link>
 
         {/* Navigation */}
-        <nav className="flex items-center gap-6 text-sm">
+        <nav className="flex items-center gap-3 sm:gap-6 text-sm">
           {links.map((link) => (
             <Link
               key={link.title}
