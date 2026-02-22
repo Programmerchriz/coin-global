@@ -1,8 +1,8 @@
 import { fetcher } from '@/lib/coingecko.actions';
 import { formatCurrency } from '@/lib/utils';
 import Image from 'next/image';
-import { CoinOverviewFallback } from '@/app/components/home/fallback';
-import CandlestickChart from '@/app/components/CandlestickChart';
+import { CoinOverviewFallback } from '@/components/home/fallback';
+import CandlestickChart from '@/components/all/CandlestickChart';
 
 const CoinOverview = async () => {
   try {
@@ -27,22 +27,10 @@ const CoinOverview = async () => {
 
     return (
       <div id="coin-overview">
-        <CandlestickChart
-          data={coinOHLCData}
-          coinId="bitcoin"
-        >
-          <div
-            className="header pt-2"
-          >
-            <Image
-              src={coin.image.large}
-              alt={coin.name}
-              width={56}
-              height={56}
-            />
-            <div
-              className="info"
-            >
+        <CandlestickChart data={coinOHLCData} coinId="bitcoin">
+          <div className="header pt-2">
+            <Image src={coin.image.large} alt={coin.name} width={56} height={56} />
+            <div className="info">
               <p>
                 {coin.name} / {coin.symbol.toUpperCase()}
               </p>

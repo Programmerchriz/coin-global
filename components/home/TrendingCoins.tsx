@@ -1,95 +1,33 @@
-// import DataTable from '@/app/components/DataTable';
-// import { TrendingCoinsFallback } from '@/app/components/home/fallback';
-// import { fetcher } from '@/lib/coingecko.actions';
-// import { cn, formatCurrency, formatPercentage } from '@/lib/utils';
-// import { ChevronRightIcon, TrendingDown, TrendingUp } from 'lucide-react';
-// import Image from 'next/image';
-// import Link from 'next/link';
+import Link from 'next/link';
 
-// const columns: DataTableColumn<TrendingCoin>[] = [
-//   {
-//     header: 'Name',
-//     cellClassName: 'name-cell',
-//     cell: (coin) => {
-//       const item = coin.item;
+import { ChevronRightIcon } from 'lucide-react';
 
-//       return (
-//         <Link href={`/coins/${item.id}`}>
-//           <Image src={item.large} alt={item.name} width={36} height={36} />
-//           <p>{item.name}</p>
-//         </Link>
-//       );
-//     },
-//   },
-//   {
-//     header: '24h Change',
-//     cellClassName: 'name-cell',
-//     cell: (coin) => {
-//       const item = coin.item;
-//       const isTrendingUp = item.data.price_change_percentage_24h.usd > 0;
+import { cn } from '@/lib/utils';
+import { getTrendingCoins } from '@/lib/api/trendingCoins';
 
-//       return (
-//         <div className={cn('price-change', isTrendingUp ? 'text-green-500' : 'text-red-500')}>
-//           <p className="flex items-center gap-1">
-//             {formatPercentage(item.data.price_change_percentage_24h.usd)}%
-//             {isTrendingUp ? (
-//               <TrendingUp width={16} height={16} />
-//             ) : (
-//               <TrendingDown width={16} height={16} />
-//             )}
-//           </p>
-//         </div>
-//       );
-//     },
-//   },
-//   {
-//     header: 'Price',
-//     cellClassName: 'price-cell',
-//     cell: (coin) => `${formatCurrency(coin.item.data.price)}`,
-//   },
-// ];
+import TrendingCoinsTable from '@/components/trending-coins/TrendingCoinsTable';
 
-// const TrendingCoins = async () => {
-//   let trendingCoins;
+const TrendingCoins = async () => {
+  const trendingCoins = await getTrendingCoins();
+  const coins = trendingCoins?.coins ?? [];
 
-//   try {
-//     trendingCoins = await fetcher<{ coins: TrendingCoin[] }>(
-//       '/search/trending',
-//       undefined,
-//       300
-//     );
-//   } catch (error) {
-//     console.error("Error fetching trending coins:", error);
-//     return (<TrendingCoinsFallback />);
-//   }
+  return (
+    <div id="trending-coins" className="custom-scrollbar">
+      <h4>Trending Coins</h4>
+      <TrendingCoinsTable trendingCoins={coins.slice(0, 5)} />
+      <div className="flex justify-center items-center">
+        <Link
+          href="/trending-coins"
+          className={cn('text-white font-medium rounded-lg hover:opacity-90 active:opacity-80')}
+        >
+          <div className="flex">
+            <p>More</p>
+            <ChevronRightIcon />
+          </div>
+        </Link>
+      </div>
+    </div>
+  );
+};
 
-//   return (
-//     <div
-//       id='trending-coins'
-//     >
-//       <h4>Trending Coins</h4>
-//       <DataTable<TrendingCoin>
-//         data={trendingCoins.coins.slice(0, 6) || []}
-//         columns={columns}
-//         rowKey={(row) => row.item.id}
-//         tableClassName="trending-coins-table"
-//         headerClassName="py-3!"
-//         bodyCellClassName="py-2!"
-//       />
-
-//       <div className='flex justify-center items-center'>
-//         <Link
-//           href="/trending-coins"
-//           className={cn("text-white font-medium rounded-lg hover:opacity-90 active:opacity-80")}
-//         >
-//           <div className="flex">
-//             <p>More</p>
-//             <ChevronRightIcon />
-//           </div>
-//         </Link>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default TrendingCoins;
+export default TrendingCoins;
