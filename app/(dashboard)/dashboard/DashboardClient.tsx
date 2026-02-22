@@ -181,7 +181,7 @@ export default function DashboardClientPage({ session }: { session: Session }) {
                 <p className="text-xs text-white/80 mb-4">
                   Unlock powerful trading insights and strategies.
                 </p>
-                <Button className="w-full bg-white text-black hover:bg-white/90 rounded-xl">
+                <Button className="w-full bg-white text-black hover:bg-white/90 rounded-xl opacity-50">
                   Coming Soon
                 </Button>
               </CardContent>
