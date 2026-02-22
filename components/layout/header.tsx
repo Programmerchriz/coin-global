@@ -1,38 +1,64 @@
-
 'use client';
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { auth } from '@/lib/auth';
 import { cn } from '@/lib/utils';
+
 import { SearchModal } from '@/components/all/SearchModal';
 
-const Header = ({ trendingCoins }: HeaderProps) => {
-  const pathname = usePathname();
+const getNavLinks = (session: Session | null) => {
+  if (!session) {
+    return [
+      {
+        title: 'Home',
+        href: '/',
+        disabled: false,
+      },
+      {
+        title: 'Sign In',
+        href: '/sign-in',
+        disabled: false,
+      },
+      {
+        title: 'Sign Up',
+        href: '/sign-up',
+        disabled: false,
+      },
+    ];
+  }
 
-  const links = [
+  return [
     {
-      title: "Home",
-      href: "/",
-      disabled: false,
+      title: 'Home',
+      href: '/',
+        disabled: false,
     },
     {
-      title: "Coins",
-      href: "/coins",
-      disabled: false,
+      title: 'Coins',
+      href: '/coins',
+        disabled: false,
     },
     {
-      title: "Dashboard",
-      href: "/dashboard",
-      disabled: false,
+      title: 'Dashboard',
+      href: '/dashboard',
+        disabled: false,
     },
   ];
+};
+
+type Session = typeof auth.$Infer.Session;
+
+const Header = ({ trendingCoins, session }: HeaderProps) => {
+  const pathname = usePathname();
+
+  const links = getNavLinks(session);
 
   return (
     <header className="sticky top-0 z-50 bg-[#0B0F19]/80 backdrop-blur-xl border-b border-white/5">
       <div className="max-w-7xl mx-auto px-2 sm:px-3 md:px-6 h-16 flex items-center justify-between">
-        
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
           <Image
@@ -55,10 +81,8 @@ const Header = ({ trendingCoins }: HeaderProps) => {
               href={link.href}
               aria-disabled={link.disabled}
               className={cn(
-                "transition-colors hover:text-indigo-400",
-                pathname === link.href
-                  ? "text-indigo-500 font-medium"
-                  : "text-white/70"
+                'transition-colors hover:text-indigo-400',
+                pathname === link.href ? 'text-indigo-500 font-medium' : 'text-white/70'
               )}
             >
               {link.title}

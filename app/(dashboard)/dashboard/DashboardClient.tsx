@@ -1,6 +1,13 @@
 
 "use client";
 
+
+import { auth } from "@/lib/auth";
+import { signOut } from "@/lib/actions/auth-actions";
+
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+
 import { useState, useEffect } from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -22,7 +29,6 @@ import {
   X,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 
 export default function DashboardClientPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,7 +83,7 @@ export default function DashboardClientPage() {
             x: isDesktop ? 0: isOpen ? 0 : -300,
           }}
           transition={{ duration: 0.3 }}
-          className="fixed lg:static top-20 h-[calc(100vh-4rem)] z-50 w-64 bg-[#0F1623] border-r border-white/5 p-4 pb-6 flex flex-col"
+          className="fixed top-20 h-[calc(100vh-4rem)] z-50 w-64 bg-[#0F1623] border-r border-white/5 p-4 pb-6 flex flex-col"
         >
           {/* TOP SECTION */}
           <div>
@@ -138,7 +144,7 @@ export default function DashboardClientPage() {
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="flex-1 w-full lg:ml-0 p-4 sm:p-6 space-y-6">
+      <main className="flex-1 w-full lg:ml-64 p-4 sm:p-6 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">

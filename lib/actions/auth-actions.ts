@@ -2,8 +2,8 @@
 "use server";
 
 import { headers } from "next/headers";
-import { auth } from "../auth";
 import { redirect } from "next/navigation";
+import { auth } from "../auth";
 
 export const signUp = async (
   email: string,
