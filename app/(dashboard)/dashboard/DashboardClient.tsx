@@ -96,30 +96,41 @@ export default function DashboardClientPage({ session }: { session: Session }) {
           {/* TOP SECTION */}
           <div className="mb-8">
             <div className="flex flex-col gap-3 justify-between">
-              <div className="flex items-center space-x-3">
-                {(user.image) ?
-                 <Image
-                    src={`${user.image}`}
-                    alt="User Image"
-                    width={40}
-                    height={40}
-                    className="rounded-full object-cover"
-                />
-                :
-                <Avatar>
-                  <AvatarFallback className="bg-indigo-600">
-                    {user.name[0]}
-                  </AvatarFallback>
-                </Avatar>
-                }
-                
-                <div className="text-sm">
-                  <p className="text-white font-medium">
-                    {user.name}
-                  </p>
-                  <p className="text-white/50 text-xs">
-                    {user.email}
-                  </p>
+              <div className="flex items-center justify-between space-x-3">
+                <div className="flex items-center justify-between gap-4">
+                  {(user.image) ?
+                   <Image
+                      src={`${user.image}`}
+                      alt="User Image"
+                      width={40}
+                      height={40}
+                      className="rounded-full object-cover"
+                  />
+                  :
+                  <Avatar>
+                    <AvatarFallback className="bg-indigo-600">
+                      {user.name[0]}
+                    </AvatarFallback>
+                  </Avatar>
+                  }
+                  
+                  <div className="text-sm">
+                    <p className="text-white font-medium">
+                      {user.name}
+                    </p>
+                    <p className="text-white/50 text-xs">
+                      {user.email}
+                    </p>
+                  </div>
+                </div>
+
+                 <div>
+                  <button
+                    className="lg:hidden hover:cursor-pointer"
+                    onClick={() => setIsOpen(false)}
+                  >
+                      <X size={20} />
+                    </button>
                 </div>
               </div>
 
@@ -158,7 +169,7 @@ export default function DashboardClientPage({ session }: { session: Session }) {
                   Unlock powerful trading insights and strategies.
                 </p>
                 <Button className="w-full bg-white text-black hover:bg-white/90 rounded-xl">
-                  Try it now
+                  Coming Soon
                 </Button>
               </CardContent>
             </Card>
