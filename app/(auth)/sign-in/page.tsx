@@ -1,6 +1,16 @@
 
-import AuthClientPage from "../auth-client";
+import { headers } from "next/headers";
 
-export default function SignInPage() {
+import { auth } from "@/lib/auth";
+import AuthClientPage from "../auth-client";
+import { redirect } from "next/navigation";
+
+export default async function SignInPage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (session) redirect("/dashboard");
+
   return <AuthClientPage defaultMode="sign-in" />;
 };

@@ -1,14 +1,14 @@
 
 "use client";
 
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+
+import { useState, useEffect } from "react";
 
 import { auth } from "@/lib/auth";
 import { signOut } from "@/lib/actions/auth-actions";
-
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-
-import { useState, useEffect } from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -30,9 +30,27 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function DashboardClientPage() {
+export default function DashboardClientPage({ session }: { session: Session }) {
+  const user = session.user;
+  const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
+
+  const navItems = [
+    { icon: LayoutDashboard, label: "Dashboard" },
+    { icon: BarChart3, label: "Portfolio" },
+    { icon: Layers, label: "Market" },
+    { icon: Repeat, label: "Staking" },
+    { icon: ScrollText, label: "Orders" },
+    { icon: Wallet, label: "P2P Orders" },
+    { icon: FileText, label: "Reports" },
+  ];
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.push("/sign-in");
+  };
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
@@ -49,16 +67,6 @@ export default function DashboardClientPage() {
       mediaQuery.removeEventListener("change", handleChange);
     };
   }, []);
-
-  const navItems = [
-    { icon: LayoutDashboard, label: "Dashboard" },
-    { icon: BarChart3, label: "Portfolio" },
-    { icon: Layers, label: "Market" },
-    { icon: Repeat, label: "Staking" },
-    { icon: ScrollText, label: "Orders" },
-    { icon: Wallet, label: "P2P Orders" },
-    { icon: FileText, label: "Reports" },
-  ];
 
   return (
     <div className="min-h-screen bg-[#0B0F19] text-white flex relative">
@@ -86,28 +94,43 @@ export default function DashboardClientPage() {
           className="fixed top-20 h-[calc(100vh-4rem)] z-50 w-64 bg-[#0F1623] border-r border-white/5 p-4 pb-6 flex flex-col"
         >
           {/* TOP SECTION */}
-          <div>
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-3">
+          <div className="mb-8">
+            <div className="flex flex-col gap-3 justify-between">
+              <div className="flex items-center space-x-3">
+                {(user.image) ?
+                 <Image
+                    src={`${user.image}`}
+                    alt="User Image"
+                    width={40}
+                    height={40}
+                    className="rounded-full object-cover"
+                />
+                :
                 <Avatar>
                   <AvatarFallback className="bg-indigo-600">
-                    CG
+                    {user.name[0]}
                   </AvatarFallback>
                 </Avatar>
-                <div>
-                  <p className="text-lg font-semibold">Coin Global</p>
-                  <p className="text-xs text-white/50">
-                    Crypto Platform
+                }
+                
+                <div className="text-sm">
+                  <p className="text-white font-medium">
+                    {user.name}
+                  </p>
+                  <p className="text-white/50 text-xs">
+                    {user.email}
                   </p>
                 </div>
               </div>
 
-              <button
-                className="lg:hidden hover:cursor-pointer"
-                onClick={() => setIsOpen(false)}
-              >
-                <X size={20} />
-              </button>
+              <div>
+                <button
+                  onClick={handleSignOut}
+                  className="text-xs px-3 py-1.5 rounded-lg border border-white/10 text-white/70 hover:bg-white/5 hover:text-white hover:cursor-pointer transition-colors"
+                >
+                  Sign Out
+                </button>
+              </div>
             </div>
           </div>
 

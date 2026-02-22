@@ -1,7 +1,20 @@
+
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+
+import { auth } from "@/lib/auth";
 import DashboardClientPage from '@/app/(dashboard)/dashboard/DashboardClient';
 
-const Dashboard = () => {
-  return <DashboardClientPage />;
-};
+export default async function Dashboard() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
-export default Dashboard;
+  if (!session) redirect("/sign-in");
+
+  return (
+    <DashboardClientPage
+      session = {session}
+    />
+  );
+};
