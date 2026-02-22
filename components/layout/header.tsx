@@ -18,11 +18,6 @@ const getNavLinks = (session: Session | null) => {
         disabled: false,
       },
       {
-        title: 'Sign In',
-        href: '/sign-in',
-        disabled: false,
-      },
-      {
         title: 'Sign Up',
         href: '/sign-up',
         disabled: false,
@@ -90,9 +85,9 @@ const Header = ({ trendingCoins, session }: HeaderProps) => {
           ))}
 
           {/* Search */}
-          <div className="hidden md:block">
+          {(session) && (<div className="hidden md:block">
             <SearchModal initialTrendingCoins={trendingCoins} />
-          </div>
+          </div>)}
         </nav>
       </div>
     </header>
