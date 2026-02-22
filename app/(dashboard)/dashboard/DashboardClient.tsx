@@ -38,13 +38,13 @@ export default function DashboardClientPage({ session }: { session: Session }) {
   const [isDesktop, setIsDesktop] = useState(false);
 
   const navItems = [
-    { icon: LayoutDashboard, label: "Dashboard" },
-    { icon: BarChart3, label: "Portfolio" },
-    { icon: Layers, label: "Market" },
-    { icon: Repeat, label: "Staking" },
-    { icon: ScrollText, label: "Orders" },
-    { icon: Wallet, label: "P2P Orders" },
-    { icon: FileText, label: "Reports" },
+    { icon: LayoutDashboard, label: "Dashboard", available: true },
+    { icon: BarChart3, label: "Portfolio", available: false },
+    { icon: Layers, label: "Market", available: false },
+    { icon: Repeat, label: "Staking", available: false },
+    { icon: ScrollText, label: "Orders", available: false },
+    { icon: Wallet, label: "P2P Orders", available: false },
+    { icon: FileText, label: "Reports", available: false },
   ];
 
   const handleSignOut = async () => {
@@ -150,10 +150,23 @@ export default function DashboardClientPage({ session }: { session: Session }) {
             {navItems.map((item, i) => (
               <button
                 key={i}
-                className="flex items-center gap-3 w-full px-3 py-2 rounded-xl text-sm hover:bg-white/5 hover:cursor-pointer transition"
+                disabled={!item.available}
+                className={`relative flex items-center gap-3 w-full px-3 py-2 rounded-xl text-sm transition
+                  ${
+                    item.available
+                      ? "hover:bg-white/5 hover:cursor-pointer text-white"
+                      : "opacity-50 cursor-not-allowed text-white/60"
+                  }
+                `}
               >
                 <item.icon size={18} className="text-white/60" />
                 {item.label}
+
+                {!item.available && (
+                  <span className="absolute -top-2 right-2 text-[10px] px-2 py-0.5 rounded-full bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">
+                    Coming Soon
+                  </span>
+                )}
               </button>
             ))}
           </nav>
