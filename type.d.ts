@@ -306,8 +306,8 @@ declare global {
   type Session = typeof auth.$Infer.Session;
 
   interface HeaderProps {
-    trendingCoins: TrendingCoin[];
-    session: Session | null;
+    trendingCoins: TrendingCoin[] | undefined;
+    session: Session | null | undefined;
   }
 
   type SearchItemCoin = SearchCoin | TrendingCoin['item'];
