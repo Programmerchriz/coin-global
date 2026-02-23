@@ -123,10 +123,10 @@ export const SearchModal = ({
   const isResultsVisible = !isSearching && hasQuery && searchResults.length > 0;
 
   return (
-    <div id='search-modal'>
+    <div id='search-modal' className=''>
       <Button variant='ghost' onClick={() => setOpen(true)} className='trigger'>
         <SearchIcon size={18} />
-        Search
+        <span className="hidden md:block">Search</span>
         <kbd className='kbd'>
           <span className='text-xs'>⌘</span>K
         </kbd>
