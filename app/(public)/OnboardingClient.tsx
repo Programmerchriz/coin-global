@@ -8,7 +8,7 @@ import { useInView } from "react-intersection-observer";
 
 const FEATURES = [
   { label: "Dashboard", available: true },
-  { label: "Portfolio", available: true },
+  { label: "Portfolio", available: false },
   { label: "Market", available: false },
   { label: "AI Trading Assistant", available: false },
   { label: "Staking", available: false },
