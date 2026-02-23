@@ -86,7 +86,7 @@ export default function HeaderClient ({ trendingCoins, session }: HeaderProps) {
           ))}
 
           {/* Search */}
-          {(session) && (<div className="hidden md:block">
+          {(session) && (<div className="md:block">
             <SearchModal initialTrendingCoins={trendingCoins} />
           </div>)}
         </nav>
