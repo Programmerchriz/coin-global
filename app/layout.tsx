@@ -8,6 +8,7 @@ import Header from '../components/layout/header';
 import { Toaster } from "@/components/ui/sonner";
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
+import Error from './(public)/coins/[id]/error';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -46,16 +47,23 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const trending = await fetcher<{ coins: TrendingCoin[] }>('/search/trending');
+  let trending, session;
+  try {
+    trending = await fetcher<{ coins: TrendingCoin[] }>('/search/trending');
+  
+    session = await auth.api.getSession({
+      headers: await headers(),
+    });
 
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  } catch (e) {
+    <Error />
+    console.error("Error:", e);
+  }
 
   return (
     <html lang="en" className="dark">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Header trendingCoins={trending.coins} session={session} />
+        <Header trendingCoins={trending?.coins} session={session} />
         {children}
         <Toaster
           position='bottom-right'
