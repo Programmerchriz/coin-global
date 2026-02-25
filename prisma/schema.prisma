@@ -8,6 +8,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
 enum Currency {
   USD
   BTC
@@ -42,9 +48,11 @@ model User {
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+
+  role          Role      @default(USER)
+
   sessions      Session[]
   accounts      Account[]
-
   wallets      Wallet[]
   transactions Transaction[]
 
