@@ -1,6 +1,6 @@
 
 import { redirect } from "next/navigation";
-import { getServerSession } from "@/lib/utils";
+import { getServerSession } from '@/lib/session';
 
 import AuthClientPage from "../auth-client";
 

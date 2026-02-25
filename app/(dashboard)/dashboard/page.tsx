@@ -1,5 +1,6 @@
 
-import { getServerSession } from "@/lib/utils";
+import { getServerSession } from '@/lib/session';
+
 import DashboardClientPage from '@/app/(dashboard)/dashboard/DashboardClient';
 
 export default async function Dashboard() {

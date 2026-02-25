@@ -1,6 +1,6 @@
 
 import { fetcher } from '@/lib/coingecko.actions';
-import { getServerSession } from "@/lib/utils";
+import { getServerSession } from '@/lib/session';
 
 import HeaderClient from "./HeaderClient";
 

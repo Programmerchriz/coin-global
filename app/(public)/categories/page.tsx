@@ -1,6 +1,6 @@
 
 import { redirect } from "next/navigation";
-import { getServerSession } from "@/lib/utils";
+import { getServerSession } from '@/lib/session';
 
 import { getCategories } from '@/lib/api/categories';
 import CategoriesTable from '@/components/categories/CategoriesTable';

@@ -1,9 +1,4 @@
 
-import { cache } from "react";
-import { headers } from "next/headers";
-
-import { auth } from "@/lib/auth";
-
 import { clsx, type ClassValue } from 'clsx';
 import { Time } from 'lightweight-charts';
 import { twMerge } from 'tailwind-merge';
@@ -177,11 +172,3 @@ export function getPricePrecision(data: OHLCData[]) {
 
   return { precision, minMove };
 }
-
-export const getServerSession = cache(async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  return session;
-});
