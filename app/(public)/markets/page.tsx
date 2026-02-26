@@ -22,13 +22,13 @@ const Page = async () => {
       {/* Top Grid */}
       <section className="grid grid-cols-1 lg:grid-cols-5 gap-6 animate-fade-in-up">
         <Suspense fallback={<CoinOverviewFallback />}>
-          <div className="col-span-3 bg-[#111827] border border-white/5 rounded-2xl shadow-xl p-4 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1">
+          <div className="lg:col-span-3 bg-[#111827] border border-white/5 rounded-2xl shadow-xl p-4 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1">
             <CoinOverview />
           </div>
         </Suspense>
 
         <Suspense fallback={<TrendingCoinsFallback />}>
-          <div className="col-span-2 bg-[#111827] border border-white/5 rounded-2xl shadow-xl p-4 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1">
+          <div className="lg:col-span-2 bg-[#111827] border border-white/5 rounded-2xl shadow-xl p-4 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1">
             <TrendingCoins />
           </div>
         </Suspense>

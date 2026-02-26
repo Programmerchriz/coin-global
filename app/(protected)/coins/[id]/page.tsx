@@ -13,6 +13,7 @@ import CoinDetailCard from '@/components/coin/CoinDetailCard';
 import ExchangeListings from '@/components/coin/ExchangeListings';
 import TopMovers from '@/components/coin/TopMovers';
 import Error from './error';
+import BackButton from '@/components/ui/BackButton';
 
 const recentTradesData = [
   {
@@ -155,6 +156,10 @@ const Coin = async ({ params }: CoinPageProps) => {
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Top section */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div>
+            <BackButton />
+          </div>
+
           {/* Left: Coin Info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">

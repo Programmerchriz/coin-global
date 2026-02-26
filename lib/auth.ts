@@ -1,29 +1,18 @@
 
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { nextCookies } from "better-auth/next-js";
-// import { sendEmail } from './email';
+import sendEmail from './email';
 import { PrismaClient } from "@prisma/client";
+import { nextCookies } from "better-auth/next-js";
 
 const prisma = new PrismaClient();
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, { provider: "postgresql" }),
 
-  // emailVerification: {
-  //   sendVerificationEmail: async ({ user, url }) => {
-  //     void sendEmail({
-  //       to: user.email,
-  //       subject: "Verify your email address",
-  //       text: `Click the link to verify your email: ${url}`,
-  //     });
-  //   },
-  //   sendOnSignIn: true,
-  // },
-
-  emailAndPassword: {
-    enabled: true,
-    // requireEmailVerification: true,
+  rateLimit: {
+    window: 60,
+    max: 20,
   },
 
   socialProviders: {
@@ -33,5 +22,41 @@ export const auth = betterAuth({
     },
   },
 
+  emailAndPassword: {
+    enabled: true,
+    // requireEmailVerification: true,
+  },
+
+  emailVerification: {
+    // sendOnSignUp: true,
+    // sendOnSignIn: true,
+    // autoSignInAfterVerification: true,
+
+    async sendVerificationEmail({
+      user,
+      url,
+    }) {
+      console.log("Sending verification email to:", user.email);
+
+      await sendEmail({
+        to: "programmerchris6002@gmail.com",
+        subject: "Verify your email",
+        text: `Click the link to verify your email ${url}`,
+      });
+    },
+  },
+
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        input: false,
+      },
+    },
+  },
+
   plugins: [ nextCookies() ],
 });
+
+export type Session = typeof auth.$Infer.Session;
+export type User = typeof auth.$Infer.Session.user;

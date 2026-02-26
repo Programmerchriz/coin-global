@@ -19,6 +19,11 @@ const getNavLinks = (session: Session | null | undefined) => {
         disabled: false,
       },
       {
+        title: 'Markets',
+        href: '/markets',
+          disabled: false,
+      },
+      {
         title: 'Sign Up',
         href: '/sign-up',
         disabled: false,
