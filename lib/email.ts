@@ -14,10 +14,16 @@ export default async function sendEmail({
   subject,
   text,
 }: sendEmailProps) {
-  await resend.emails.send({
+  const { data, error } = await resend.emails.send({
     from: "onboarding@resend.dev",
-    to,
-    subject,
-    html: `${text}`,
+    to: to,
+    subject: subject,
+    html: `<p>${text}</p>`,
   });
+
+  console.log("Resend response:", { data, error });
+
+  if (error) {
+    throw new Error(error.message);
+  }
 };

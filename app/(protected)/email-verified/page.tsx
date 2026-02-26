@@ -1,13 +1,21 @@
 
-import { Button } from "@/components/ui/button";
+import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
+
+import { getServerSession } from '@/lib/session';
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "Email Verified",
 };
 
-export default function EmailVerifiedPage() {
+export default async function EmailVerifiedPage() {
+  const session = await getServerSession();
+
+  if (!session) redirect("/sign-in");
+  if (!session.user.emailVerified) redirect("/verify-email");
+
   return (
     <main className="relative min-h-screen flex items-center justify-center px-4 bg-[#0B0F19] text-white overflow-hidden">
       {/* Background Glow Effects */}

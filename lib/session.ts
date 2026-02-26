@@ -13,3 +13,12 @@ export const getServerSession = cache(async () => {
 
   return session;
 });
+
+
+// export const getServerSession = async () => {
+//   const session = await auth.api.getSession({
+//     headers: await headers(),
+//   });
+
+//   return session;
+// };

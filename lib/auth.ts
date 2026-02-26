@@ -3,6 +3,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import sendEmail from './email';
 import { PrismaClient } from "@prisma/client";
+import { nextCookies } from "better-auth/next-js";
 
 const prisma = new PrismaClient();
 
@@ -27,15 +28,18 @@ export const auth = betterAuth({
   },
 
   emailVerification: {
-    sendOnSignIn: true,
-    autoSignInAfterVerification: true,
+    // sendOnSignUp: true,
+    // sendOnSignIn: true,
+    // autoSignInAfterVerification: true,
 
     async sendVerificationEmail({
       user,
       url,
     }) {
+      console.log("Sending verification email to:", user.email);
+
       await sendEmail({
-        to: user.email,
+        to: "programmerchris6002@gmail.com",
         subject: "Verify your email",
         text: `Click the link to verify your email ${url}`,
       });
@@ -50,6 +54,8 @@ export const auth = betterAuth({
       },
     },
   },
+
+  plugins: [ nextCookies() ],
 });
 
 export type Session = typeof auth.$Infer.Session;
