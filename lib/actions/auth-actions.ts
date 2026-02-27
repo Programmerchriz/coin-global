@@ -4,6 +4,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "../auth";
+// import { authClient } from "../auth-client";
 
 export const signUp = async (
   email: string,
@@ -13,8 +14,18 @@ export const signUp = async (
   const response = await auth.api.signUpEmail({
     body: {
       email, password, name, callbackURL: "/dashboard",
+      // email, password, name, callbackURL: "/verify-email",
     },
   });
+
+  // if (!response.user.emailVerified) {
+  //   await auth.api.sendVerificationEmail({
+  //     body: {
+  //       email,
+  //       callbackURL: "/email-verified",
+  //     },
+  //   });
+  // }
 
   return (response);
 };
