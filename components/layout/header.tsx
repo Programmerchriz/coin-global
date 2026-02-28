@@ -1,6 +1,6 @@
 
-import { fetcher } from '@/lib/coingecko.actions';
 import { getServerSession } from '@/lib/session';
+import { getTrendingCoins } from '@/lib/api/trendingCoins';
 
 import HeaderClient from "./HeaderClient";
 
@@ -14,7 +14,7 @@ export default async function Header() {
   };
 
   if (session) {
-    const trending = await fetcher<{ coins: TrendingCoin[] }>('/search/trending');
+    const trending = await getTrendingCoins();
     return (
       <HeaderClient trendingCoins={trending?.coins} session={session} />
     );
