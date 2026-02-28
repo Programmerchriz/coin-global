@@ -52,33 +52,34 @@ export default function DashboardClientPage({ session }: { session: Session }) {
     { icon: FileText, label: "Reports", available: false },
   ];
 
-  useEffect(() => {
-    const welcome = searchParams.get("welcome");
+  // Toast
+  // useEffect(() => {
+  //   const welcome = searchParams.get("welcome");
 
-    if (!welcome) return;
+  //   if (!welcome) return;
 
-    if (welcome === "signin") {
-      toast.success(
-        "Successfully signed in 🎉",
-        {
-          description: "Welcome back to Coin Global",
-        }
-      );
-    }
+  //   if (welcome === "signin") {
+  //     toast.success(
+  //       "Successfully signed in 🎉",
+  //       {
+  //         description: "Welcome back to Coin Global",
+  //       }
+  //     );
+  //   }
 
-    if (welcome === "signup") {
-      toast.success(
-        "Account created 🚀",
-        {
-          description: "Welcome to Coin Global.",
-        }
-      );
-    }
+  //   if (welcome === "signup") {
+  //     toast.success(
+  //       "Account created 🚀",
+  //       {
+  //         description: "Welcome to Coin Global.",
+  //       }
+  //     );
+  //   }
 
-    setTimeout(() => {
-      router.replace("/dashboard");
-    }, 200);
-  }, [searchParams, router]);
+  //   setTimeout(() => {
+  //     router.replace("/dashboard");
+  //   }, 200);
+  // }, [searchParams, router]);
 
   const handleSignOut = async () => {
     setIsDisabled(true);
