@@ -1,19 +1,12 @@
 
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
 import { useState, useEffect } from "react";
-
-import { signOut } from "@/lib/actions/auth-actions";
-
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import Loading from "@/components/dashboard/SignOutLoading";
+import { toast } from "sonner";
 import {
   TrendingUp,
   TrendingDown,
@@ -30,9 +23,18 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { signOut } from "@/lib/actions/auth-actions";
+
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import Loading from "@/components/dashboard/SignOutLoading";
+
 export default function DashboardClientPage({ session }: { session: Session }) {
   const user = session.user;
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -50,12 +52,39 @@ export default function DashboardClientPage({ session }: { session: Session }) {
     { icon: FileText, label: "Reports", available: false },
   ];
 
+  useEffect(() => {
+    const welcome = searchParams.get("welcome");
+
+    if (!welcome) return;
+
+    if (welcome === "signin") {
+      toast.success(
+        "Successfully signed in 🎉",
+        {
+          description: "Welcome back to Coin Global",
+        }
+      );
+    }
+
+    if (welcome === "signup") {
+      toast.success(
+        "Account created 🚀",
+        {
+          description: "Welcome to Coin Global.",
+        }
+      );
+    }
+
+    setTimeout(() => {
+      router.replace("/dashboard");
+    }, 200);
+  }, [searchParams, router]);
+
   const handleSignOut = async () => {
     setIsDisabled(true);
     setIsSigningOut(true);
   
     await signOut();
-    router.push("/sign-in");
   };
 
   useEffect(() => {

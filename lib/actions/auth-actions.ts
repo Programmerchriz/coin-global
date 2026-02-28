@@ -13,14 +13,14 @@ export const signUp = async (
   callbackURL?: string,
 ) => {
   const safeCallback =
-    callbackURL?.startsWith("/") ? callbackURL : "/dashboard";
+    callbackURL?.startsWith("/") ? callbackURL : "/dashboard?welcome=signup";
 
   const response = await auth.api.signUpEmail({
     body: {
       email,
       password,
       name,
-      callbackURL: safeCallback || "/dashboard",
+      callbackURL: safeCallback,
       // email, password, name, callbackURL: "/verify-email",
     },
   });
@@ -42,14 +42,14 @@ export const signIn = async (
   password: string,
   callbackURL?: string,
 ) => {
-  // const safeCallback =
-  //   callbackURL?.startsWith("/") ? callbackURL : "/dashboard";
+  const safeCallback =
+    callbackURL?.startsWith("/") ? callbackURL : "/dashboard?welcome=signin";
 
   const response = await auth.api.signInEmail({
     body: {
       email,
       password,
-      callbackURL: callbackURL || "/dashboard",
+      callbackURL: safeCallback,
     },
   });
 
@@ -57,11 +57,11 @@ export const signIn = async (
 };
 
 export const signOut = async () => {
-  const response = await auth.api.signOut({
+  await auth.api.signOut({
     headers: await headers(),
   });
 
-  return (response);
+  redirect("/sign-in");
 };
 
 export const signInSocial = async (
@@ -69,7 +69,7 @@ export const signInSocial = async (
   callbackURL?: string
 ) => {
   const safeCallback =
-    callbackURL?.startsWith("/") ? callbackURL : "/dashboard";
+    callbackURL?.startsWith("/") ? callbackURL : "/dashboard?welcome=signin";
 
   const { url } = await auth.api.signInSocial({
     body: {
