@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 
 import { authClient } from "@/lib/auth-client";
-import { LoadingButton } from "@/components/all/LoadingButton";
+import { LoadingButton } from "@/components/auth/LoadingButton";
 
 interface ResendVerificationButtonProps {
   email: string;
