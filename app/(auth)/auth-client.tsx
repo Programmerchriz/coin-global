@@ -22,7 +22,7 @@ export default function AuthClientPage({
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  
+
   const callbackUrl = useMemo(() => {
     const url = searchParams.get("callbackUrl");
     return url?.startsWith("/") ? url : "/dashboard";
@@ -54,33 +54,25 @@ export default function AuthClientPage({
 
         if (!response.user) {
           setError("Invalid email or password");
+          setIsLoading(false);
           return;
         }
 
         router.push(callbackUrl);
+        return;
 
-        toast.success(
-          "Successfully signed in 🎉",
-          {
-            description: "Welcome back to Coin Global",
-          }
-        );
       } else {
         const response = await signUp(email, password, name, callbackUrl);
 
         if (!response.user) {
           setError("Failed to create account");
+          setIsLoading(false);
           return;
         }
 
         router.push(callbackUrl);
+        return;
 
-        toast.success(
-          "Account created 🚀",
-          {
-            description: "Welcome to Coin Global.",
-          }
-        );
       }
     } catch (err) {
       setError(
@@ -88,7 +80,6 @@ export default function AuthClientPage({
           err instanceof Error ? err.message : "Unknown error"
         }`
       );
-    } finally {
       setIsLoading(false);
     }
   };

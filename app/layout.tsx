@@ -1,14 +1,9 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
-import { fetcher } from '@/lib/coingecko.actions';
-
 import './globals.css';
 import Header from '../components/layout/header';
 import { Toaster } from '@/components/ui/sonner';
-import { auth } from '@/lib/auth';
-import { headers } from 'next/headers';
-import Error from './(protected)/coins/[id]/error';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
