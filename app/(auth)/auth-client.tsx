@@ -22,26 +22,18 @@ export function useAuthHandler(successMessage: string, redirect: string) {
   ) => {
     if (isLocked) return;
 
-
-  const res = await action();
-
-  if (res?.error) {
-    // handle error
-  }
-
-    setError(null);
     setIsLocked(true);
+    setError(null);
 
     try {
-      const { error } = await action();
+      const res = await action();
 
-      if (error) {
-        setError(error.message || 'Authentication failed');
+      if (res?.error) {
+        setError(res.error.message || 'Authentication failed');
         setIsLocked(false);
         return;
       }
 
-      toast.success(successMessage);
       router.replace(redirect);
     } catch (err) {
       console.error(err);
