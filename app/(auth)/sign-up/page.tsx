@@ -4,7 +4,7 @@ import { getServerSession } from '@/lib/session';
 
 // import AuthClientPage from "../auth-client";
 import { SignUpForm } from './SignUpForm';
-import Fallback from '@/app/(auth)/fallback';
+import Fallback from '@/components/auth/fallback';
 
 export default async function SignUpPage() {
   const session = await getServerSession();

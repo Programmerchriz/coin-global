@@ -21,7 +21,7 @@ import {
 } from '@/components/auth/Form';
 import { Input } from '@/components/ui/input';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
-import Loading from '../fallback';
+import Loading from '../../../components/auth/fallback';
 
 const signUpSchema = z
   .object({

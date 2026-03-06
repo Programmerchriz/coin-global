@@ -2,6 +2,9 @@
 import { getServerSession } from '@/lib/session';
 
 import DashboardClientPage from '@/app/(dashboard)/dashboard/DashboardClient';
+import { Suspense } from "react";
+import Loading from './loading';
+
 
 export default async function Dashboard() {
   const session = await getServerSession();
@@ -9,6 +12,8 @@ export default async function Dashboard() {
   if (!session) return null;
 
   return (
-    <DashboardClientPage />
+    <Suspense fallback={<Loading />}>
+      <DashboardClientPage />
+    </Suspense>
   );
 };
