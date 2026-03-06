@@ -33,12 +33,20 @@
   --color-5: rgba(255,255,255,0.05);
 
   /* Status */
-  --color-success: #03a541;
+  --color-success: #03A541;
+  --color-success-40: #03A54133;
+  --color-success-20: #03A54133;
+  --color-success-10: #03A5411A;
+
   --color-error: #EF4444;
   --color-error-40: #EF444433;
   --color-error-20: #EF444433;
   --color-error-10: #EF44441A;
+  
   --color-warning: #FCD34D;
+  --color-warning-40: #FCD34D33;
+  --color-warning-20: #FCD34D33;
+  --color-warning-10: #FCD34D1A;
 
   /* Text */
   --text-primary: #FFFFFF;
@@ -80,6 +88,7 @@
     background-color: var(--bg-app);
     color: var(--text-primary);
     font-family: sans-serif;
+    overflow-x: hidden;
   }
 }
 

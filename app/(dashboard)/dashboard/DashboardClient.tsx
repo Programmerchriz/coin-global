@@ -19,7 +19,7 @@ export default function DashboardClientPage() {
         </h1>
 
         <Link href="/notifications">
-          <Bell className="text-white/60" />
+          <Bell className="text-(--color-60)" />
         </Link>
       </div>
 

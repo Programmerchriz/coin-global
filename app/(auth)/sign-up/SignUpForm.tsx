@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useSearchParams } from 'next/navigation';
@@ -22,7 +21,7 @@ import {
 } from '@/components/auth/Form';
 import { Input } from '@/components/ui/input';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
-import Loading from '../loading';
+import Loading from '../fallback';
 
 const signUpSchema = z
   .object({
@@ -42,10 +41,7 @@ export function SignUpForm() {
   const searchParams = useSearchParams();
   const redirect = searchParams.get('redirect') ?? '/dashboard';
 
-  const { error, isLocked, handleAuth } = useAuthHandler(
-    'Account created 🎉',
-    redirect
-  );
+  const { error, isLocked, handleAuth } = useAuthHandler('Account created 🎉', redirect);
 
   const form = useForm<SignUpValues>({
     resolver: zodResolver(signUpSchema),
@@ -59,14 +55,10 @@ export function SignUpForm() {
 
   const loading = form.formState.isSubmitting || isLocked;
 
-  return (
-    loading
-      ?
+  return loading ? (
     <Loading />
-      :
-    <div
-      className="min-h-screen py-16 bg-(--bg-app) text-(--text-primary) flex justify-center px-4 relative overflow-hidden"
-    >
+  ) : (
+    <div className="min-h-screen py-16 bg-(--bg-app) text-(--text-primary) flex justify-center px-4 relative overflow-hidden">
       <div className="absolute top-[-200px] left-[-200px] w-[400px] h-[400px] bg-(--bg-glass-indigo) rounded-full blur-3xl" />
       <div className="absolute bottom-[-200px] right-[-200px] w-[400px] h-[400px] bg-(--bg-glass-purple) rounded-full blur-3xl" />
 
@@ -77,14 +69,15 @@ export function SignUpForm() {
         className="relative z-10 w-full max-w-md"
       >
         <div className="bg-(--bg-surface) border border-(--color-5) rounded-2xl shadow-2xl p-8 backdrop-blur-xl">
-
           <div className="text-center mb-8">
             <h1 className="text-2xl font-semibold">Create Account</h1>
           </div>
 
           {error && (
-            <div className="mb-4 p-3 rounded-xl bg-(--color-error-10) border border-(--color-error-2
-            0) text-(--text-error) text-sm">
+            <div
+              className="mb-4 p-3 rounded-xl bg-(--color-error-10) border border-(--color-error-2
+            0) text-(--text-error) text-sm"
+            >
               {error}
             </div>
           )}
@@ -104,21 +97,17 @@ export function SignUpForm() {
               loading ? 'opacity-30 cursor-not-allowed' : 'hover:cursor-pointer hover:opacity-90'
             }`}
           >
-            {loading
-              ?
-                (
-                  <>
-                    <GoogleIcon className="w-5 h-5" />
-                    Creating account...
-                  </>
-                )
-              :
-                (
-                  <>
-                    <GoogleIcon className="w-5 h-5" />
-                    Continue with Google
-                  </>
-                )}
+            {loading ? (
+              <>
+                <GoogleIcon className="w-5 h-5" />
+                Creating account...
+              </>
+            ) : (
+              <>
+                <GoogleIcon className="w-5 h-5" />
+                Continue with Google
+              </>
+            )}
           </button>
 
           <div className="relative my-6">
@@ -144,57 +133,82 @@ export function SignUpForm() {
               )}
               className="space-y-4"
             >
-              <FormField control={form.control} name="name" render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Full Name</FormLabel>
-                  <FormControl><Input disabled={loading} {...field} /></FormControl>
-                  <FormMessage />
-                </FormItem>
-              )} />
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Full Name</FormLabel>
+                    <FormControl>
+                      <Input disabled={loading} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-              <FormField control={form.control} name="email" render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl><Input disabled={loading} {...field} /></FormControl>
-                  <FormMessage />
-                </FormItem>
-              )} />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input disabled={loading} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-              <FormField control={form.control} name="password" render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl><PasswordInput disabled={loading} {...field} /></FormControl>
-                  <FormMessage />
-                </FormItem>
-              )} />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <PasswordInput disabled={loading} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-              <FormField control={form.control} name="passwordConfirmation" render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Confirm Password</FormLabel>
-                  <FormControl><PasswordInput disabled={loading} {...field} /></FormControl>
-                  <FormMessage />
-                </FormItem>
-              )} />
+              <FormField
+                control={form.control}
+                name="passwordConfirmation"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <FormControl>
+                      <PasswordInput disabled={loading} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               <button
                 type="submit"
                 disabled={loading}
                 className={`w-full bg-(--color-primary) rounded-xl py-3 text-sm font-medium transition ${
-                  loading ? 'opacity-30 cursor-not-allowed' : 'hover:cursor-pointer hover:bg-(--color-primary-hover)'
+                  loading
+                    ? 'opacity-30 cursor-not-allowed'
+                    : 'hover:cursor-pointer hover:bg-(--color-primary-hover)'
                 }`}
               >
-                {loading
-                  ?
-                    'Creating account...'
-                  :
-                    'Create Account'}
+                {loading ? 'Creating account...' : 'Create Account'}
               </button>
             </form>
           </Form>
 
           <div className="mt-6 text-center text-sm text-(--color-50)">
             Already have an account?{' '}
-            <Link href="/sign-in" className="text-(--color-primary) hover:text-(--color-primary-hover)">
+            <Link
+              href="/sign-in"
+              className="text-(--color-primary) hover:text-(--color-primary-hover)"
+            >
               Sign in
             </Link>
           </div>
@@ -202,4 +216,4 @@ export function SignUpForm() {
       </motion.div>
     </div>
   );
-};
+}
