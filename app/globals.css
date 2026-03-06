@@ -35,10 +35,14 @@
   /* Status */
   --color-success: #03a541;
   --color-error: #EF4444;
+  --color-error-40: #EF444433;
+  --color-error-20: #EF444433;
+  --color-error-10: #EF44441A;
   --color-warning: #FCD34D;
 
   /* Text */
   --text-primary: #FFFFFF;
+  --text-error: #F87171;
   
   /* Borders */
   --border-standard: rgba(255,255,255,0.05);

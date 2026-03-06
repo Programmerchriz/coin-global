@@ -9,7 +9,6 @@ export default async function Dashboard() {
   if (!session) return null;
 
   return (
-    <DashboardClientPage
-    />
+    <DashboardClientPage />
   );
 };

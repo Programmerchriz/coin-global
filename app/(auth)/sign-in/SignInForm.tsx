@@ -57,9 +57,11 @@ export function SignInForm() {
         ?
       <Loading />
         :
-      <div className="min-h-screen pt-16 bg-[#0B0F19] text-white flex justify-center px-4 relative overflow-hidden">
-        <div className="absolute top-[-200px] left-[-200px] w-[400px] h-[400px] bg-indigo-600/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-[-200px] right-[-200px] w-[400px] h-[400px] bg-purple-600/20 rounded-full blur-3xl" />
+      <div
+        className="min-h-screen py-16 bg-(--bg-app) text-(--text-primary) flex justify-center px-4 relative overflow-hidden"
+      >
+        <div className="absolute top-[-200px] left-[-200px] w-[400px] h-[400px] bg-(--bg-glass-indigo) rounded-full blur-3xl" />
+        <div className="absolute bottom-[-200px] right-[-200px] w-[400px] h-[400px] bg-(--bg-glass-purple) rounded-full blur-3xl" />
 
         <motion.div
           initial={{ opacity: 0, y: 60 }}
@@ -67,17 +69,18 @@ export function SignInForm() {
           transition={{ duration: 0.6 }}
           className="relative z-10 w-full max-w-md"
         >
-          <div className="bg-[#111827] border border-white/5 rounded-2xl shadow-2xl p-8 backdrop-blur-xl">
+          <div className="bg-(--bg-surface) border border-(--color-5) rounded-2xl shadow-2xl p-8 backdrop-blur-xl">
 
             <div className="text-center mb-8">
               <h1 className="text-2xl font-semibold">Welcome Back</h1>
-              <p className="text-sm text-white/50 mt-2">
+              <p className="text-sm text-(--color-50) mt-2">
                 Sign in to access your crypto dashboard
               </p>
             </div>
 
             {error && (
-              <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+              <div className="mb-4 p-3 rounded-xl bg-(--color-error-10) border border-(--color-error-2
+              0) text-(--text-error) text-sm">
                 {error}
               </div>
             )}
@@ -94,7 +97,7 @@ export function SignInForm() {
                   })
                 )
               }
-              className={`w-full flex items-center justify-center gap-3 bg-[#0F1623] border border-white/10 rounded-xl py-3 text-sm transition ${
+              className={`w-full flex items-center justify-center gap-3 bg-(--bg-sidebar) border border-(--color-10) rounded-xl py-3 text-sm transition ${
                 loading ? 'opacity-30 cursor-not-allowed' : 'hover:cursor-pointer hover:opacity-90'
               }`}
             >
@@ -108,9 +111,9 @@ export function SignInForm() {
 
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-white/10" />
+                <div className="w-full border-t border-(--color-10)" />
               </div>
-              <div className="relative text-center text-xs text-white/40 bg-[#111827] px-3 w-fit mx-auto">
+              <div className="relative text-center text-xs text-(--color-40) bg-(--bg-surface) px-3 w-fit mx-auto">
                 Or continue with email
               </div>
             </div>
@@ -160,8 +163,8 @@ export function SignInForm() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className={`w-full bg-indigo-600 rounded-xl py-3 text-sm font-medium transition ${
-                    loading ? 'opacity-30 cursor-not-allowed' : 'hover:cursor-pointer hover:bg-indigo-500'
+                  className={`w-full bg-(--color-primary) rounded-xl py-3 text-sm font-medium transition ${
+                    loading ? 'opacity-30 cursor-not-allowed' : 'hover:cursor-pointer hover:bg-(--color-primary-hover)'
                   }`}
                 >
                   {loading ? 'Signing in...' : 'Sign In'}
@@ -169,9 +172,9 @@ export function SignInForm() {
               </form>
             </Form>
 
-            <div className="mt-6 text-center text-sm text-white/50">
-              Don’t have an account?{' '}
-              <Link href="/sign-up" className="text-indigo-400 hover:text-indigo-300">
+            <div className="mt-6 text-center text-sm text-(--color-50)">
+              Already have an account?{' '}
+              <Link href="/sign-in" className="text-(--color-primary) hover:text-(--color-primary-hover)">
                 Sign up
               </Link>
             </div>
