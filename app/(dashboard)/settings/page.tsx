@@ -1,12 +1,14 @@
 
+import { Suspense } from "react";
+import { redirect } from "next/navigation";
+
 import { getServerSession } from "@/lib/session";
 import SettingsClient from "./SettingsClient";
-import { Suspense } from "react";
 import Loading from "./loading";
 
 export default async function SettingsPage() {
   const session = await getServerSession();
-  if (!session) return null;
+  if (!session) redirect("/sign-in");
 
   return (
     <Suspense fallback={<Loading />}>
