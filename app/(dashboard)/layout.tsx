@@ -1,8 +1,6 @@
 
 "use client";
 
-"use client";
-
 import { redirect } from "next/navigation";
 import { getServerSession } from "@/lib/session";
 import { useEffect, useState } from "react";
@@ -28,6 +26,7 @@ export default function ProtectedLayout({
       if (!s) redirect("/sign-in");
       setSession(s);
     };
+    
     fetchSession();
   }, []);
 
@@ -47,12 +46,12 @@ export default function ProtectedLayout({
     };
   }, []);
 
-  if (!session) return null;
-
   const handleSignOut = async () => {
     setIsDisabled(true);
     await signOut();
   };
+
+  if (!session) return (null);
 
   return (
     <div className="min-h-screen bg-[#0B0F19] text-white flex relative">

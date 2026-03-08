@@ -17,16 +17,14 @@ export default function SettingsClient({ user }: Props) {
     <div className="space-y-10 pb-16">
       {/* HEADER */}
       <div>
-        <h1 className="text-2xl font-semibold text-white">Settings</h1>
-        <p className="text-sm text-white/50">
+        <h1 className="text-2xl font-semibold text-(--text-primary)">
+          Settings
+        </h1>
+
+        <p className="text-sm text-(--color-50)">
           Manage your account preferences and system configuration.
         </p>
       </div>
-      {/* <div className="bg-app min-h-screen text-text-primary">
-        <div className="bg-surface border border-border p-6 rounded-2xl">
-          Crypto Dashboard
-        </div>
-      </div> */}
 
       {/* PROFILE */}
       <SettingsSection title="Profile">
@@ -44,7 +42,7 @@ export default function SettingsClient({ user }: Props) {
               />
             ) : (
               <Avatar className="h-12 w-12">
-                <AvatarFallback className="bg-indigo-600 text-white">
+                <AvatarFallback className="bg-(--color-primary) text-(--text-primary)">
                   {user.name[0]}
                 </AvatarFallback>
               </Avatar>
@@ -188,7 +186,7 @@ export default function SettingsClient({ user }: Props) {
           title="Close Account"
           description="Permanently close your CoinGlobal account."
           action={
-            <SettingsButton className="bg-red-500/10 text-red-400 border-red-500/30 hover:bg-red-500/20">
+            <SettingsButton className="bg-(--color-error-10) text-(--text-error) border-(--color-error-40) hover:bg-(--color-error-20)">
               Delete
             </SettingsButton>
           }
