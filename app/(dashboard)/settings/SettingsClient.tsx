@@ -1,12 +1,14 @@
 
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import SettingsSection from "@/components/dashboard/settings/SettingsSection";
 import SettingsItem from "@/components/dashboard/settings/SettingsItem";
 import SettingsButton from "@/components/dashboard/settings/SettingsButton";
+import ProfileSettingsModal from "@/components/settings/ProfileSettingsModal";
 
 interface Props {
   user: UserProps;
