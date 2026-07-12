@@ -40,9 +40,9 @@ export const metadata: Metadata = {
     'crypto analytics',
   ],
 
-  authors: [{ name: 'Coin Global' }],
-  creator: 'Coin Global',
-  publisher: 'Coin Global',
+  authors: [{ name: 'Christian Nwachukwu' }],
+  creator: 'Christian Nwachukwu',
+  publisher: 'Christian Nwachukwu',
 
   icons: {
     icon: [
